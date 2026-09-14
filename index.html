@@ -4,7 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub de Jogos - OldNow Games</title>
+    <title>OldNow Games — Hub de Jogos Grátis Online</title>
+    <meta name="description" content="Jogue dezenas de jogos grátis direto do navegador: aventura, ação, simulação, esporte, puzzle e arcade. Sem baixar nada.">
+    <meta name="theme-color" content="#0d0d0d">
+
+    <!-- Open Graph / redes sociais -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OldNow Games — Hub de Jogos Grátis Online">
+    <meta property="og:description" content="Jogue dezenas de jogos grátis direto do navegador: aventura, ação, simulação, esporte, puzzle e arcade. Sem baixar nada.">
+    <meta property="og:image" content="img/oldnow-capa.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OldNow Games — Hub de Jogos Grátis Online">
+    <meta name="twitter:description" content="Jogue dezenas de jogos grátis direto do navegador: aventura, ação, simulação, esporte, puzzle e arcade.">
+    <meta name="twitter:image" content="img/oldnow-capa.png">
+
+    <link rel="icon" href="img/old_now-logo.jpeg">
+    <link rel="apple-touch-icon" href="img/old_now-logo.jpeg">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
@@ -24,8 +40,8 @@
                 <img src="img/old_now-logo.jpeg" alt="Logo_OldNow">
             </div>
             
-            <form class="d-flex busca-pc" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar jogos..." aria-label="Search"/>
+            <form class="d-flex busca-pc form-busca" role="search">
+                <input class="form-control me-2 input-busca" type="search" placeholder="Buscar jogos..." aria-label="Search"/>
                 <button class="btn btn-busca" type="submit">
                     <span class="material-symbols-outlined">search</span>
                 </button>
@@ -34,7 +50,7 @@
             <ul class="menu-links">
                 <li><a href="#" class="active"><img src="img/icon_home.png" alt="icone_casa">Início</a></li>
                 <li><a href="#"><img src="img/icon_biblioteca.png" alt="icone-biblioteca"> Biblioteca</a></li>
-                <li><a href="#">🤍 Favoritos </a></li>
+                <li><a href="#favoritos">🤍 Favoritos </a></li>
             </ul>
         </div>
 
@@ -57,8 +73,8 @@
                         </div>
                         
                         <div class="offcanvas-body">
-                            <form class="d-flex mb-3 d-lg-none busca-pc" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscar jogos..." aria-label="Search"/>
+                            <form class="d-flex mb-3 d-lg-none busca-pc form-busca" role="search">
+                                <input class="form-control me-2 input-busca" type="search" placeholder="Buscar jogos..." aria-label="Search"/>
                                 <button class="btn btn-busca" type="submit">
                                     <span class="material-symbols-outlined">search</span>
                                 </button>
@@ -129,31 +145,37 @@
          
           </div>
 
-            <!-- SEÇÃO DE BLOCOS 1: Todos -->
-            <div class="secao-carrossel">
-                <p class="secao-titulo">Todos</p>
+            <!-- SEÇÃO: Continue Jogando (só aparece se houver histórico) -->
+            <div class="secao-carrossel d-none" id="continuar-jogando">
+                <p class="secao-titulo">Continue jogando</p>
                 <div class="blocos">
-                    <div class="blocos-wrapper">
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="City Mind" data-descricao="Explore, minere, garimpe e construa, crie sua cidade ou vilarejo, compre objetos e venda recursos, garimpe ouro, construa casas e móveis, tudo isso em um só jogo." data-img1="citymind/citymind1.png" data-img2="citymind/citymind2.png" data-img3="citymind/citymind3.png" data-link="https://oldnowgames-web.github.io/City-Mind/"><img src="capas/CityMind.png" alt="City Mind"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Battle Night: Sobreviva à Horda" data-descricao="Entre em uma aventura, escolha sua função e sobreviva às hordas de inimigos na batalha noturna." data-img1="battle/battle1.png" data-img2="battle/battle2.png" data-img3="battle/battle3.png" data-link="https://oldnowgames-web.github.io/Battle-Night-sobreviva-horda/"><img src="capas/battlenight.png" alt="Battle Night: Sobreviva à Horda"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Farming Now" data-descricao="Gerencie sua fazenda! Crie animais, plante frutas, verduras e legumes, fabrique laticínios e venda produtos." data-img1="farming/farming1.png" data-img2="farming/farming2.png" data-img3="farming/farming3.png" data-link="https://oldnowgames-web.github.io/Farming-Now/"><img src="capas/FarmingNow.png" alt="Farming Now"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Wow Balls 3D" data-descricao="Desafie suas habilidades com física e esferas em um desafio 3D cheio de obstáculos." data-img1="wowball/wow1.png" data-img2="wowball/wow2.png" data-img3="wowball/wow3.png" data-link="https://oldnowgames-web.github.io/Wow-Balls-3D/"><img src="capas/WowBalls.jpeg" alt="Wow Balls 3D"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Pixel Saga: Exploração na Lua" data-descricao="Exploração lunar épica em pixel art." data-img1="pixelsagalua/lua1.png" data-img2="pixelsagalua/lua2.png" data-img3="pixelsagalua/lua3.png" data-link="https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-na-Lua/"><img src="capas/PixelSaga-lunar_exploration.png" alt="Pixel Saga: Exploração na Lua"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Space Clicker" data-descricao="Conquiste a galáxia um clique de cada vez." data-img1="click/click1.png" data-img2="click/click2.png" data-img3="click/click1.png" data-link="https://oldnowgames-web.github.io/Space-clicker/"><img src="capas/Space_clicker.png" alt="Space Clicker"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Neo Drop" data-descricao="Jogo desafiador de encaixe e reflexo." data-img1="neodrop/neo1.png" data-img2="neodrop/neo2.png" data-img3="neodrop/neo3.png" data-link="https://oldnowgames-web.github.io/NeoDrop/"><img src="capas/NeoDrop.png" alt="Neo Drop"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Old Snake" data-descricao="O clássico jogo da cobrinha, agora com um visual retrô." data-img1="snake/snake1.png" data-img2="snake/snake2.png" data-img3="snake/snake3.png" data-link="https://oldnowgames-web.github.io/Old-Snake/"><img src="capas/OldSnake.png" alt="Old Snake"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Car Tape: The Last Race" data-descricao="Ação frenética de corrida em pixel art. Chegue primeiro antes que a fita acabe." data-img1="cartape/cartape1.png" data-img2="cartape/cartape2.png" data-img3="cartape/cartape3.png" data-link="https://oldnowgames-web.github.io/Car-Tape-the-last-race/"><img src="capas/CarTape.png" alt="Car Tape: The Last Race"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Aethelstar" data-descricao="Aventura épica num mundo de fantasia." data-img1="capas/aethelstar.png" data-img2="capas/aethelstar.png" data-img3="capas/aethelstar.png" data-link="https://oldnowgames-web.github.io/Aethelstar/"><img src="capas/aethelstar.png" alt="Aethelstar"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Star Train" data-descricao="Embarque em uma jornada espacial sobre trilhos entre as estrelas." data-img1="startrain/startrain1.png" data-img2="startrain/startrain2.png" data-img3="startrain/startrain3.png" data-link="https://oldnowgames-web.github.io/Star-Train/"><img src="capas/StarTrain.png" alt="Star Train"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Guaçuano Soccer Game" data-descricao="Desafie suas habilidades com física e esferas em uma partida de futebol maluca." data-img1="guaçuano/guaçuano1.png" data-img2="guaçuano/guaçuano2.png" data-img3="guaçuano/guaçuano3.png" data-link="https://oldnowgames-web.github.io/Gua-uano-soccer-game/"><img src="capas/guaçuano.png" alt="Guaçuano Soccer Game"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Street Basquete" data-descricao="Mostre suas habilidades nas quadras de basquete de rua." data-img1="basquet/basquet1.png" data-img2="basquet/basquet2.png" data-img3="basquet/basquet3.png" data-link="https://oldnowgames-web.github.io/Street-Basquete/"><img src="capas/StreetBasquet.jpeg" alt="Street Basquete"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Block Star" data-descricao="Ação frenética em pixel art empilhando blocos." data-img1="capas/BlockStar.png" data-img2="capas/BlockStar.png" data-img3="capas/BlockStar.png" data-link="https://oldnowgames-web.github.io/Block-Star/"><img src="capas/BlockStar.png" alt="Block Star"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Xadrez" data-descricao="O clássico jogo de xadrez, desafie sua mente." data-img1="xadrez/xadrez1.png" data-img2="xadrez/xadrez2.png" data-img3="xadrez/xadrez3.png" data-link="https://oldnowgames-web.github.io/Xadrez-/"><img src="capas/XADREZ.png" alt="Xadrez"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Damas" data-descricao="O tradicional jogo de damas em uma versão digital." data-img1="damas/dama1.jpeg" data-img2="damas/dama2.jpeg" data-img3="damas/dama3.jpeg" data-link="https://oldnowgames-web.github.io/Damas/"><img src="capas/Damas.png" alt="Damas"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Tic Tac Chaos" data-descricao="O jogo da velha com um toque de caos." data-img1="tictac/tictac1.png" data-img2="tictac/tictac2.png" data-img3="tictac/tictac3.png" data-link="https://oldnowgames-web.github.io/Tic-Tac-Chaos/"><img src="capas/JogoVelha.jpeg" alt="Tic Tac Chaos"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Pixel Dash" data-descricao="Ação frenética em pixel art." data-img1="pixeldash/pixeldash1.png" data-img2="pixeldash/pixeldash2.png" data-img3="pixeldash/pixeldash3.png" data-link="#"><img src="capas/PixelDash.png" alt="Pixel Dash"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Labirinto Cartográfico" data-descricao="Desvende labirintos cartográficos cheios de desafios." data-img1="labirinto/lab1.png" data-img2="labirinto/lab2.png" data-img3="labirinto/lab3.png" data-link="https://oldnowgames-web.github.io/Labirinto-cartografico/"><img src="capas/labirinto.png" alt="Labirinto Cartográfico"></div>
-                    </div>
+                    <div class="blocos-wrapper" id="wrapper-continuar-jogando"></div>
+                </div>
+                <div class="controles-carrossel d-flex">
+                    <button class="btn-control prev">❮</button>
+                    <button class="btn-control next">❯</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: Meus Favoritos -->
+            <div class="secao-carrossel" id="favoritos">
+                <p class="secao-titulo">Meus Favoritos <span class="contagem" id="contagem-favoritos"></span></p>
+                <p class="sem-resultados" id="favoritos-vazio">Você ainda não tem favoritos. Clique no ♡ de um jogo pra adicionar!</p>
+                <div class="blocos">
+                    <div class="blocos-wrapper" id="wrapper-favoritos"></div>
+                </div>
+                <div class="controles-carrossel d-flex d-none" id="controles-favoritos">
+                    <button class="btn-control prev">❮</button>
+                    <button class="btn-control next">❯</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO DE BLOCOS 1: Todos -->
+            <div class="secao-carrossel" id="todos">
+                <p class="secao-titulo">Todos <span class="contagem" id="contagem-todos"></span></p>
+                <p class="sem-resultados d-none">Nenhum jogo encontrado 😕</p>
+                <div class="blocos">
+                    <div class="blocos-wrapper" id="wrapper-todos"></div>
                 </div>
                 <div class="controles-carrossel d-flex">
                     <button class="btn-control prev">❮</button>
@@ -163,14 +185,15 @@
 
             <!-- SEÇÃO DE BLOCOS 2: Aventura e Ação -->
             <div class="secao-carrossel" id="aventura-acao">
-                <p class="secao-titulo">Aventura e Ação</p>
+                <div class="secao-cabecalho">
+                    <p class="secao-titulo">Aventura e Ação <span class="contagem" id="contagem-aventura-acao"></span></p>
+                    <select class="filtro-ordenacao" data-categoria="aventura-acao" aria-label="Ordenar jogos">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="jogados">Mais jogado</option>
+                    </select>
+                </div>
                 <div class="blocos">
-                    <div class="blocos-wrapper">
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Battle Night: Sobreviva à Horda" data-descricao="Entre em uma aventura, escolha sua função e sobreviva às hordas de inimigos na batalha noturna." data-img1="battle/battle1.png" data-img2="battle/battle2.png" data-img3="battle/battle3.png" data-link="https://oldnowgames-web.github.io/Battle-Night-sobreviva-horda/"><img src="capas/battlenight.png" alt="Battle Night: Sobreviva à Horda"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Pixel Saga: Exploração na Lua" data-descricao="Exploração lunar épica em pixel art." data-img1="pixelsagalua/lua1.png" data-img2="pixelsagalua/lua2.png" data-img3="pixelsagalua/lua3.png" data-link="https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-na-Lua/"><img src="capas/PixelSaga-lunar_exploration.png" alt="Pixel Saga: Exploração na Lua"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Aethelstar" data-descricao="Aventura épica num mundo de fantasia." data-img1="capas/aethelstar.png" data-img2="capas/aethelstar.png" data-img3="capas/aethelstar.png" data-link="https://oldnowgames-web.github.io/Aethelstar/"><img src="capas/aethelstar.png" alt="Aethelstar"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Star Train" data-descricao="Embarque em uma jornada espacial sobre trilhos entre as estrelas." data-img1="startrain/startrain1.png" data-img2="startrain/startrain2.png" data-img3="startrain/startrain3.png" data-link="https://oldnowgames-web.github.io/Star-Train/"><img src="capas/StarTrain.png" alt="Star Train"></div>
-                    </div>
+                    <div class="blocos-wrapper" id="wrapper-aventura-acao"></div>
                 </div>
                 <div class="controles-carrossel d-flex">
                     <button class="btn-control prev">❮</button>
@@ -180,13 +203,15 @@
 
             <!-- SEÇÃO DE BLOCOS 3: Simulação e Estratégia -->
             <div class="secao-carrossel" id="simulacao-estrategia">
-                <p class="secao-titulo">Simulação e estratégia</p>
+                <div class="secao-cabecalho">
+                    <p class="secao-titulo">Simulação e Estratégia <span class="contagem" id="contagem-simulacao-estrategia"></span></p>
+                    <select class="filtro-ordenacao" data-categoria="simulacao-estrategia" aria-label="Ordenar jogos">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="jogados">Mais jogado</option>
+                    </select>
+                </div>
                 <div class="blocos">
-                    <div class="blocos-wrapper">
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="City Mind" data-descricao="Explore, minere, garimpe e construa, crie sua cidade ou vilarejo, compre objetos e venda recursos, garimpe ouro, construa casas e móveis, tudo isso em um só jogo." data-img1="citymind/citymind1.png" data-img2="citymind/citymind2.png" data-img3="citymind/citymind3.png" data-link="https://oldnowgames-web.github.io/City-Mind/"><img src="capas/CityMind.png" alt="City Mind"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Farming Now" data-descricao="Gerencie sua fazenda! Crie animais, plante frutas, verduras e legumes, fabrique laticínios e venda produtos." data-img1="farming/farming1.png" data-img2="farming/farming2.png" data-img3="farming/farming3.png" data-link="https://oldnowgames-web.github.io/Farming-Now/"><img src="capas/FarmingNow.png" alt="Farming Now"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Space Clicker" data-descricao="Conquiste a galáxia um clique de cada vez." data-img1="click/click1.png" data-img2="click/click2.png" data-img3="click/click1.png" data-link="https://oldnowgames-web.github.io/Space-clicker/"><img src="capas/Space_clicker.png" alt="Space Clicker"></div>
-                    </div>
+                    <div class="blocos-wrapper" id="wrapper-simulacao-estrategia"></div>
                 </div>
                 <div class="controles-carrossel d-flex">
                     <button class="btn-control prev">❮</button>
@@ -196,13 +221,15 @@
 
             <!-- SEÇÃO DE BLOCOS 4: Esporte -->
             <div class="secao-carrossel" id="esporte-racing">
-                <p class="secao-titulo">Esporte e Racing</p>
+                <div class="secao-cabecalho">
+                    <p class="secao-titulo">Esporte e Racing <span class="contagem" id="contagem-esporte-racing"></span></p>
+                    <select class="filtro-ordenacao" data-categoria="esporte-racing" aria-label="Ordenar jogos">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="jogados">Mais jogado</option>
+                    </select>
+                </div>
                 <div class="blocos">
-                    <div class="blocos-wrapper">
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Car Tape: The Last Race" data-descricao="Ação frenética de corrida em pixel art. Chegue primeiro antes que a fita acabe." data-img1="cartape/cartape1.png" data-img2="cartape/cartape2.png" data-img3="cartape/cartape3.png" data-link="https://oldnowgames-web.github.io/Car-Tape-the-last-race/"><img src="capas/CarTape.png" alt="Car Tape: The Last Race"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Guaçuano Soccer Game" data-descricao="Desafie suas habilidades com física e esferas em uma partida de futebol maluca." data-img1="guaçuano/guaçuano1.png" data-img2="guaçuano/guaçuano2.png" data-img3="guaçuano/guaçuano3.png" data-link="https://oldnowgames-web.github.io/Gua-uano-soccer-game/"><img src="capas/guaçuano.png" alt="Guaçuano Soccer Game"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Street Basquete" data-descricao="Mostre suas habilidades nas quadras de basquete de rua." data-img1="basquet/basquet1.png" data-img2="basquet/basquet2.png" data-img3="basquet/basquet3.png" data-link="https://oldnowgames-web.github.io/Street-Basquete/"><img src="capas/StreetBasquet.jpeg" alt="Street Basquete"></div>
-                    </div>
+                    <div class="blocos-wrapper" id="wrapper-esporte-racing"></div>
                 </div>
                 <div class="controles-carrossel d-flex">
                     <button class="btn-control prev">❮</button>
@@ -212,15 +239,15 @@
 
             <!-- SEÇÃO DE BLOCOS 5: Puzzle -->
             <div class="secao-carrossel" id="puzzle">
-                <p class="secao-titulo">Puzzle</p>
+                <div class="secao-cabecalho">
+                    <p class="secao-titulo">Puzzle <span class="contagem" id="contagem-puzzle"></span></p>
+                    <select class="filtro-ordenacao" data-categoria="puzzle" aria-label="Ordenar jogos">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="jogados">Mais jogado</option>
+                    </select>
+                </div>
                 <div class="blocos">
-                    <div class="blocos-wrapper">
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Neo Drop" data-descricao="Jogo desafiador de encaixe e reflexo." data-img1="neodrop/neo1.png" data-img2="neodrop/neo2.png" data-img3="neodrop/neo3.png" data-link="https://oldnowgames-web.github.io/NeoDrop/"><img src="capas/NeoDrop.png" alt="Neo Drop"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Xadrez" data-descricao="O clássico jogo de xadrez, desafie sua mente." data-img1="xadrez/xadrez1.png" data-img2="xadrez/xadrez2.png" data-img3="xadrez/xadrez3.png" data-link="https://oldnowgames-web.github.io/Xadrez-/"><img src="capas/XADREZ.png" alt="Xadrez"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Damas" data-descricao="O tradicional jogo de damas em uma versão digital." data-img1="damas/dama1.jpeg" data-img2="damas/dama2.jpeg" data-img3="damas/dama3.jpeg" data-link="https://oldnowgames-web.github.io/Damas/"><img src="capas/Damas.png" alt="Damas"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Tic Tac Chaos" data-descricao="O jogo da velha com um toque de caos." data-img1="tictac/tictac1.png" data-img2="tictac/tictac2.png" data-img3="tictac/tictac3.png" data-link="https://oldnowgames-web.github.io/Tic-Tac-Chaos/"><img src="capas/JogoVelha.jpeg" alt="Tic Tac Chaos"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Labirinto Cartográfico" data-descricao="Desvende labirintos cartográficos cheios de desafios." data-img1="labirinto/lab1.png" data-img2="labirinto/lab2.png" data-img3="labirinto/lab3.png" data-link="https://oldnowgames-web.github.io/Labirinto-cartografico/"><img src="capas/labirinto.png" alt="Labirinto Cartográfico"></div>
-                    </div>
+                    <div class="blocos-wrapper" id="wrapper-puzzle"></div>
                 </div>
                 <div class="controles-carrossel d-flex">
                     <button class="btn-control prev">❮</button>
@@ -230,13 +257,15 @@
 
             <!-- SEÇÃO DE BLOCOS 6: Arcade -->
             <div class="secao-carrossel" id="arcade">
-                <p class="secao-titulo">Arcade</p>
+                <div class="secao-cabecalho">
+                    <p class="secao-titulo">Arcade <span class="contagem" id="contagem-arcade"></span></p>
+                    <select class="filtro-ordenacao" data-categoria="arcade" aria-label="Ordenar jogos">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="jogados">Mais jogado</option>
+                    </select>
+                </div>
                 <div class="blocos">
-                    <div class="blocos-wrapper">
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Wow Balls 3D" data-descricao="Desafie suas habilidades com física e esferas em um desafio 3D cheio de obstáculos." data-img1="wowball/wow1.png" data-img2="wowball/wow2.png" data-img3="wowball/wow3.png" data-link="https://oldnowgames-web.github.io/Wow-Balls-3D/"><img src="capas/WowBalls.jpeg" alt="Wow Balls 3D"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Old Snake" data-descricao="O clássico jogo da cobrinha, agora com um visual retrô." data-img1="snake/snake1.png" data-img2="snake/snake2.png" data-img3="snake/snake3.png" data-link="https://oldnowgames-web.github.io/Old-Snake/"><img src="capas/OldSnake.png" alt="Old Snake"></div>
-                        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-titulo="Block Star" data-descricao="Ação frenética em pixel art empilhando blocos." data-img1="capas/BlockStar.png" data-img2="capas/BlockStar.png" data-img3="capas/BlockStar.png" data-link="https://oldnowgames-web.github.io/Block-Star/"><img src="capas/BlockStar.png" alt="Block Star"></div>
-                    </div>
+                    <div class="blocos-wrapper" id="wrapper-arcade"></div>
                 </div>
                 <div class="controles-carrossel d-flex">
                     <button class="btn-control prev">❮</button>
@@ -262,7 +291,10 @@
                 <div class="modal-body text-center">
                     
                     <!-- Slider de 3 Slides do Jogo no Modal -->
-                    <div id="carouselModalJogo" class="carousel slide mb-3">
+                    <div id="carouselModalJogo" class="carousel slide mb-3 posicao-relativa">
+                        <div class="modal-loading d-none" id="modalLoading">
+                            <div class="spinner-border text-light" role="status"><span class="visually-hidden">Carregando...</span></div>
+                        </div>
                         <div class="carousel-inner rounded">
                             <div class="carousel-item active">
                                 <img id="modalImg1" src="" alt="Imagem do Jogo 1" class="img-fluid rounded modal-imagem-jogo">
@@ -283,14 +315,35 @@
                         </div>
                     </div>
 
+                    <p class="label-avaliacao">Sua avaliação</p>
+                    <div class="estrelas" id="modalEstrelas"></div>
+
                     <p id="modalDescricao" class="text-start px-3"></p>
                 </div>
-                <div class="modal-footer border-secondary justify-content-between">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                   <a id="modalBotaoJogar" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary px-4 btn-jogar-modal">Jogar Agora</a>
+                <div class="modal-footer border-secondary justify-content-between flex-wrap gap-2">
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-outline-light btn-favorito-modal" id="modalFavorito">♡ Favoritar</button>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <a id="modalLinkNovaAba" href="#" target="_blank" rel="noopener noreferrer" class="link-nova-aba">Abrir em nova aba ↗</a>
+                        <button type="button" id="modalBotaoJogar" class="btn btn-primary px-4 btn-jogar-modal">Jogar Agora</button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Player interno (abre o jogo em iframe, em tela cheia) -->
+    <div class="player-overlay d-none" id="playerOverlay">
+        <div class="player-topbar">
+            <span id="playerTitulo" class="player-titulo"></span>
+            <div class="player-acoes">
+                <button type="button" class="btn-player" id="playerFullscreenBtn" title="Tela cheia">⛶</button>
+                <button type="button" class="btn-player" id="playerFecharBtn" title="Fechar">✕</button>
+            </div>
+        </div>
+        <iframe id="playerIframe" class="player-iframe" src="" title="Jogo" allowfullscreen></iframe>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: black;
     overflow-x: hidden;
@@ -175,7 +179,8 @@ body {
     display: block;
     width: 80%;
     margin-top: 100px;
-    padding-right: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 /* --- Banner de Destaque Automático (Topo) --- */
@@ -215,6 +220,51 @@ body {
     text-align: center;
 }
 
+.contagem {
+    color: #888;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.sem-resultados {
+    color: #888;
+    font-size: 1rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Cabeçalho das seções de categoria (título + filtro de ordenação) */
+.secao-cabecalho {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.secao-cabecalho .secao-titulo {
+    margin-bottom: 0;
+}
+
+.filtro-ordenacao {
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    position: absolute;
+    right: 0;
+}
+
+.filtro-ordenacao:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
 .blocos {
     display: flex;
     justify-content: flex-start;
@@ -232,6 +282,7 @@ body {
 
 /* --- Capas dos Jogos --- */
 .bloco {
+    position: relative;
     margin: 10px 25px;
     width: 200px;
     aspect-ratio: 2 / 3;
@@ -243,20 +294,100 @@ body {
     overflow: hidden;
 }
 
-.bloco img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    display: block;
-}
-
 .bloco:hover {
     transform: translateY(-8px);
     box-shadow: 0 10px 20px rgba(0, 123, 255, 0.4);
 }
 
+/* Efeito skeleton (shimmer) enquanto a capa carrega */
+.bloco-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.bloco-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.bloco-img-wrap.carregado img {
+    opacity: 1;
+}
+
+.bloco-img-wrap:not(.carregado)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #111 25%, #202020 37%, #111 63%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* Tag "NOVO" */
+.badge-novo {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: #007bff;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    z-index: 3;
+}
+
+/* Botão de favoritar no card */
+.btn-favorito {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0, 0, 0, 0.55);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+    z-index: 3;
+}
+
+.btn-favorito:hover {
+    transform: scale(1.15);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.btn-favorito.ativo {
+    color: #ff4d6d;
+}
+
 /* --- Modal e Carrossel Interno --- */
+.posicao-relativa {
+    position: relative;
+}
+
 .modal-imagem-jogo {
     height: 350px;
     width: 100%;
@@ -264,6 +395,17 @@ body {
     /* Preenche todo o slider (use 'fill' se quiser forçar o esticamento sem cortes) */
     background-color: #111;
     border-radius: 8px;
+}
+
+.modal-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 8px;
+    z-index: 5;
 }
 
 /* Posiciona e estiliza as bolinhas abaixo do slider do modal */
@@ -291,6 +433,52 @@ body {
     transform: scale(1.2);
 }
 
+/* Avaliação por estrelas */
+.label-avaliacao {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.estrelas {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.estrelas .estrela {
+    font-size: 1.6rem;
+    color: #444;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.1s ease;
+    user-select: none;
+}
+
+.estrelas .estrela:hover {
+    transform: scale(1.15);
+}
+
+.estrelas .estrela.marcada {
+    color: #ffc107;
+}
+
+.btn-favorito-modal {
+    font-size: 0.9rem;
+}
+
+.link-nova-aba {
+    color: #888;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.link-nova-aba:hover {
+    color: #ccc;
+    text-decoration: underline;
+}
+
 .btn-jogar-modal {
     background-color: #007bff;
     border: none;
@@ -300,6 +488,65 @@ body {
 
 .btn-jogar-modal:hover {
     background-color: #0056b3;
+}
+
+.btn-jogar-modal:disabled {
+    background-color: #333;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* --- Player interno de jogos (iframe em tela cheia) --- */
+.player-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.player-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    background-color: #0d0d0d;
+    color: white;
+    flex-shrink: 0;
+}
+
+.player-titulo {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.player-acoes {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-player {
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-player:hover {
+    background-color: #007bff;
+}
+
+.player-iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background-color: #000;
 }
 
 /* --- Botões de Controle dos Carrosséis de Jogos --- */
@@ -385,6 +632,15 @@ body {
         scroll-margin-top: 80px;
     }
 
+    .secao-cabecalho {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .filtro-ordenacao {
+        position: static;
+    }
+
     .blocos {
         overflow: hidden;
         touch-action: pan-y;
@@ -415,5 +671,9 @@ body {
     }
     .categories a{
         padding: 3%;
+    }
+
+    .player-topbar {
+        padding: 8px 12px;
     }
 }
