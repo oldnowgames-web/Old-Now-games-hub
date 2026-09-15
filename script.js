@@ -33,13 +33,23 @@ const GAMES = [
         novo: false
     },
     {
+        id: "marte",
+        titulo: "Pixel Saga: Exploração em Marte",
+        descricao: "Explore o vasto planeta Marte, conheça diferentes lugares, dirija pelo terreno e descubra.",
+        capa: "capas/marte.png",
+        imgs: ["marte/marte1.png" , "marte/marte2.png" , "marte/marte3.png"],
+        link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-em-Marte/",
+        categoria: "simulacao-estrategia",
+        novo: true
+    },
+    {
         id: "wow-balls",
         titulo: "Wow Balls 3D",
         descricao: "Desafie suas habilidades com física e esferas em um desafio 3D cheio de obstáculos.",
         capa: "capas/WowBalls.jpeg",
         imgs: ["wowball/wow1.png", "wowball/wow2.png", "wowball/wow3.png"],
         link: "https://oldnowgames-web.github.io/Wow-Balls-3D/",
-        categoria: "arcade",
+        categoria: "aventura-acao",
         novo: false
     },
     {
@@ -79,7 +89,7 @@ const GAMES = [
         capa: "capas/OldSnake.png",
         imgs: ["snake/snake1.png", "snake/snake2.png", "snake/snake3.png"],
         link: "https://oldnowgames-web.github.io/Old-Snake/",
-        categoria: "arcade",
+        categoria: "puzzle",
         novo: false
     },
     {
@@ -99,7 +109,7 @@ const GAMES = [
         capa: "capas/aethelstar.png",
         imgs: ["capas/aethelstar.png", "capas/aethelstar.png", "capas/aethelstar.png"],
         link: "https://oldnowgames-web.github.io/Aethelstar/",
-        categoria: "aventura-acao",
+        categoria: "arcade",
         novo: false
     },
     {
@@ -109,7 +119,7 @@ const GAMES = [
         capa: "capas/StarTrain.png",
         imgs: ["startrain/startrain1.png", "startrain/startrain2.png", "startrain/startrain3.png"],
         link: "https://oldnowgames-web.github.io/Star-Train/",
-        categoria: "aventura-acao",
+        categoria: "arcade",
         novo: false
     },
     {
@@ -178,8 +188,8 @@ const GAMES = [
         descricao: "Ação frenética em pixel art.",
         capa: "capas/PixelDash.png",
         imgs: ["pixeldash/pixeldash1.png", "pixeldash/pixeldash2.png", "pixeldash/pixeldash3.png"],
-        link: "#",
-        categoria: null,
+        link: "https://oldnowgames-web.github.io/Pixel-Dash/",
+        categoria: "aventura-acao",
         novo: true
     },
     {
