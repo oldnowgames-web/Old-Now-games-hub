@@ -59,12 +59,21 @@
 
             <!-- Navbar Superior -->
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
-                <div class="container-fluid">
-                    <img src="img/old_now-logo.jpeg" alt="Logo" class="navbar-logo d-lg-none">
-                    <a class="navbar-brand d-lg-none fw-bold" href="#">OldNow games</a> 
-                    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuMobileDireita" aria-controls="menuMobileDireita" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <div class="container-fluid flex-wrap">
+                    <div class="navbar-linha-principal d-flex align-items-center w-100">
+                        <img src="img/old_now-logo.jpeg" alt="Logo" class="navbar-logo d-lg-none">
+                        <a class="navbar-brand d-lg-none fw-bold" href="#">OldNow games</a> 
+                        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuMobileDireita" aria-controls="menuMobileDireita" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+
+                    <form class="d-flex d-lg-none busca-mobile form-busca w-100" role="search">
+                        <input class="form-control me-2 input-busca" type="search" placeholder="Buscar jogos..." aria-label="Search"/>
+                        <button class="btn btn-busca" type="submit">
+                            <span class="material-symbols-outlined">search</span>
+                        </button>
+                    </form>
                     
                     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="menuMobileDireita" aria-labelledby="menuMobileDireitaLabel">
                         <div class="offcanvas-header">
@@ -73,19 +82,12 @@
                         </div>
                         
                         <div class="offcanvas-body">
-                            <form class="d-flex mb-3 d-lg-none busca-pc form-busca" role="search">
-                                <input class="form-control me-2 input-busca" type="search" placeholder="Buscar jogos..." aria-label="Search"/>
-                                <button class="btn btn-busca" type="submit">
-                                    <span class="material-symbols-outlined">search</span>
-                                </button>
-                            </form>
-
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Quem somos</a>
+                                    <a class="nav-link" href="#quem-somos">Quem somos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Novidades</a>
@@ -273,10 +275,17 @@
                 </div>
             </div>
 
+            <!-- SEÇÃO: Quem Somos -->
+            <div class="container-sobre" id="quem-somos">
+                <div class="qs">
+                    <h1>Quem somos</h1>
+                    <p>Somos um projeto de jogos online de navegador, começamos em 2025 com a intenção de criar um jogo para Expoete, uma feira de técnologia da ETEC Pedro Ferreira Alves de Mogi Mirim, apresentamos nosso primeiro jogo: Pixel Saga - Para outro Planeta, então depois disso pensamos em aumentar nosso projeto, agora oque era para ser apenas um jogo são dezenas de jogos, a Old Now games estará sempre evoluindo e mostrando oque pode fazer <br>
+                    Bem Vindo à Old Now games</p>
+                </div>
+            </div>
+
         </div> 
     </div> 
-
-
 
     
 
