@@ -149,7 +149,7 @@
 
             <!-- SEÇÃO: Continue Jogando (só aparece se houver histórico) -->
             <div class="secao-carrossel d-none" id="continuar-jogando">
-                <p class="secao-titulo">Continue jogando</p>
+                <p class="secao-titulo">⏯️ Continue jogando</p>
                 <div class="blocos">
                     <div class="blocos-wrapper" id="wrapper-continuar-jogando"></div>
                 </div>
@@ -161,8 +161,12 @@
 
             <!-- SEÇÃO: Meus Favoritos -->
             <div class="secao-carrossel" id="favoritos">
-                <p class="secao-titulo">Meus Favoritos <span class="contagem" id="contagem-favoritos"></span></p>
-                <p class="sem-resultados" id="favoritos-vazio">Você ainda não tem favoritos. Clique no ♡ de um jogo pra adicionar!</p>
+                <p class="secao-titulo">❤️ Meus Favoritos <span class="contagem" id="contagem-favoritos"></span></p>
+                <div class="estado-vazio" id="favoritos-vazio">
+                    <span class="estado-vazio-icone">🤍</span>
+                    <p class="estado-vazio-titulo">Você ainda não tem favoritos</p>
+                    <p class="estado-vazio-texto">Clique no ♡ de um jogo pra adicionar aqui.</p>
+                </div>
                 <div class="blocos">
                     <div class="blocos-wrapper" id="wrapper-favoritos"></div>
                 </div>
@@ -174,8 +178,12 @@
 
             <!-- SEÇÃO DE BLOCOS 1: Todos -->
             <div class="secao-carrossel" id="todos">
-                <p class="secao-titulo">Todos <span class="contagem" id="contagem-todos"></span></p>
-                <p class="sem-resultados d-none">Nenhum jogo encontrado 😕</p>
+                <p class="secao-titulo">🎮 Todos <span class="contagem" id="contagem-todos"></span></p>
+                <div class="estado-vazio d-none" id="buscaVazia">
+                    <span class="estado-vazio-icone">🔍</span>
+                    <p class="estado-vazio-titulo">Nenhum jogo encontrado</p>
+                    <p class="estado-vazio-texto">Tenta outro termo de busca ou explora as categorias acima.</p>
+                </div>
                 <div class="blocos">
                     <div class="blocos-wrapper" id="wrapper-todos"></div>
                 </div>
@@ -188,7 +196,7 @@
             <!-- SEÇÃO DE BLOCOS 2: Aventura e Ação -->
             <div class="secao-carrossel" id="aventura-acao">
                 <div class="secao-cabecalho">
-                    <p class="secao-titulo">Aventura e Ação <span class="contagem" id="contagem-aventura-acao"></span></p>
+                    <p class="secao-titulo">🗡️ Aventura e Ação <span class="contagem" id="contagem-aventura-acao"></span></p>
                     <select class="filtro-ordenacao" data-categoria="aventura-acao" aria-label="Ordenar jogos">
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
@@ -206,7 +214,7 @@
             <!-- SEÇÃO DE BLOCOS 3: Simulação e Estratégia -->
             <div class="secao-carrossel" id="simulacao-estrategia">
                 <div class="secao-cabecalho">
-                    <p class="secao-titulo">Simulação e Estratégia <span class="contagem" id="contagem-simulacao-estrategia"></span></p>
+                    <p class="secao-titulo">🏗️ Simulação e Estratégia <span class="contagem" id="contagem-simulacao-estrategia"></span></p>
                     <select class="filtro-ordenacao" data-categoria="simulacao-estrategia" aria-label="Ordenar jogos">
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
@@ -224,7 +232,7 @@
             <!-- SEÇÃO DE BLOCOS 4: Esporte -->
             <div class="secao-carrossel" id="esporte-racing">
                 <div class="secao-cabecalho">
-                    <p class="secao-titulo">Esporte e Racing <span class="contagem" id="contagem-esporte-racing"></span></p>
+                    <p class="secao-titulo">🏆 Esporte e Racing <span class="contagem" id="contagem-esporte-racing"></span></p>
                     <select class="filtro-ordenacao" data-categoria="esporte-racing" aria-label="Ordenar jogos">
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
@@ -242,7 +250,7 @@
             <!-- SEÇÃO DE BLOCOS 5: Puzzle -->
             <div class="secao-carrossel" id="puzzle">
                 <div class="secao-cabecalho">
-                    <p class="secao-titulo">Puzzle <span class="contagem" id="contagem-puzzle"></span></p>
+                    <p class="secao-titulo">🧩 Puzzle <span class="contagem" id="contagem-puzzle"></span></p>
                     <select class="filtro-ordenacao" data-categoria="puzzle" aria-label="Ordenar jogos">
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
@@ -260,7 +268,7 @@
             <!-- SEÇÃO DE BLOCOS 6: Arcade -->
             <div class="secao-carrossel" id="arcade">
                 <div class="secao-cabecalho">
-                    <p class="secao-titulo">Arcade <span class="contagem" id="contagem-arcade"></span></p>
+                    <p class="secao-titulo">👾 Arcade <span class="contagem" id="contagem-arcade"></span></p>
                     <select class="filtro-ordenacao" data-categoria="arcade" aria-label="Ordenar jogos">
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
@@ -331,7 +339,8 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    
+                    <a href="#" id="modalCategoriaBadge" class="badge-categoria d-none"></a>
+
                     <!-- Slider de 3 Slides do Jogo no Modal -->
                     <div id="carouselModalJogo" class="carousel slide mb-3 posicao-relativa">
                         <div class="modal-loading d-none" id="modalLoading">
@@ -363,9 +372,10 @@
                     <p id="modalDescricao" class="text-start px-3"></p>
                 </div>
                 <div class="modal-footer border-secondary justify-content-between flex-wrap gap-2">
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 flex-wrap">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="button" class="btn btn-outline-light btn-favorito-modal" id="modalFavorito">♡ Favoritar</button>
+                        <button type="button" class="btn btn-outline-light btn-compartilhar" id="modalCompartilhar" title="Copiar link do jogo">🔗 Compartilhar</button>
                     </div>
                     <div class="d-flex align-items-center gap-3">
                         <a id="modalLinkNovaAba" href="#" target="_blank" rel="noopener noreferrer" class="link-nova-aba">Abrir em nova aba ↗</a>
@@ -387,6 +397,8 @@
         </div>
         <iframe id="playerIframe" class="player-iframe" src="" title="Jogo" allowfullscreen></iframe>
     </div>
+
+    <button type="button" id="btnTopo" class="btn-topo" title="Voltar ao topo" aria-label="Voltar ao topo">↑</button>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>

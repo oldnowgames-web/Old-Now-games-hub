@@ -235,13 +235,6 @@ body {
     font-weight: normal;
 }
 
-.sem-resultados {
-    color: #888;
-    font-size: 1rem;
-    text-align: center;
-    margin: 20px 0;
-}
-
 /* Cabeçalho das seções de categoria (título + filtro de ordenação) */
 .secao-cabecalho {
     width: 100%;
@@ -810,5 +803,143 @@ body {
         text-align: center;
     }
 
-  
+    .btn-topo {
+        bottom: 16px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+    }
+
+}
+
+
+/* ===========================================================
+   NOVAS FUNCIONALIDADES: hero, cores por categoria, scrollspy,
+   voltar ao topo, badge de categoria no modal, empty states,
+   compartilhar e micro-animações
+   =========================================================== */
+
+/* --- Cores de destaque por categoria --- */
+#todos { --accent: #007bff; }
+#favoritos { --accent: #ff4d6d; }
+#continuar-jogando { --accent: #ffc107; }
+#aventura-acao { --accent: #ff5c5c; }
+#simulacao-estrategia { --accent: #2ecc71; }
+#esporte-racing { --accent: #f5a623; }
+#puzzle { --accent: #9b59b6; }
+#arcade { --accent: #00c2ff; }
+
+.secao-titulo {
+    position: relative;
+    padding-left: 16px;
+}
+
+.secao-titulo::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 1em;
+    border-radius: 4px;
+    background-color: var(--accent, #007bff);
+}
+
+/* --- Botões de categoria (quick links) com estado ativo --- */
+.categories a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* --- Botão flutuante "voltar ao topo" --- */
+.btn-topo {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, background-color 0.2s ease;
+}
+
+.btn-topo.visivel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.btn-topo:hover {
+    background-color: #0056b3;
+}
+
+/* --- Badge de categoria clicável no modal --- */
+.badge-categoria {
+    display: inline-block;
+    background-color: rgba(0, 123, 255, 0.15);
+    color: #4da3ff;
+    border: 1px solid rgba(0, 123, 255, 0.4);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    margin-bottom: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.badge-categoria:hover {
+    background-color: rgba(0, 123, 255, 0.3);
+    color: white;
+}
+
+/* --- Estados vazios (busca sem resultado / sem favoritos) --- */
+.estado-vazio {
+    text-align: center;
+    color: #888;
+    margin: 24px 0;
+}
+
+.estado-vazio-icone {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.85;
+}
+
+.estado-vazio-titulo {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.estado-vazio-texto {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* --- Botão compartilhar no modal --- */
+.btn-compartilhar {
+    font-size: 0.9rem;
+}
+
+/* --- Micro-animações: seções entrando na viewport --- */
+.pre-anim {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.pre-anim.visivel {
+    opacity: 1;
+    transform: translateY(0);
 }

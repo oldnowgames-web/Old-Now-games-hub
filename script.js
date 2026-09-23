@@ -254,7 +254,8 @@ function isFavorito(id) {
 
 function toggleFavorito(id) {
     let favoritos = getFavoritos();
-    if (favoritos.includes(id)) {
+    const estavaFavoritado = favoritos.includes(id);
+    if (estavaFavoritado) {
         favoritos = favoritos.filter(f => f !== id);
     } else {
         favoritos.push(id);
@@ -262,6 +263,43 @@ function toggleFavorito(id) {
     salvarJSON(LS_KEYS.favoritos, favoritos);
     atualizarCoracoes(id);
     renderFavoritos();
+    tocarSomFavorito(!estavaFavoritado);
+}
+
+/* ---------- Feedback sonoro sutil ao favoritar ---------- */
+
+let audioCtxFavorito = null;
+
+function tocarSomFavorito(favoritando) {
+    try {
+        const AudioContextClasse = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClasse) return;
+        if (!audioCtxFavorito) audioCtxFavorito = new AudioContextClasse();
+        if (audioCtxFavorito.state === "suspended") audioCtxFavorito.resume();
+
+        const agora = audioCtxFavorito.currentTime;
+        const osc = audioCtxFavorito.createOscillator();
+        const gain = audioCtxFavorito.createGain();
+
+        osc.type = "sine";
+        if (favoritando) {
+            osc.frequency.setValueAtTime(700, agora);
+            osc.frequency.exponentialRampToValueAtTime(1100, agora + 0.08);
+        } else {
+            osc.frequency.setValueAtTime(500, agora);
+            osc.frequency.exponentialRampToValueAtTime(280, agora + 0.1);
+        }
+
+        gain.gain.setValueAtTime(0.07, agora);
+        gain.gain.exponentialRampToValueAtTime(0.0001, agora + 0.15);
+
+        osc.connect(gain);
+        gain.connect(audioCtxFavorito.destination);
+        osc.start(agora);
+        osc.stop(agora + 0.16);
+    } catch (e) {
+        // Reprodução de áudio indisponível (política do navegador etc.) — ignora silenciosamente
+    }
 }
 
 function getJogadas() {
@@ -299,13 +337,42 @@ function criarCardHTML(jogo) {
     const badgeNovo = jogo.novo ? '<span class="badge-novo">NOVO</span>' : "";
 
     return `
-        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-id="${jogo.id}" data-titulo="${jogo.titulo}">
+        <div class="bloco" data-bs-toggle="modal" data-bs-target="#modalJogo" data-id="${jogo.id}" data-titulo="${jogo.titulo}" onmouseenter="iniciarPreviewHover(this, '${jogo.id}')" onmouseleave="pararPreviewHover(this)">
             ${badgeNovo}
             <button type="button" class="btn-favorito ${favoritoAtivo ? "ativo" : ""}" data-id="${jogo.id}" title="Favoritar" onclick="event.stopPropagation(); toggleFavorito('${jogo.id}');">${favoritoAtivo ? "♥" : "♡"}</button>
             <div class="bloco-img-wrap">
                 <img src="${jogo.capa}" alt="${jogo.titulo}" loading="lazy" onload="this.parentElement.classList.add('carregado')" onerror="this.parentElement.classList.add('carregado')">
             </div>
         </div>`;
+}
+
+/* Preview animado: alterna entre a capa e os slides do jogo ao passar o mouse */
+function iniciarPreviewHover(el, id) {
+    if (window.matchMedia && window.matchMedia("(hover: none)").matches) return; // ignora em telas touch
+    const jogo = GAMES.find(j => j.id === id);
+    if (!jogo || !jogo.imgs || !jogo.imgs.length) return;
+    const img = el.querySelector(".bloco-img-wrap img");
+    if (!img) return;
+
+    const sequencia = [jogo.capa, ...jogo.imgs];
+    let idx = 0;
+    el.dataset.previewOriginal = jogo.capa;
+
+    if (el._previewTimer) clearInterval(el._previewTimer);
+    el._previewTimer = setInterval(() => {
+        idx = (idx + 1) % sequencia.length;
+        img.src = sequencia[idx];
+    }, 700);
+}
+
+function pararPreviewHover(el) {
+    if (el._previewTimer) {
+        clearInterval(el._previewTimer);
+        el._previewTimer = null;
+    }
+    const img = el.querySelector(".bloco-img-wrap img");
+    const original = el.dataset.previewOriginal;
+    if (img && original) img.src = original;
 }
 
 function atualizarCoracoes(id) {
@@ -457,75 +524,97 @@ const modalJogo = document.getElementById("modalJogo");
 const carouselModalElem = document.getElementById("carouselModalJogo");
 let bsCarouselModal = null;
 
+function preencherModal(jogo) {
+    if (!jogo) return;
+
+    modalJogo.dataset.jogoAtual = jogo.id;
+    modalJogo.querySelector(".modal-title").textContent = jogo.titulo;
+    modalJogo.querySelector("#modalDescricao").textContent = jogo.descricao;
+
+    // Badge de categoria (clicável, leva até a seção da categoria)
+    const badgeCategoria = document.getElementById("modalCategoriaBadge");
+    if (badgeCategoria) {
+        const catInfo = CATEGORIAS_INFO.find(c => c.id === jogo.categoria);
+        if (catInfo) {
+            badgeCategoria.textContent = catInfo.titulo;
+            badgeCategoria.href = `#${catInfo.id}`;
+            badgeCategoria.classList.remove("d-none");
+            badgeCategoria.onclick = () => {
+                bootstrap.Modal.getInstance(modalJogo)?.hide();
+            };
+        } else {
+            badgeCategoria.classList.add("d-none");
+        }
+    }
+
+    const loading = document.getElementById("modalLoading");
+    if (loading) loading.classList.remove("d-none");
+
+    const img1 = modalJogo.querySelector("#modalImg1");
+    const img2 = modalJogo.querySelector("#modalImg2");
+    const img3 = modalJogo.querySelector("#modalImg3");
+
+    const esconderLoading = () => loading && loading.classList.add("d-none");
+    img1.onload = esconderLoading;
+    img1.onerror = esconderLoading;
+
+    img1.src = jogo.imgs[0];
+    img2.src = jogo.imgs[1];
+    img3.src = jogo.imgs[2];
+
+    // Botão de favoritar dentro do modal
+    const btnFavModal = document.getElementById("modalFavorito");
+    if (btnFavModal) {
+        btnFavModal.dataset.id = jogo.id;
+        const ativo = isFavorito(jogo.id);
+        btnFavModal.classList.toggle("ativo", ativo);
+        btnFavModal.textContent = ativo ? "♥ Favoritado" : "♡ Favoritar";
+    }
+
+    renderEstrelas(jogo.id);
+
+    // Botão Jogar Agora / link alternativo
+    const temLink = jogo.link && jogo.link !== "#";
+    const btnJogar = document.getElementById("modalBotaoJogar");
+    const linkNovaAba = document.getElementById("modalLinkNovaAba");
+
+    if (btnJogar) {
+        btnJogar.disabled = !temLink;
+        btnJogar.textContent = temLink ? "Jogar Agora" : "Em breve";
+        btnJogar.onclick = () => {
+            if (!temLink) return;
+            registrarJogada(jogo.id);
+            bootstrap.Modal.getInstance(modalJogo)?.hide();
+            abrirPlayer(jogo.link, jogo.titulo);
+        };
+    }
+    if (linkNovaAba) {
+        if (temLink) {
+            linkNovaAba.href = jogo.link;
+            linkNovaAba.classList.remove("d-none");
+        } else {
+            linkNovaAba.classList.add("d-none");
+        }
+    }
+
+    if (!bsCarouselModal) {
+        bsCarouselModal = new bootstrap.Carousel(carouselModalElem, {
+            interval: 3000,
+            ride: "carousel"
+        });
+    } else {
+        bsCarouselModal.to(0);
+        bsCarouselModal.cycle();
+    }
+}
+
 if (modalJogo) {
     modalJogo.addEventListener("show.bs.modal", event => {
         const blocoClicado = event.relatedTarget;
+        if (!blocoClicado) return; // acionado programaticamente (ex.: link compartilhado) — já preenchido antes
         const id = blocoClicado.getAttribute("data-id");
         const jogo = GAMES.find(j => j.id === id);
-        if (!jogo) return;
-
-        modalJogo.querySelector(".modal-title").textContent = jogo.titulo;
-        modalJogo.querySelector("#modalDescricao").textContent = jogo.descricao;
-
-        const loading = document.getElementById("modalLoading");
-        if (loading) loading.classList.remove("d-none");
-
-        const img1 = modalJogo.querySelector("#modalImg1");
-        const img2 = modalJogo.querySelector("#modalImg2");
-        const img3 = modalJogo.querySelector("#modalImg3");
-
-        const esconderLoading = () => loading && loading.classList.add("d-none");
-        img1.onload = esconderLoading;
-        img1.onerror = esconderLoading;
-
-        img1.src = jogo.imgs[0];
-        img2.src = jogo.imgs[1];
-        img3.src = jogo.imgs[2];
-
-        // Botão de favoritar dentro do modal
-        const btnFavModal = document.getElementById("modalFavorito");
-        if (btnFavModal) {
-            btnFavModal.dataset.id = jogo.id;
-            const ativo = isFavorito(jogo.id);
-            btnFavModal.classList.toggle("ativo", ativo);
-            btnFavModal.textContent = ativo ? "♥ Favoritado" : "♡ Favoritar";
-        }
-
-        renderEstrelas(jogo.id);
-
-        // Botão Jogar Agora / link alternativo
-        const temLink = jogo.link && jogo.link !== "#";
-        const btnJogar = document.getElementById("modalBotaoJogar");
-        const linkNovaAba = document.getElementById("modalLinkNovaAba");
-
-        if (btnJogar) {
-            btnJogar.disabled = !temLink;
-            btnJogar.textContent = temLink ? "Jogar Agora" : "Em breve";
-            btnJogar.onclick = () => {
-                if (!temLink) return;
-                registrarJogada(jogo.id);
-                bootstrap.Modal.getInstance(modalJogo)?.hide();
-                abrirPlayer(jogo.link, jogo.titulo);
-            };
-        }
-        if (linkNovaAba) {
-            if (temLink) {
-                linkNovaAba.href = jogo.link;
-                linkNovaAba.classList.remove("d-none");
-            } else {
-                linkNovaAba.classList.add("d-none");
-            }
-        }
-
-        if (!bsCarouselModal) {
-            bsCarouselModal = new bootstrap.Carousel(carouselModalElem, {
-                interval: 3000,
-                ride: "carousel"
-            });
-        } else {
-            bsCarouselModal.to(0);
-            bsCarouselModal.cycle();
-        }
+        preencherModal(jogo);
     });
 
     modalJogo.addEventListener("hidden.bs.modal", () => {
@@ -541,6 +630,45 @@ document.getElementById("modalFavorito")?.addEventListener("click", e => {
     e.currentTarget.classList.toggle("ativo", ativo);
     e.currentTarget.textContent = ativo ? "♥ Favoritado" : "♡ Favoritar";
 });
+
+/* ---------- Compartilhar jogo (copia link direto) ---------- */
+
+document.getElementById("modalCompartilhar")?.addEventListener("click", e => {
+    const id = modalJogo.dataset.jogoAtual;
+    if (!id) return;
+
+    const url = `${location.origin}${location.pathname}?jogo=${id}`;
+    const btn = e.currentTarget;
+    const textoOriginal = btn.textContent;
+
+    const mostrarFeedback = () => {
+        btn.textContent = "✅ Link copiado!";
+        setTimeout(() => { btn.textContent = textoOriginal; }, 1800);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(mostrarFeedback).catch(() => {
+            window.prompt("Copie o link do jogo:", url);
+        });
+    } else {
+        window.prompt("Copie o link do jogo:", url);
+    }
+});
+
+/* ---------- Abre o jogo direto se a URL tiver ?jogo=id (link compartilhado) ---------- */
+
+function abrirJogoPeloId(id) {
+    const jogo = GAMES.find(j => j.id === id);
+    if (!jogo || !modalJogo) return;
+    preencherModal(jogo);
+    bootstrap.Modal.getOrCreateInstance(modalJogo).show();
+}
+
+(function verificarLinkDireto() {
+    const parametros = new URLSearchParams(window.location.search);
+    const idJogo = parametros.get("jogo");
+    if (idJogo) abrirJogoPeloId(idJogo);
+})();
 
 /* ---------- Script dos Carrosséis de Jogos (arrastar/setas) ---------- */
 
@@ -614,7 +742,7 @@ document.querySelectorAll(".secao-carrossel").forEach(secao => {
 const secaoTodos = document.getElementById("todos");
 
 if (secaoTodos) {
-    const mensagemVazia = secaoTodos.querySelector(".sem-resultados");
+    const mensagemVazia = document.getElementById("buscaVazia");
     const wrapperTodos = secaoTodos.querySelector(".blocos-wrapper");
     const inputsBusca = document.querySelectorAll(".input-busca");
 
@@ -654,4 +782,86 @@ if (secaoTodos) {
             filtrarJogos(input.value);
         });
     });
+}
+
+/* ---------- Rodapé: ano atual ---------- */
+
+const anoAtualEl = document.getElementById("anoAtual");
+if (anoAtualEl) {
+    anoAtualEl.textContent = new Date().getFullYear();
+}
+
+/* ---------- Scrollspy: destaca a categoria ativa nos botões de atalho ---------- */
+
+const linksCategorias = document.querySelectorAll(".categories a");
+
+if (linksCategorias.length) {
+    const secoesCategorias = Array.from(linksCategorias)
+        .map(link => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+    const observerScrollspy = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const linkAtivo = document.querySelector(`.categories a[href="#${entry.target.id}"]`);
+            if (!linkAtivo) return;
+            linksCategorias.forEach(l => l.classList.remove("active"));
+            linkAtivo.classList.add("active");
+        });
+    }, { rootMargin: "-40% 0px -50% 0px", threshold: 0 });
+
+    secoesCategorias.forEach(secao => observerScrollspy.observe(secao));
+}
+
+/* ---------- Botão "voltar ao topo" ---------- */
+
+const btnTopo = document.getElementById("btnTopo");
+if (btnTopo) {
+    window.addEventListener("scroll", () => {
+        btnTopo.classList.toggle("visivel", window.scrollY > 500);
+    });
+    btnTopo.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}
+
+/* ---------- Atalhos de teclado ---------- */
+
+document.addEventListener("keydown", e => {
+    const tagAtivo = document.activeElement ? document.activeElement.tagName : "";
+    const digitando = tagAtivo === "INPUT" || tagAtivo === "TEXTAREA" || (document.activeElement && document.activeElement.isContentEditable);
+
+    // "/" foca a barra de busca visível (desktop ou mobile, dependendo da tela)
+    if (e.key === "/" && !digitando) {
+        e.preventDefault();
+        const inputVisivel = Array.from(document.querySelectorAll(".input-busca")).find(el => el.offsetParent !== null);
+        if (inputVisivel) inputVisivel.focus();
+    }
+
+    // "Esc" fecha o player interno (o modal do Bootstrap já fecha sozinho com Esc)
+    if (e.key === "Escape") {
+        const overlay = document.getElementById("playerOverlay");
+        if (overlay && !overlay.classList.contains("d-none")) {
+            fecharPlayer();
+        }
+    }
+});
+
+/* ---------- Micro-animações: seções e cards entrando na viewport ---------- */
+
+const elementosAnimados = document.querySelectorAll(".secao-carrossel, .container-sobre, .rodape");
+
+if (elementosAnimados.length) {
+    elementosAnimados.forEach(el => el.classList.add("pre-anim"));
+
+    const observerAnimacao = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visivel");
+                observerAnimacao.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    elementosAnimados.forEach(el => observerAnimacao.observe(el));
 }
