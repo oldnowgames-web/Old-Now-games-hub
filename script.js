@@ -1,3 +1,5 @@
+// A tela de abertura (intro com o gif) agora é controlada pelo tela-inicial.js
+
 // Base de dados dos jogos do hub.
 // categoria: 'aventura-acao' | 'simulacao-estrategia' | 'esporte-racing' | 'puzzle' | 'arcade' | null
 // novo: true mostra a tag "NOVO" no card
@@ -142,6 +144,18 @@ const GAMES = [
         categoria: "esporte-racing",
         novo: false
     },
+
+    {
+        id: "golf-game",
+        titulo: "A Little Golf",
+        descricao: "Demonstre suas habilidades na mira, acerte as bolas nos buracos.",
+        capa: "capas/aLittleGolf.png",
+        imgs: ["golfe/golfe1.png","golfe/golfe2.png","golfe/golfe3.png"],
+        link: "https://oldnowgames-web.github.io/A-Little-golf/",
+        categoria: "esporte-racing",
+        novo: true
+    },
+
     {
         id: "block-star",
         titulo: "Block Star",
@@ -518,6 +532,37 @@ if (topCarousel) {
     });
 }
 
+/* Faz todos os slides do banner ficarem do mesmo tamanho do slide 1
+   (mede a proporção real do slide 1 e aplica essa altura nos outros,
+   mesmo que isso distorça um pouco os outros slides) */
+(function igualarSlidesAoSlide1() {
+    if (!topCarousel) return;
+
+    const todasImagens = topCarousel.querySelectorAll(".carousel-banner-img");
+    const imgReferencia = todasImagens[0]; // slide 1
+    if (!imgReferencia || todasImagens.length < 2) return;
+
+    function aplicarAltura() {
+        if (!imgReferencia.naturalWidth) return;
+        const proporcao = imgReferencia.naturalHeight / imgReferencia.naturalWidth;
+        const ehMobile = window.innerWidth <= 991;
+        const fator = ehMobile ? 1.55 : 1.3;
+        const alturaAlvo = Math.round(topCarousel.offsetWidth * proporcao * fator);
+
+        todasImagens.forEach(img => {
+            img.style.height = alturaAlvo + "px";
+            img.style.objectFit = "fill";
+        });
+    }
+
+    if (imgReferencia.complete) {
+        aplicarAltura();
+    } else {
+        imgReferencia.addEventListener("load", aplicarAltura);
+    }
+    window.addEventListener("resize", aplicarAltura);
+})();
+
 /* ---------- Modal Dinâmico com Slider Automático ---------- */
 
 const modalJogo = document.getElementById("modalJogo");
@@ -849,7 +894,7 @@ document.addEventListener("keydown", e => {
 
 /* ---------- Micro-animações: seções e cards entrando na viewport ---------- */
 
-const elementosAnimados = document.querySelectorAll(".secao-carrossel, .container-sobre, .rodape");
+const elementosAnimados = document.querySelectorAll(".secao-carrossel, .container-sobre, .parceiros, .rodape");
 
 if (elementosAnimados.length) {
     elementosAnimados.forEach(el => el.classList.add("pre-anim"));

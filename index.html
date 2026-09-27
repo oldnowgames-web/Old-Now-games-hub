@@ -28,6 +28,20 @@
 
 <body>
 
+    <!-- Tela de Abertura (intro) -->
+    <div id="telaInicial" class="tela-inicial" data-gif-src="img/inicio.gif" data-duracao-gif="6000">
+        <div class="tela-inicial-gif-wrap">
+            <img class="tela-inicial-gif ativo" id="telaInicialGif" src="img/inicio.gif" alt="OldNow Games">
+            <img class="tela-inicial-gif" id="telaInicialFrameFinal" src="img/inicio.png" alt="OldNow Games">
+        </div>
+        <div class="tela-inicial-spinner" id="telaInicialSpinner">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container-hub">
 
         <!-- Menu Lateral Esquerdo (PC) -->
@@ -93,7 +107,7 @@
                                     <a class="nav-link" href="#">Novidades</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Doar</a>
+                                    <a class="nav-link" href="#parceiros">Nossos parceiros</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -291,6 +305,22 @@
                     Bem Vindo à Old Now games</p>
                 </div>
             </div>
+ 
+             <div class="parceiros" id="parceiros">
+
+                <h1>Nossos Parceiros</h1>
+
+                <div class="icons"> 
+                      <div class="icon"><img src="parceiros/guacuano_logo.png" alt="Guaçuano"></div>
+                      <div class="icon"><img src="parceiros/juliomotos_logo.png" alt="Julio Motos"></div>
+                      <div class="icon"><img src="parceiros/infonacci_logo.png" alt="Infonacci"></div>
+                      <div class="icon"><img src="parceiros/adm_logo.png" alt="ADM"></div>
+                      <div class="icon"><img src="parceiros/mogilandi_logo.png" alt="Mogilandi"></div>
+                      <div class="icon"><img src="parceiros/logo_superwatts.png" alt="Superwatts"></div>
+                    </div>
+              
+            </div>
+
 
             <!-- Rodapé -->
             <footer class="rodape">
@@ -308,6 +338,7 @@
                         <a href="#todos">Todos os jogos</a>
                         <a href="#favoritos">Favoritos</a>
                         <a href="#quem-somos">Quem somos</a>
+                        <a href="#parceiros">Nossos parceiros</a>
                     </div>
 
                     <div class="rodape-links">
@@ -325,6 +356,8 @@
                 </div>
             </footer>
 
+
+           
         </div> 
     </div> 
 
@@ -402,6 +435,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script src="tela-inicial.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
