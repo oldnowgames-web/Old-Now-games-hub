@@ -120,13 +120,25 @@ const GAMES = [
     {
         id: "aethelstar",
         titulo: "Aethelstar",
-        descricao: "Aventura épica num mundo de fantasia.",
+        descricao: "Uma aventura no espaço no estilo clássico de fliperama.",
         capa: "capas/aethelstar.png",
         imgs: ["capas/aethelstar.png", "capas/aethelstar.png", "capas/aethelstar.png"],
         link: "https://oldnowgames-web.github.io/Aethelstar/",
         categoria: "arcade",
         novo: false
     },
+
+       {
+        id: "astro-pong",
+        titulo: "Astro Pong",
+        descricao: "O clássico jogo pong agora na Old Now games.",
+        capa: "capas/AstroPong.png",
+        imgs: ["astropong/astropong1.png", "astropong/astropong2.png", "astropong/astropong3.png"],
+        link: "https://oldnowgames-web.github.io/AstroPong/",
+        categoria: "arcade",
+        novo: false
+    },
+
     {
         id: "star-train",
         titulo: "Star Train",
