@@ -730,14 +730,16 @@ body {
 .icons{
      justify-content: center;
     display: flex;
-    gap: 2%;
+    flex-wrap: wrap;
+    gap: 4%;
+    row-gap: 24px;
     align-items: center;
     width: 100%;
 }
 
 .icon{
-    width: 10%;
-    height: 17vh;
+    width: clamp(70px, 12vw, 110px);
+    height: clamp(70px, 12vw, 110px);
     border-radius: 100%;
    background-color: transparent;
     opacity: 0.8;
@@ -760,13 +762,19 @@ body {
 
 /* --- Responsividade Mobile --- */
 @media (max-width: 991px) {
+    .tela-inicial {
+        gap: 16px;
+    }
+
     .tela-inicial-gif-wrap {
         width: 100vw;
-        height: 100vh;
+        height: 82vh;
+        overflow: hidden;
     }
 
     .tela-inicial-gif {
         object-fit: cover;
+        transform: scale(1.5);
     }
 
     .navbar-custom {
@@ -871,9 +879,14 @@ body {
 
 
 
+.icons{
+    gap: 5%;
+    row-gap: 20px;
+}
+
 .icon{
-    width: 16%;
-    height: 19vh;
+    width: clamp(90px, 26vw, 130px);
+    height: clamp(90px, 26vw, 130px);
     border-radius: 100%;
    background-color: transparent;
     opacity: 1;
@@ -1020,6 +1033,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 28px;
+    overflow: hidden;
     transition: opacity 0.6s ease;
 }
 
@@ -1069,4 +1083,14 @@ body {
 .tela-inicial-spinner .spinner-border {
     width: 2.4rem;
     height: 2.4rem;
+}
+
+/* No PC sobra mais fundo visível ao redor do gif (caixa menor que a tela),
+   então usar exatamente a mesma cor do site evita um "salto" de cor
+   perceptível no fade final revelando o hub. No mobile o gif cobre quase
+   toda a tela, então mantém a cor ajustada ao gif (#05070a). */
+@media (min-width: 992px) {
+    .tela-inicial {
+        background-color: black;
+    }
 }

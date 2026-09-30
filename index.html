@@ -109,21 +109,8 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#parceiros">Nossos parceiros</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Categorias
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item" href="#">Aventura</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Terror</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Puzzle</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Relaxante</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                
+                            
                         </div>
                     </div>
 
@@ -136,12 +123,14 @@
                     <div class="carousel-item active">
                         <img src="img/oldnow-capa.png" class="d-block w-100 carousel-banner-img" alt="Destaque 1">
                     </div>
+                     <div class="carousel-item">
+                        <img src="img/explore.png" class="d-block w-100 carousel-banner-img" alt="Destaque 3">
+                    </div>
                     <div class="carousel-item">
                         <img src="img/expoete.png" class="d-block w-100 carousel-banner-img" alt="Destaque 2">
                     </div>
-                    <div class="carousel-item">
-                        <img src="img/vestibulinho.png" class="d-block w-100 carousel-banner-img" alt="Destaque 3">
-                    </div>
+                   
+
                 </div>
 
                 <!-- Barras de controle (agora posicionado abaixo do banner) -->
@@ -158,6 +147,7 @@
             <a href="#esporte-racing">Esporte e Racing</a>
             <a href="#arcade">Arcade</a>
             <a href="#puzzle">Puzzle</a>
+            <a href="#tabuleiro">Tabuleiro</a>
          
           </div>
 
@@ -228,7 +218,7 @@
             <!-- SEÇÃO DE BLOCOS 3: Simulação e Estratégia -->
             <div class="secao-carrossel" id="simulacao-estrategia">
                 <div class="secao-cabecalho">
-                    <p class="secao-titulo">🏗️ Simulação e Estratégia <span class="contagem" id="contagem-simulacao-estrategia"></span></p>
+                    <p class="secao-titulo"> Simulação e Estratégia <span class="contagem" id="contagem-simulacao-estrategia"></span></p>
                     <select class="filtro-ordenacao" data-categoria="simulacao-estrategia" aria-label="Ordenar jogos">
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
@@ -297,6 +287,24 @@
                 </div>
             </div>
 
+            <!-- SEÇÃO DE BLOCOS 7: Tabuleiro -->
+            <div class="secao-carrossel" id="tabuleiro">
+                <div class="secao-cabecalho">
+                    <p class="secao-titulo">♟️ Tabuleiro <span class="contagem" id="contagem-tabuleiro"></span></p>
+                    <select class="filtro-ordenacao" data-categoria="tabuleiro" aria-label="Ordenar jogos">
+                        <option value="nome">Nome (A-Z)</option>
+                        <option value="jogados">Mais jogado</option>
+                    </select>
+                </div>
+                <div class="blocos">
+                    <div class="blocos-wrapper" id="wrapper-tabuleiro"></div>
+                </div>
+                <div class="controles-carrossel d-flex">
+                    <button class="btn-control prev">❮</button>
+                    <button class="btn-control next">❯</button>
+                </div>
+            </div>
+
             <!-- SEÇÃO: Quem Somos -->
             <div class="container-sobre" id="quem-somos">
                 <div class="qs">
@@ -314,6 +322,7 @@
                       <div class="icon"><img src="parceiros/guacuano_logo.png" alt="Guaçuano"></div>
                       <div class="icon"><img src="parceiros/juliomotos_logo.png" alt="Julio Motos"></div>
                       <div class="icon"><img src="parceiros/infonacci_logo.png" alt="Infonacci"></div>
+                      <div class="icon"><img src="parceiros/urim_logo.png" alt="Infonacci"></div>
                       <div class="icon"><img src="parceiros/adm_logo.png" alt="ADM"></div>
                       <div class="icon"><img src="parceiros/mogilandi_logo.png" alt="Mogilandi"></div>
                       <div class="icon"><img src="parceiros/logo_superwatts.png" alt="Superwatts"></div>
@@ -348,6 +357,7 @@
                         <a href="#esporte-racing">Esporte e Racing</a>
                         <a href="#puzzle">Puzzle</a>
                         <a href="#arcade">Arcade</a>
+                        <a href="#tabuleiro">Tabuleiro</a>
                     </div>
                 </div>
 

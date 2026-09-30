@@ -1,7 +1,7 @@
 // A tela de abertura (intro com o gif) agora é controlada pelo tela-inicial.js
 
 // Base de dados dos jogos do hub.
-// categoria: 'aventura-acao' | 'simulacao-estrategia' | 'esporte-racing' | 'puzzle' | 'arcade' | null
+// categoria: 'aventura-acao' | 'simulacao-estrategia' | 'esporte-racing' | 'puzzle' | 'arcade' | 'tabuleiro' | null
 // novo: true mostra a tag "NOVO" no card
 const GAMES = [
     {
@@ -61,7 +61,7 @@ const GAMES = [
         capa: "capas/PixelSaga-lunar_exploration.png",
         imgs: ["pixelsagalua/lua1.png", "pixelsagalua/lua2.png", "pixelsagalua/lua3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-na-Lua/",
-        categoria: "aventura-acao",
+        categoria: "simulacao-estrategia",
         novo: false
     },
     {
@@ -91,9 +91,22 @@ const GAMES = [
         capa: "capas/OldSnake.png",
         imgs: ["snake/snake1.png", "snake/snake2.png", "snake/snake3.png"],
         link: "https://oldnowgames-web.github.io/Old-Snake/",
-        categoria: "puzzle",
+        categoria: "aventura-acao",
         novo: false
     },
+
+    {
+        id: "aethelstar-neon",
+        titulo: "Aethelstar Neon",
+        descricao: "Desvie dos meteoros, uma nova aventura no espaço neon!.",
+        capa: "capas/aethestar-neon.jpeg",
+        imgs: ["naveneon/naveneon1.png", "naveneon/naveneon2.png", "naveneon/naveneon3.png"],
+        link: "https://oldnowgames-web.github.io/Aethestar-Neon/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
+
     {
         id: "car-tape",
         titulo: "Car Tape: The Last Race",
@@ -173,7 +186,7 @@ const GAMES = [
         capa: "capas/XADREZ.png",
         imgs: ["xadrez/xadrez1.png", "xadrez/xadrez2.png", "xadrez/xadrez3.png"],
         link: "https://oldnowgames-web.github.io/Xadrez-/",
-        categoria: "puzzle",
+        categoria: "tabuleiro",
         novo: false
     },
     {
@@ -183,6 +196,17 @@ const GAMES = [
         capa: "capas/Damas.png",
         imgs: ["damas/dama1.jpeg", "damas/dama2.jpeg", "damas/dama3.jpeg"],
         link: "https://oldnowgames-web.github.io/Damas/",
+        categoria: "tabuleiro",
+        novo: false
+    },
+
+        {
+        id: "memory-barbarian",
+        titulo: "Barbarian memory game",
+        descricao: "Um jogo da memória com tema de vikings.",
+        capa: "capas/barbarian-memory.jpeg",
+        imgs: ["memory/memory1.png", "memory/memory2.png", "memory/memory3.png"],
+        link: "https://oldnowgames-web.github.io/Barbarian-Memory-game/",
         categoria: "puzzle",
         novo: false
     },
@@ -193,7 +217,7 @@ const GAMES = [
         capa: "capas/JogoVelha.jpeg",
         imgs: ["tictac/tictac1.png", "tictac/tictac2.png", "tictac/tictac3.png"],
         link: "https://oldnowgames-web.github.io/Tic-Tac-Chaos/",
-        categoria: "puzzle",
+        categoria: "tabuleiro",
         novo: false
     },
     {
@@ -223,7 +247,8 @@ const CATEGORIAS_INFO = [
     { id: "simulacao-estrategia", titulo: "Simulação e Estratégia" },
     { id: "esporte-racing", titulo: "Esporte e Racing" },
     { id: "puzzle", titulo: "Puzzle" },
-    { id: "arcade", titulo: "Arcade" }
+    { id: "arcade", titulo: "Arcade" },
+    { id: "tabuleiro", titulo: "Tabuleiro" }
 ];
 
 /* =========================================================
@@ -526,32 +551,36 @@ document.getElementById("playerFullscreenBtn")?.addEventListener("click", () => 
 
 const topCarousel = document.querySelector("#carouselExample");
 if (topCarousel) {
-    new bootstrap.Carousel(topCarousel, {
+    const bsTopCarousel = new bootstrap.Carousel(topCarousel, {
         interval: 3500,
         ride: "carousel"
     });
+    // Garante que o primeiro slide mostrado seja sempre o oldnow-capa.png,
+    // mesmo se o navegador restaurar um estado diferente (ex: voltar página)
+    bsTopCarousel.to(0);
 }
 
-/* Faz todos os slides do banner ficarem do mesmo tamanho do slide 1
-   (mede a proporção real do slide 1 e aplica essa altura nos outros,
-   mesmo que isso distorça um pouco os outros slides) */
+/* Faz todos os slides do banner ficarem do mesmo tamanho do slide 1.
+   O slide 1 (oldnow-capa.png) mantém a proporção real dele, sem esticar
+   (por isso o fator de altura foi removido). Os outros slides seguem
+   essa mesma altura, mas usando object-fit: cover (corta a imagem para
+   preencher o espaço) em vez de "fill" (que esticava/distorcia). */
 (function igualarSlidesAoSlide1() {
     if (!topCarousel) return;
 
     const todasImagens = topCarousel.querySelectorAll(".carousel-banner-img");
-    const imgReferencia = todasImagens[0]; // slide 1
+    const imgReferencia = todasImagens[0]; // slide 1 = oldnow-capa.png
     if (!imgReferencia || todasImagens.length < 2) return;
 
     function aplicarAltura() {
         if (!imgReferencia.naturalWidth) return;
         const proporcao = imgReferencia.naturalHeight / imgReferencia.naturalWidth;
-        const ehMobile = window.innerWidth <= 991;
-        const fator = ehMobile ? 1.55 : 1.3;
+        const fator = 1.12; // um pouco mais alto que a proporção real (sem esticar, pois o slide 1 usa object-fit: contain)
         const alturaAlvo = Math.round(topCarousel.offsetWidth * proporcao * fator);
 
         todasImagens.forEach(img => {
             img.style.height = alturaAlvo + "px";
-            img.style.objectFit = "fill";
+            img.style.objectFit = (img === imgReferencia) ? "contain" : "cover";
         });
     }
 
