@@ -26,8 +26,8 @@ const SHELL = [
     "tela-inicial.js",
     "pwa.js",
     "manifest.webmanifest",
-    "img/icons/icon-192.png",
-    "img/icons/icon-512.png",
+    "icons/icon-192.png",
+    "icons/icon-512.png",
     "img/old_now-logo.jpeg"
 ];
 
