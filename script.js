@@ -120,6 +120,29 @@ const GAMES = [
         novo: false
     },
 
+
+        {
+        id: "capi-knight",
+        titulo: "Capi Knight",
+        descricao: "Uma aventura com uma capivara cavaleiro, explore novos lugares e derrote poderosos inimigos.",
+        capa: "capas/Capi-Knight.jpeg",
+        imgs: ["capi/capi1.png", "capi/capi2.png", "capi/capi3.png"],
+        link: "https://oldnowgames-web.github.io/Capi-Knight/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
+        {
+        id: "zenite-zero",
+        titulo: "Zênite Zero",
+        descricao: "Sobreviva às batalhas, escolha seu personagem, derrote inimigos e fique mais forte. ",
+        capa: "capas/zenite-zero.png",
+        imgs: ["zenite/zenite1.png", "zenite/zenite2.png", "zenite/zenite3.png"],
+        link: "https://oldnowgames-web.github.io/Zenite-Zero/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
     {
         id: "aethelstar-neon",
         titulo: "Aethelstar Neon",
@@ -303,9 +326,16 @@ const LS_KEYS = {
     jogadas: "oldnow_jogadas"
 };
 
+// Onde os dados do jogador ficam: sessão salva -> localStorage (permanente);
+// "sem sessão" -> sessionStorage (somem ao fechar). Quem decide é o tela-entrada.js.
+function armazenamento() {
+    if (window.OldNowSessao) return window.OldNowSessao.storage();
+    return localStorage;
+}
+
 function lerJSON(chave, padrao) {
     try {
-        const valor = localStorage.getItem(chave);
+        const valor = armazenamento().getItem(chave);
         return valor ? JSON.parse(valor) : padrao;
     } catch (e) {
         return padrao;
@@ -314,7 +344,7 @@ function lerJSON(chave, padrao) {
 
 function salvarJSON(chave, valor) {
     try {
-        localStorage.setItem(chave, JSON.stringify(valor));
+        armazenamento().setItem(chave, JSON.stringify(valor));
     } catch (e) {
         // localStorage indisponível (modo privado, cookies bloqueados etc.)
     }
@@ -529,6 +559,16 @@ renderTodos();
 renderTodasCategorias();
 renderFavoritos();
 renderContinuarJogando();
+
+/* Chamada pelo tela-entrada.js quando o jogador entra, troca de sessão ou sai:
+   redesenha tudo que depende de favoritos, recentes e jogadas */
+function atualizarTelaPorSessao() {
+    renderTodos();
+    renderTodasCategorias();
+    renderFavoritos();
+    renderContinuarJogando();
+}
+window.atualizarTelaPorSessao = atualizarTelaPorSessao;
 
 document.querySelectorAll(".filtro-ordenacao").forEach(select => {
     select.addEventListener("change", () => renderCategoria(select.dataset.categoria));

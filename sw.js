@@ -13,7 +13,7 @@
    Se a imagem tiver nome novo, não precisa mexer aqui.
    ========================================================= */
 
-const VERSAO = "v1";
+const VERSAO = "v2";
 const CACHE_SHELL = `oldnow-shell-${VERSAO}`;
 const CACHE_ASSETS = `oldnow-assets-${VERSAO}`;
 
@@ -24,6 +24,7 @@ const SHELL = [
     "estilo.css",
     "script.js",
     "tela-inicial.js",
+    "tela-entrada.js",
     "pwa.js",
     "manifest.webmanifest",
     "icons/icon-192.png",

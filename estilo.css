@@ -1216,3 +1216,378 @@ body {
     from { opacity: 0; transform: translate(-50%, 12px); }
     to   { opacity: 1; transform: translate(-50%, 0); }
 }
+
+/* =========================================================
+   Tela de Entrada (iniciar sessão / entrar sem sessão)
+   ========================================================= */
+body.entrada-aberta {
+    overflow: hidden !important;
+}
+
+.tela-entrada {
+    position: fixed;
+    inset: 0;
+    z-index: 4900; /* abaixo da intro (5000): aparece quando a intro esmaece */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(ellipse at center, #11161d 0%, #05070a 70%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    overflow-y: auto;
+}
+
+.tela-entrada.d-none {
+    display: none !important;
+}
+
+.tela-entrada.visivel {
+    opacity: 1;
+}
+
+.entrada-caixa {
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    color: white;
+    margin: auto;
+}
+
+.entrada-logo {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-bottom: 18px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.entrada-titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.entrada-sub {
+    color: #9aa0a6;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    min-height: 1.4em;
+}
+
+.entrada-view {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.entrada-view[hidden] {
+    display: none;
+}
+
+.entrada-btn {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.1s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.entrada-btn:active {
+    transform: scale(0.97);
+}
+
+.entrada-btn-principal {
+    background-color: #007bff;
+    color: white;
+}
+
+.entrada-btn-principal:hover {
+    background-color: #0b6fe0;
+}
+
+.entrada-btn-secundario {
+    background-color: transparent;
+    color: #e6e6e6;
+    border-color: #3a3a3a;
+}
+
+.entrada-btn-secundario:hover {
+    border-color: #6a6a6a;
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.entrada-btn strong {
+    font-weight: 800;
+}
+
+.entrada-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid #3a3a3a;
+    background-color: #0d0d0d;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.entrada-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.entrada-aviso,
+.entrada-erro {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    text-align: left;
+}
+
+.entrada-aviso[hidden],
+.entrada-erro[hidden] {
+    display: none;
+}
+
+.entrada-aviso {
+    background-color: rgba(255, 193, 7, 0.12);
+    color: #ffc107;
+}
+
+.entrada-erro {
+    background-color: rgba(220, 53, 69, 0.14);
+    color: #ff7b88;
+}
+
+.entrada-rodape {
+    margin: 22px 0 0;
+    font-size: 0.78rem;
+    color: #6b7077;
+}
+
+.entrada-fechar {
+    position: absolute;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #9aa0a6;
+    font-size: 1.3rem;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.entrada-fechar:hover {
+    color: white;
+}
+
+/* =========================================================
+   Sessão do jogador na navbar (avatar + menu)
+   ========================================================= */
+.sessao-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sessao-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: bold;
+    font-size: 1.05rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s ease, border-color 0.2s ease;
+}
+
+.sessao-avatar:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.sessao-avatar:active {
+    transform: scale(0.94);
+}
+
+.sessao-avatar.d-none,
+.sessao-entrar.d-none,
+.sessao-menu.d-none {
+    display: none !important;
+}
+
+.sessao-entrar {
+    background-color: transparent;
+    color: white;
+    border: 1px solid #3a3a3a;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sessao-entrar:hover {
+    border-color: #6a6a6a;
+}
+
+.sessao-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 200px;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.65);
+    padding: 8px;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sessao-menu-nome {
+    margin: 0;
+    padding: 8px 10px 10px;
+    font-weight: bold;
+    color: white;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+.sessao-menu button {
+    background: transparent;
+    border: none;
+    color: #e6e6e6;
+    text-align: left;
+    padding: 9px 10px;
+    border-radius: 9px;
+    font-size: 0.92rem;
+    cursor: pointer;
+}
+
+.sessao-menu button:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.sessao-menu-dica {
+    margin: 4px 0 0;
+    padding: 6px 10px 2px;
+    font-size: 0.74rem;
+    color: #6b7077;
+}
+
+/* =========================================================
+   Navbar no PC: links na mesma linha do ícone da sessão
+   (o ícone fica à direita, os links ocupam o resto)
+   ========================================================= */
+@media (min-width: 992px) {
+    .navbar-custom .container-fluid {
+        flex-wrap: nowrap !important;
+        align-items: center;
+    }
+
+    .navbar-custom .navbar-linha-principal {
+        width: auto !important;
+        order: 2;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .navbar-custom .offcanvas {
+        order: 1;
+        flex-grow: 1;
+    }
+}
+
+/* =========================================================
+   Seletor de cor do ícone da sessão
+   ========================================================= */
+.sessao-menu {
+    min-width: 232px;
+}
+
+.sessao-menu-rotulo {
+    margin: 6px 0 0;
+    padding: 4px 10px 2px;
+    font-size: 0.78rem;
+    color: #9aa0a6;
+}
+
+.sessao-cores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 6px 10px 10px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 4px;
+}
+
+.sessao-menu .sessao-cor {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    flex: 0 0 auto;
+    transition: transform 0.1s ease;
+}
+
+.sessao-menu .sessao-cor:hover {
+    transform: scale(1.12);
+}
+
+.sessao-menu .sessao-cor.ativa {
+    border-color: #fff;
+    box-shadow: 0 0 0 2px #1a1a1a inset;
+}
+
+.sessao-cor-auto {
+    background-image: conic-gradient(#ff5f6d, #ffc371, #7bd88f, #4facfe, #b57bff, #ff5f6d);
+}
+
+.sessao-cor-custom {
+    display: inline-block;
+    background-image: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+    overflow: hidden;
+}
+
+.sessao-cor-custom::after {
+    content: "+";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.sessao-cor-custom input[type="color"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+}
