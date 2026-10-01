@@ -1,0 +1,17 @@
+{
+  "name": "OldNow Games — Hub de Jogos Grátis Online",
+  "short_name": "OldNow",
+  "description": "Jogue dezenas de jogos grátis direto do navegador: aventura, ação, simulação, esporte, puzzle e arcade.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0d0d0d",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    { "src": "img/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

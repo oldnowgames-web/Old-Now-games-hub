@@ -787,6 +787,12 @@ body {
         display: none;
     }
 
+    /* Menu lateral do navbar (offcanvas) ocupa 50% da tela no celular/tablet */
+    #menuMobileDireita {
+        --bs-offcanvas-width: 50vw;
+        width: 50vw;
+    }
+
     .container-blocos {
         width: 100%;
         margin-top: 138px;
@@ -1093,4 +1099,120 @@ body {
     .tela-inicial {
         background-color: black;
     }
+}
+
+/* --- Botão "Me surpreenda" (jogo aleatório) --- */
+.surpreenda-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 4vh;
+}
+
+.btn-surpreenda {
+    background: linear-gradient(135deg, #007bff, #6f42c1);
+    color: white;
+    border: none;
+    border-radius: 2vh;
+    padding: 8px 18px;
+    min-height: 38px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 123, 255, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-surpreenda:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(111, 66, 193, 0.45);
+}
+
+.btn-surpreenda:active {
+    transform: scale(0.96);
+}
+
+.btn-surpreenda:disabled {
+    cursor: default;
+}
+
+.btn-surpreenda .dado {
+    display: inline-block;
+}
+
+.btn-surpreenda.rolando .dado {
+    animation: dado-rolando 0.5s ease;
+}
+
+@keyframes dado-rolando {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(200deg) scale(1.35); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* --- Toggle do navbar (três risquinhos) sem borda --- */
+.navbar-custom .navbar-toggler {
+    border: none;
+}
+
+.navbar-custom .navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* --- Menu lateral do navbar (celular): fundo preto --- */
+@media (max-width: 991px) {
+    #menuMobileDireita {
+        background-color: #000 !important;
+    }
+}
+
+/* --- Avisos do app (nova versão disponível / dica de instalação) --- */
+.aviso-app {
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: calc(100vw - 24px);
+    padding: 10px 14px;
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+    font-size: 0.9rem;
+    animation: aviso-app-entrada 0.3s ease;
+}
+
+.aviso-app-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.aviso-app-btn:active {
+    transform: scale(0.95);
+}
+
+.aviso-app-fechar {
+    background: transparent;
+    color: #888;
+    border: none;
+    font-size: 1rem;
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+@keyframes aviso-app-entrada {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
 }

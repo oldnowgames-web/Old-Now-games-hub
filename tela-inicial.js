@@ -1,44 +1,33 @@
-/* ---------- Tela de Abertura (intro): deixa o navegador tocar o gif
-   normalmente (leve, nativo) e, no momento certo, troca pra uma imagem
-   estática real do último frame (img/inicio.png) — sem canvas, sem
-   decodificação manual de frames, sem limitações de captura de gif
-   animado via drawImage (que sempre pega o 1º frame em vários navegadores).
-   Depois disso mostra a rodinha e some. ---------- */
+/* ---------- Tela de Abertura (intro): o gif toca normalmente por metade
+   do tempo total (padrão: 3s) e, na outra metade (3s), a rodinha de
+   carregamento aparece por cima enquanto o gif segue rodando.
+   Ao fim do tempo total a tela some com fade. ---------- */
 (function telaDeAbertura() {
     const tela = document.getElementById("telaInicial");
     if (!tela) return;
 
-    const imgGif = document.getElementById("telaInicialGif");
-    const imgFrameFinal = document.getElementById("telaInicialFrameFinal");
     const spinner = document.getElementById("telaInicialSpinner");
 
-    const DURACAO_GIF_MS = parseInt(tela.dataset.duracaoGif, 10) || 6000;
-    const PAUSA_APOS_GIF_MS = 2000;
-    const RODINHA_VISIVEL_MS = 1500;
+    // Tempo total da intro (data-duracao-gif no HTML). Metade só gif, metade com rodinha.
+    const DURACAO_TOTAL_MS = parseInt(tela.dataset.duracaoGif, 10) || 6000;
+    const METADE_MS = DURACAO_TOTAL_MS / 2;
     const FADE_MS = 600;
 
     document.body.style.overflow = "hidden";
 
-    function trocarParaFrameFinal() {
-        if (!imgGif || !imgFrameFinal) return;
-        imgFrameFinal.classList.add("ativo");
-        imgGif.classList.remove("ativo");
-    }
-
+    // 1ª metade: só o gif. Na 2ª metade: aparece a rodinha.
     setTimeout(() => {
-        trocarParaFrameFinal();
+        if (spinner) spinner.classList.add("visivel");
+    }, METADE_MS);
 
-        setTimeout(() => {
-            if (spinner) spinner.classList.add("visivel");
-        }, PAUSA_APOS_GIF_MS);
+    // Fim: esmaece a tela
+    setTimeout(() => {
+        tela.classList.add("escondida");
+    }, DURACAO_TOTAL_MS);
 
-        setTimeout(() => {
-            tela.classList.add("escondida");
-        }, PAUSA_APOS_GIF_MS + RODINHA_VISIVEL_MS);
-
-        setTimeout(() => {
-            tela.remove();
-            document.body.style.overflow = "";
-        }, PAUSA_APOS_GIF_MS + RODINHA_VISIVEL_MS + FADE_MS + 100);
-    }, DURACAO_GIF_MS);
+    // Remove do DOM depois do fade
+    setTimeout(() => {
+        tela.remove();
+        document.body.style.overflow = "";
+    }, DURACAO_TOTAL_MS + FADE_MS + 100);
 })();

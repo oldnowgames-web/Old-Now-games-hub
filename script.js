@@ -1,3 +1,28 @@
+/* ---------- Sempre iniciar no topo da página (slide inicial do banner) ---------- */
+
+(function iniciarNoTopo() {
+    // impede o navegador de restaurar a posição de rolagem anterior (reload, voltar, etc.)
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+    // remove âncora (#favoritos etc.) da URL ao abrir, pra não pular direto pra uma seção
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+
+    // "instant" ignora o scroll-behavior: smooth do CSS
+    const irParaTopo = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    irParaTopo();
+
+    // reforça depois do load (alguns navegadores restauram a rolagem nesse momento),
+    // mas só se a pessoa ainda não mexeu na página
+    let usuarioRolou = false;
+    ["wheel", "touchstart", "keydown"].forEach(ev =>
+        window.addEventListener(ev, () => { usuarioRolou = true; }, { once: true, passive: true })
+    );
+    window.addEventListener("load", () => { if (!usuarioRolou) irParaTopo(); });
+
+    // voltar pra página pelo cache do navegador (bfcache)
+    window.addEventListener("pageshow", e => { if (e.persisted) irParaTopo(); });
+})();
+
 // A tela de abertura (intro com o gif) agora é controlada pelo tela-inicial.js
 
 // Base de dados dos jogos do hub.
@@ -99,7 +124,7 @@ const GAMES = [
         id: "aethelstar-neon",
         titulo: "Aethelstar Neon",
         descricao: "Desvie dos meteoros, uma nova aventura no espaço neon!.",
-        capa: "capas/aethestar-neon.jpeg",
+        capa: "capas/aethelstar-neon.png",
         imgs: ["naveneon/naveneon1.png", "naveneon/naveneon2.png", "naveneon/naveneon3.png"],
         link: "https://oldnowgames-web.github.io/Aethestar-Neon/",
         categoria: "aventura-acao",
@@ -951,3 +976,33 @@ if (elementosAnimados.length) {
 
     elementosAnimados.forEach(el => observerAnimacao.observe(el));
 }
+
+/* ---------- Botão "Me surpreenda": abre um jogo aleatório ---------- */
+
+(function botaoSurpreenda() {
+    const btn = document.getElementById("btnSurpreenda");
+    if (!btn) return;
+
+    let ultimoSorteado = null;
+
+    btn.addEventListener("click", () => {
+        // só jogos que já têm link (ignora os "Em breve")
+        const disponiveis = GAMES.filter(j => j.link && j.link !== "#");
+        if (!disponiveis.length) return;
+
+        // evita sortear o mesmo jogo duas vezes seguidas
+        let opcoes = disponiveis.filter(j => j.id !== ultimoSorteado);
+        if (!opcoes.length) opcoes = disponiveis;
+        const sorteado = opcoes[Math.floor(Math.random() * opcoes.length)];
+        ultimoSorteado = sorteado.id;
+
+        // animação rápida do dado antes de abrir o modal
+        btn.disabled = true;
+        btn.classList.add("rolando");
+        setTimeout(() => {
+            btn.classList.remove("rolando");
+            btn.disabled = false;
+            abrirJogoPeloId(sorteado.id);
+        }, 500);
+    });
+})();
