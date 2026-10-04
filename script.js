@@ -99,6 +99,30 @@ const GAMES = [
         categoria: "simulacao-estrategia",
         novo: false
     },
+
+       {
+        id: "burguer-now",
+        titulo: "Burguer Now",
+        descricao: "Gerencie sua hamburgueria, vire o mestre dos hamburgueres!",
+        capa: "capas/burguer.png",
+        imgs: ["burguer/burguer1.png", "burguer/burguer2.png", "burguer/burguer3.png"],
+        link: "https://oldnowgames-web.github.io/Burguer-Now/",
+        categoria: "simulacao-estrategia",
+        novo: false
+    },
+
+     {
+        id: "motoart-grau",
+        titulo: "Moto Art Grau",
+        descricao: "Faça manobras incríveis de moto, explore e dirija loucamente.",
+        capa: "capas/grau.png",
+        imgs: ["grau/grau1.png", "grau/grau3.png", "grau/grau3.png"],
+        link: "https://oldnowgames-web.github.io/Moto-Art-Grau/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
+
     {
         id: "neo-drop",
         titulo: "Neo Drop",
@@ -119,6 +143,18 @@ const GAMES = [
         categoria: "aventura-acao",
         novo: false
     },
+
+       {
+        id: "pixel-jump",
+        titulo: "Pixel Jump",
+        descricao: "Entre numa aventura pixel, pule e derrote inimigos?.",
+        capa: "capas/pixeljump.png",
+        imgs: ["pixeljump/pixeljump1.png", "pixeljump/pixeljump2.png", "pixeljump/pixeljump3.png"],
+        link: "https://oldnowgames-web.github.io/Pixel-Jump/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+    
 
 
         {
