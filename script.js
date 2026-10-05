@@ -79,6 +79,17 @@ const GAMES = [
         categoria: "aventura-acao",
         novo: false
     },
+
+      {
+        id: "quebra-meteoro",
+        titulo: "Quebra Meteoro",
+        descricao: "Desafie suas habilidades de clique destruindo os meteoros da tela! .",
+        capa: "capas/quebrameteor.png",
+        imgs: ["quebrameteoro/meteor.png", "quebrameteoro/meteor.png", "quebrameteoro/meteor.png"],
+        link: "https://oldnowgames-web.github.io/Qubra-Meteoro/",
+        categoria: "aventura-acao",
+        novo: false
+    },
     {
         id: "pixel-saga",
         titulo: "Pixel Saga: Exploração na Lua",
@@ -107,6 +118,17 @@ const GAMES = [
         capa: "capas/burguer.png",
         imgs: ["burguer/burguer1.png", "burguer/burguer2.png", "burguer/burguer3.png"],
         link: "https://oldnowgames-web.github.io/Burguer-Now/",
+        categoria: "simulacao-estrategia",
+        novo: false
+    },
+
+       {
+        id: "pixel-fish",
+        titulo: "Pixel Fish",
+        descricao: "Pesque e venda peixes no Pixel Fish, descubra diferentes peixes e ganhe dinheiro.",
+        capa: "capas/pixelfish.png",
+        imgs: ["pixelfish/fish1.jpeg", "pixelfish/fish2.jpeg", "pixelfish/fish3.jpeg"],
+        link: "https://oldnowgames-web.github.io/Pixel-Fish/",
         categoria: "simulacao-estrategia",
         novo: false
     },
@@ -151,6 +173,18 @@ const GAMES = [
         capa: "capas/pixeljump.png",
         imgs: ["pixeljump/pixeljump1.png", "pixeljump/pixeljump2.png", "pixeljump/pixeljump3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Jump/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
+    
+       {
+        id: "polar-jump",
+        titulo: "Polar Jump",
+        descricao: "Embarque na grande aventura de Nanuk, um urso polar em busca da ilha do norte.",
+        capa: "capas/polarjump.png",
+        imgs: ["polarjump/polar1.png", "polarjump/polar2.png", "polarjump/polar3.png"],
+        link: "https://oldnowgames-web.github.io/Polar-Jump/",
         categoria: "aventura-acao",
         novo: false
     },
@@ -201,6 +235,18 @@ const GAMES = [
         categoria: "esporte-racing",
         novo: false
     },
+
+       {
+        id: "sinuca-boteco",
+        titulo: "Sinuca de Boteco",
+        descricao: "Ação frenética de corrida e manobras impressionantes.",
+        capa: "capas/sinuca.jpeg",
+        imgs: ["sinuca/sinuca1.png", "sinuca/sinuca2.png", "sinuca/sinuca3.png"],
+        link: "https://oldnowgames-web.github.io/Sinuca-de-Buteco/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
     {
         id: "aethelstar",
         titulo: "Aethelstar",
