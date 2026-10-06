@@ -32,6 +32,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
     <link rel="stylesheet" href="bot.css">
+    <link rel="stylesheet" href="area.css">
 </head>
 
 <body>
@@ -106,6 +107,7 @@
                 <li><a href="#" class="active"><img src="img/icon_home.png" alt="icone_casa">Início</a></li>
                 <li><a href="#"><img src="img/icon_biblioteca.png" alt="icone-biblioteca"> Biblioteca</a></li>
                 <li><a href="#favoritos">🤍 Favoritos </a></li>
+                <li><a href="#" data-area-abrir>🧩 <span data-area-rotulo>Criar minha área</span></a></li>
                 <li class="d-none" data-instalar-app><a href="#">📲 Instalar app</a></li>
             </ul>
         </div>
@@ -166,6 +168,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#parceiros">Nossos parceiros</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-area-abrir>🧩 <span data-area-rotulo>Criar minha área</span></a>
+                                </li>
                                 <li class="nav-item d-none" data-instalar-app>
                                     <a class="nav-link" href="#">📲 Instalar app</a>
                                 </li>
@@ -212,6 +217,7 @@
 
           <div class="surpreenda-wrap">
                 <button type="button" id="btnSurpreenda" class="btn-surpreenda"><span class="dado">🎲</span> Me surpreenda</button>
+                <button type="button" class="btn-area-hub" data-area-abrir>🧩 <span data-area-rotulo>Criar minha área</span></button>
             </div>
 
             <!-- SEÇÃO: Continue Jogando (só aparece se houver histórico) -->
@@ -505,6 +511,66 @@
         <iframe id="playerIframe" class="player-iframe" src="" title="Jogo" allowfullscreen></iframe>
     </div>
 
+    <!-- Minha área: seleção de jogos + tela com as capas lado a lado -->
+    <div id="areaOverlay" class="area-overlay d-none" role="dialog" aria-modal="true" aria-labelledby="areaTitulo">
+        <div class="area-topbar">
+            <button type="button" class="area-btn" id="areaVoltar">← Hub</button>
+            <span class="area-titulo" id="areaTitulo">Minha área</span>
+            <button type="button" class="area-btn" id="areaPersonalizar" aria-label="Personalizar" title="Personalizar fundo e espaçamento" aria-expanded="false" hidden>🎨 <span class="area-btn-texto">Personalizar</span></button>
+            <button type="button" class="area-btn" id="areaEditar" aria-label="Editar jogos" title="Editar jogos" hidden>✏️ <span class="area-btn-texto">Editar jogos</span></button>
+        </div>
+
+        <!-- Painel de personalização: fundo (cor ou imagem) e espaçamento -->
+        <div class="area-painel" id="areaPainel" role="dialog" aria-label="Personalizar área" hidden>
+            <p class="area-painel-titulo">Fundo</p>
+            <div class="area-cores" id="areaCores" role="group" aria-label="Cor de fundo"></div>
+            <div class="area-painel-linha">
+                <label class="area-btn area-btn-arquivo">🖼️ Escolher imagem
+                    <input type="file" id="areaImagem" accept="image/*" hidden>
+                </label>
+                <button type="button" class="area-btn" id="areaFundoPadrao">Voltar ao padrão</button>
+            </div>
+            <div class="area-escurecer" id="areaEscurecerWrap" hidden>
+                <label for="areaEscurecer">Escurecer a imagem</label>
+                <input type="range" id="areaEscurecer" min="0" max="80" step="5" value="35">
+            </div>
+            <p class="area-painel-aviso" id="areaPainelAviso" role="alert" hidden></p>
+
+            <p class="area-painel-titulo">Espaçamento entre os jogos</p>
+            <div class="area-segmentos" id="areaEspacos" role="group" aria-label="Espaçamento entre os jogos">
+                <button type="button" data-espaco="compacto">Compacto</button>
+                <button type="button" data-espaco="normal">Normal</button>
+                <button type="button" data-espaco="amplo">Amplo</button>
+            </div>
+        </div>
+
+        <div class="area-corpo">
+            <!-- Modo seleção: escolher os jogos da área -->
+            <div class="area-selecao" id="areaSelecao" hidden>
+                <div class="area-filtros-wrap">
+                    <input type="search" id="areaBusca" class="area-busca" placeholder="Buscar jogos..." aria-label="Buscar jogos" autocomplete="off">
+                    <div class="area-chips" id="areaChips" role="group" aria-label="Filtrar por categoria"></div>
+                </div>
+                <div class="area-rolagem">
+                    <div class="area-grade" id="areaLista"></div>
+                    <p class="area-vazio-busca" id="areaSemResultado" hidden>Nenhum jogo encontrado.</p>
+                </div>
+                <div class="area-acoes-barra">
+                    <span class="area-contagem" id="areaContagem"></span>
+                    <button type="button" class="area-btn" id="areaCancelar">Cancelar</button>
+                    <button type="button" class="area-btn area-btn-principal" id="areaSalvar">Criar área</button>
+                </div>
+            </div>
+
+            <!-- Modo área: capas lado a lado -->
+            <div class="area-visao" id="areaVisao" hidden>
+                <div class="area-rolagem">
+                    <div class="area-grade" id="areaGrade"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <button type="button" id="btnTopo" class="btn-topo" title="Voltar ao topo" aria-label="Voltar ao topo">↑</button>
 
        <!-- Assistente OldNow (bot) -->
@@ -526,6 +592,7 @@
     <script src="tela-inicial.js"></script>
     <script src="tela-entrada.js"></script>
     <script src="script.js"></script>
+    <script src="area.js"></script>
     <script src="bot.js"></script>
     <script src="pwa.js"></script>
 </body>

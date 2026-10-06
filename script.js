@@ -27,7 +27,7 @@
 
 // Base de dados dos jogos do hub.
 // categoria: 'aventura-acao' | 'simulacao-estrategia' | 'esporte-racing' | 'puzzle' | 'arcade' | 'tabuleiro' | null
-// novo: true mostra a tag "NOVO" no card
+// novo: false mostra a tag "NOVO" no card
 const GAMES = [
     {
         id: "city-mind",
@@ -67,7 +67,7 @@ const GAMES = [
         imgs: ["marte/marte1.png" , "marte/marte2.png" , "marte/marte3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-em-Marte/",
         categoria: "simulacao-estrategia",
-        novo: true
+        novo: false
     },
     {
         id: "wow-balls",
@@ -228,13 +228,26 @@ const GAMES = [
     {
         id: "car-tape",
         titulo: "Car Tape: The Last Race",
-        descricao: "Ação frenética de corrida em pixel art. Chegue primeiro antes que a fita acabe.",
+        descricao: "Ação frenética de corrida e manobras radicais.",
         capa: "capas/CarTape.png",
         imgs: ["cartape/cartape1.png", "cartape/cartape2.png", "cartape/cartape3.png"],
         link: "https://oldnowgames-web.github.io/Car-Tape-the-last-race/",
         categoria: "esporte-racing",
         novo: false
     },
+
+       {
+        id: "pixel-cars",
+        titulo: "Pixel Cars",
+        descricao: "Desvie dos carros e corra!",
+        capa: "capas/pixelcars.png",
+        imgs: ["pixelcars/pixelcar1.png", "pixelcars/pixelcar2.png", "pixelcars/pixelcar3.png"],
+        link: "https://oldnowgames-web.github.io/Pixel-Cars/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
+
 
        {
         id: "sinuca-boteco",
@@ -308,7 +321,7 @@ const GAMES = [
         imgs: ["golfe/golfe1.png","golfe/golfe2.png","golfe/golfe3.png"],
         link: "https://oldnowgames-web.github.io/A-Little-golf/",
         categoria: "esporte-racing",
-        novo: true
+        novo: false
     },
 
     {
@@ -370,7 +383,7 @@ const GAMES = [
         imgs: ["pixeldash/pixeldash1.png", "pixeldash/pixeldash2.png", "pixeldash/pixeldash3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Dash/",
         categoria: "aventura-acao",
-        novo: true
+        novo: false
     },
     {
         id: "labirinto-cartografico",
@@ -734,12 +747,12 @@ if (topCarousel) {
     function aplicarAltura() {
         if (!imgReferencia.naturalWidth) return;
         const proporcao = imgReferencia.naturalHeight / imgReferencia.naturalWidth;
-        const fator = 1.12; // um pouco mais alto que a proporção real (sem esticar, pois o slide 1 usa object-fit: contain)
+        const fator = 1; // altura exata do slide 1: sem barras vazias, então os cantos arredondados aparecem
         const alturaAlvo = Math.round(topCarousel.offsetWidth * proporcao * fator);
 
         todasImagens.forEach(img => {
             img.style.height = alturaAlvo + "px";
-            img.style.objectFit = (img === imgReferencia) ? "contain" : "cover";
+            img.style.objectFit = "cover";
         });
     }
 

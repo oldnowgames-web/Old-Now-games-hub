@@ -198,6 +198,11 @@ body {
     max-width: 100%;
 }
 
+#carouselExample .carousel-inner {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
 .carousel-banner-img {
     width: 100%;
     display: block;

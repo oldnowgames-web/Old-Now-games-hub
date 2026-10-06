@@ -1,0 +1,444 @@
+/* =========================================================
+   OldNow Games — area.css
+   "Minha área": tela própria com os jogos escolhidos pelo jogador
+   - modo seleção: escolher quais jogos entram na área
+   - modo área: capas lado a lado (flex-wrap), estilo área de apps
+   ========================================================= */
+
+html.area-aberta,
+html.area-aberta body {
+    overflow: hidden !important;
+}
+
+.area-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1040; /* acima do menu/navbar (1030), abaixo do modal (1055) e do player (2000) */
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(160deg, #0b1020 0%, #0d0d0d 55%, #150d24 100%);
+    color: white;
+    animation: area-entrada 0.25s ease;
+}
+
+.area-overlay.d-none { display: none !important; }
+.area-overlay [hidden] { display: none !important; }
+
+@keyframes area-entrada {
+    from { opacity: 0; transform: scale(0.985); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- Barra superior ---------- */
+
+.area-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px;
+    background-color: rgba(13, 13, 13, 0.72);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.area-titulo {
+    flex: 1;
+    min-width: 0;
+    font-size: 1.05rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.area-btn {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 8px 14px;
+    min-height: 38px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.area-btn:hover { background-color: rgba(255, 255, 255, 0.16); }
+.area-btn:active { transform: scale(0.96); }
+
+.area-btn-principal {
+    background: linear-gradient(135deg, #007bff, #6f42c1);
+    border-color: transparent;
+    font-weight: bold;
+}
+.area-btn-principal:hover { background: linear-gradient(135deg, #1a8cff, #7f55d0); }
+.area-btn-principal:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---------- Corpo (rolagem) ---------- */
+
+.area-corpo {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.area-visao,
+.area-selecao {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.area-rolagem {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 16px 96px; /* folga embaixo para o botão do assistente */
+}
+
+/* ---------- Capas (usadas na seleção e na área) ---------- */
+
+.area-grade {
+    --area-capa-w: 150px;
+    --area-gap: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--area-gap);
+    justify-content: flex-start;
+    align-content: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.area-card {
+    position: relative;
+    flex: 0 0 auto;
+    width: var(--area-capa-w);
+    aspect-ratio: 2 / 3;
+    padding: 0;
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #111;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, outline-color 0.15s ease;
+    animation: area-card-entrada 0.35s ease both;
+    animation-delay: calc(var(--i, 0) * 25ms);
+}
+
+.area-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.area-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 22px rgba(0, 123, 255, 0.4);
+}
+.area-card:active { transform: scale(0.96); }
+.area-card:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+@keyframes area-card-entrada {
+    from { opacity: 0; transform: translateY(10px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* selo de "escolhido" (modo seleção) */
+.area-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.55);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    color: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.area-selecao .area-card:not(.escolhido) img { opacity: 0.72; }
+
+.area-card.escolhido {
+    outline: 3px solid #007bff;
+    outline-offset: -3px;
+}
+.area-card.escolhido .area-check {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+/* ---------- Seleção: busca, filtros e barra de ações ---------- */
+
+.area-filtros-wrap {
+    padding: 12px 16px 0;
+    max-width: 1232px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.area-busca {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.92rem;
+    outline: none;
+}
+.area-busca:focus { border-color: #007bff; }
+.area-busca::placeholder { color: #888; }
+
+.area-chips {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+.area-chips::-webkit-scrollbar { display: none; }
+
+.area-chip {
+    flex: 0 0 auto;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+.area-chip:hover { background-color: rgba(255, 255, 255, 0.14); color: white; }
+.area-chip.ativo {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.area-vazio-busca {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+
+.area-acoes-barra {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background-color: rgba(13, 13, 13, 0.85);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.area-contagem {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* na seleção a barra de ações já dá o respiro embaixo */
+.area-selecao .area-rolagem { padding-bottom: 24px; }
+
+/* ---------- Botão da área no hub (ao lado do "Me surpreenda") ---------- */
+
+.surpreenda-wrap {
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-area-hub {
+    background-color: transparent;
+    color: white;
+    border: 1px solid #3a3a3a;
+    border-radius: 2vh;
+    padding: 8px 18px;
+    min-height: 38px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-area-hub:hover {
+    background-color: #1a1a1a;
+    border-color: #6f42c1;
+    transform: translateY(-2px);
+}
+.btn-area-hub:active { transform: scale(0.96); }
+
+
+/* ---------- Espaçamento entre as capas (só na área; a seleção fica mais compacta) ---------- */
+
+.area-visao .area-grade { --area-gap: 38px; }                              /* amplo (padrão) */
+.area-visao .area-grade[data-espaco="normal"] { --area-gap: 22px; }
+.area-visao .area-grade[data-espaco="compacto"] { --area-gap: 12px; }
+
+.area-visao .area-rolagem { padding-top: 32px; }
+
+/* ---------- Botões da barra (texto some no celular, fica só o ícone) ---------- */
+
+@media (max-width: 480px) {
+    .area-btn-texto { display: none; }
+    .area-topbar .area-btn { padding-left: 12px; padding-right: 12px; }
+}
+
+/* ---------- Painel de personalização ---------- */
+
+.area-painel {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 64px);
+    right: 12px;
+    z-index: 5;
+    width: min(340px, calc(100vw - 24px));
+    max-height: calc(100% - 84px);
+    overflow-y: auto;
+    padding: 14px;
+    background-color: rgba(18, 18, 22, 0.96);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65);
+    animation: area-entrada 0.18s ease;
+}
+
+.area-painel-titulo {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 8px;
+}
+.area-painel-titulo:not(:first-child) { margin-top: 16px; }
+
+.area-cores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.area-cor {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.12s ease, border-color 0.12s ease;
+}
+.area-cor:hover { transform: scale(1.12); }
+.area-cor.ativa { border-color: #fff; box-shadow: 0 0 0 2px #007bff; }
+
+.area-cor-padrao { background: linear-gradient(160deg, #0b1020 0%, #0d0d0d 55%, #150d24 100%); }
+
+.area-cor-custom {
+    display: inline-block;
+    overflow: hidden;
+    background: conic-gradient(#e83e8c, #fd7e14, #ffc107, #28a745, #17a2b8, #007bff, #6f42c1, #e83e8c);
+}
+.area-cor-custom input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.area-painel-linha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.area-btn-arquivo { display: inline-flex; align-items: center; gap: 6px; }
+
+.area-escurecer {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #ccc;
+}
+.area-escurecer input { width: 100%; accent-color: #007bff; }
+
+.area-painel-aviso {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: #ffb4b4;
+}
+
+.area-segmentos {
+    display: flex;
+    gap: 4px;
+    padding: 3px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+}
+.area-segmentos button {
+    flex: 1;
+    background: transparent;
+    color: #ccc;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 6px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+.area-segmentos button:hover { color: #fff; }
+.area-segmentos button.ativo { background-color: #007bff; color: #fff; font-weight: bold; }
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 600px) {
+    .area-grade {
+        --area-gap: 12px;
+        /* 3 capas por linha */
+        --area-capa-w: calc((100vw - 32px - 2 * var(--area-gap)) / 3);
+    }
+    .area-visao .area-grade { --area-gap: 22px; }
+    .area-visao .area-grade[data-espaco="normal"] { --area-gap: 14px; }
+    .area-visao .area-grade[data-espaco="compacto"] { --area-gap: 8px; }
+    .area-topbar { padding-left: 12px; padding-right: 12px; }
+    .area-painel { right: 12px; left: 12px; width: auto; }
+    .area-rolagem { padding: 16px 16px 96px; }
+    .area-selecao .area-rolagem { padding-bottom: 24px; }
+    .area-check { width: 22px; height: 22px; font-size: 0.78rem; top: 6px; right: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .area-overlay,
+    .area-card { animation: none; }
+}

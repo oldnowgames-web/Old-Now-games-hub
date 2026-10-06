@@ -21,7 +21,8 @@
         "oldnow_favoritos",
         "oldnow_recentes",
         "oldnow_avaliacoes",
-        "oldnow_jogadas"
+        "oldnow_jogadas",
+        "oldnow_area"
     ];
     const NOME_MAX = 20;
     const FADE_MS = 350;
@@ -187,7 +188,7 @@
 
         const sessao = lerSessao();
         if (apagar && sessao) {
-            elAviso.textContent = "Isso apaga os favoritos e os jogos recentes de " + sessao.nome + ".";
+            elAviso.textContent = "Isso apaga os favoritos, os jogos recentes e a área de " + sessao.nome + ".";
             elAviso.hidden = false;
             $("entradaConfirmar").textContent = "Apagar e criar sessão";
         } else {
