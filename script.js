@@ -188,6 +188,17 @@ const GAMES = [
         categoria: "aventura-acao",
         novo: false
     },
+
+      {
+        id: "dead-hunter3d",
+        titulo: "Dead Hunter 3D",
+        descricao: "Derrote zombies poderosos, conquiste novas armas para salvar o planeta.",
+        capa: "capas/deadhunter.png",
+        imgs: ["deadhunter/deadhunter1.png", "deadhunter/deadhunter2.png", "deadhunter/deadhunter3.png"],
+        link:"https://oldnowgames-web.github.io/Dead-Hunter-3d/",
+        categoria: "aventura-acao",
+        novo: false
+    },
     
 
 
@@ -246,6 +257,20 @@ const GAMES = [
         categoria: "esporte-racing",
         novo: false
     },
+
+         {
+        id: "old-racers",
+        titulo: "Old Racers",
+        descricao: "Uma corrida clássica, aproveite a vista e vença a corrida!",
+        capa: "capas/oldracers.png",
+        imgs: ["oldcars/oldcars1.png", "oldcars/oldcars2.png", "oldcars/oldcars3.png"],
+        link: "https://oldnowgames-web.github.io/Old-Racers/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
+
+    
 
 
 
