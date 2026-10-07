@@ -122,6 +122,17 @@ const GAMES = [
         novo: false
     },
 
+     {
+        id: "crazy-8",
+        titulo: "Crazy 8",
+        descricao: "O clássioc jogo de baralho !",
+        capa: "capas/crazy.jpeg",
+        imgs: ["crazy/crazy1.png", "crazy/crazy2.png", "crazy/crazy3.png"],
+        link: "https://oldnowgames-web.github.io/Crazy-8/",
+        categoria: "simulacao-estrategia",
+        novo: false
+    },
+
        {
         id: "pixel-fish",
         titulo: "Pixel Fish",

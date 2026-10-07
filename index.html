@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>OldNow Games — Hub de Jogos Grátis Online</title>
     <meta name="description" content="Jogue dezenas de jogos grátis direto do navegador: aventura, ação, simulação, esporte, puzzle e arcade. Sem baixar nada.">
     <meta name="theme-color" content="#0d0d0d">
@@ -28,11 +28,17 @@
     <meta name="apple-mobile-web-app-title" content="OldNow">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+    <!-- Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
     <link rel="stylesheet" href="bot.css">
     <link rel="stylesheet" href="area.css">
+    <link rel="stylesheet" href="social.css">
 </head>
 
 <body>
@@ -108,6 +114,7 @@
                 <li><a href="#"><img src="img/icon_biblioteca.png" alt="icone-biblioteca"> Biblioteca</a></li>
                 <li><a href="#favoritos">🤍 Favoritos </a></li>
                 <li><a href="#" data-area-abrir>🧩 <span data-area-rotulo>Criar minha área</span></a></li>
+                <li><a href="#" data-social-abrir>📸 Instagram</a></li>
                 <li class="d-none" data-instalar-app><a href="#">📲 Instalar app</a></li>
             </ul>
         </div>
@@ -218,6 +225,19 @@
           <div class="surpreenda-wrap">
                 <button type="button" id="btnSurpreenda" class="btn-surpreenda"><span class="dado">🎲</span> Me surpreenda</button>
                 <button type="button" class="btn-area-hub" data-area-abrir>🧩 <span data-area-rotulo>Criar minha área</span></button>
+                <button type="button" class="btn-area-hub btn-social-hub" data-social-abrir aria-label="Abrir o Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg> Instagram</button>
+            </div>
+
+            <!-- SEÇÃO: Em alta (seus jogos mais jogados; só aparece se houver histórico) -->
+            <div class="secao-carrossel d-none" id="em-alta">
+                <p class="secao-titulo">🔥 Em alta <span class="contagem">· seus mais jogados</span></p>
+                <div class="blocos">
+                    <div class="blocos-wrapper" id="wrapper-em-alta"></div>
+                </div>
+                <div class="controles-carrossel d-flex">
+                    <button class="btn-control prev">❮</button>
+                    <button class="btn-control next">❯</button>
+                </div>
             </div>
 
             <!-- SEÇÃO: Continue Jogando (só aparece se houver histórico) -->
@@ -380,6 +400,11 @@
                     <h1>Quem somos</h1>
                     <p>Somos um projeto de jogos online de navegador, começamos em 2025 com a intenção de criar um jogo para Expoete, uma feira de técnologia da ETEC Pedro Ferreira Alves de Mogi Mirim, apresentamos nosso primeiro jogo: Pixel Saga - Para outro Planeta, então depois disso pensamos em aumentar nosso projeto, agora oque era para ser apenas um jogo são dezenas de jogos, a Old Now games estará sempre evoluindo e mostrando oque pode fazer <br>
                     Bem Vindo à Old Now games</p>
+                    <div class="qs-stats" aria-label="O hub em números">
+                        <div class="qs-stat"><strong data-stat="jogos">30+</strong><span>jogos</span></div>
+                        <div class="qs-stat"><strong data-stat="categorias">6</strong><span>categorias</span></div>
+                        <div class="qs-stat"><strong>2025</strong><span>no ar desde</span></div>
+                    </div>
                 </div>
             </div>
  
@@ -428,6 +453,13 @@
                         <a href="#puzzle">Puzzle</a>
                         <a href="#arcade">Arcade</a>
                         <a href="#tabuleiro">Tabuleiro</a>
+                    </div>
+
+                    <div class="rodape-links">
+                        <p class="rodape-coluna-titulo">Redes sociais</p>
+                        <div class="social-botoes">
+                            <button type="button" class="social-icone" data-social-abrir aria-label="Abrir o Instagram da OldNow Games" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></button>
+                        </div>
                     </div>
                 </div>
 
@@ -571,6 +603,19 @@
         </div>
     </div>
 
+    <!-- Redes sociais: janelinha do Instagram (imagem + link embaixo) -->
+    <div id="socialOverlay" class="social-overlay" role="dialog" aria-modal="true" aria-labelledby="socialTitulo" hidden>
+        <div class="social-caixa">
+            <button type="button" class="social-fechar" id="socialFechar" aria-label="Fechar">✕</button>
+            <p class="social-titulo" id="socialTitulo">Siga a OldNow no Instagram</p>
+            <!-- Troque img/instagram.png pela sua imagem -->
+            <img id="socialImagem" class="social-imagem" src="img/instagram.png" alt="Instagram da OldNow Games">
+            <p class="social-sem-imagem" id="socialSemImagem" hidden>Coloque sua imagem em img/instagram.png</p>
+            <!-- Troque o link e o texto pelo seu Instagram -->
+            <a class="social-link" href="https://www.instagram.com/SEU_USUARIO/" target="_blank" rel="noopener noreferrer">instagram.com/SEU_USUARIO</a>
+        </div>
+    </div>
+
     <button type="button" id="btnTopo" class="btn-topo" title="Voltar ao topo" aria-label="Voltar ao topo">↑</button>
 
        <!-- Assistente OldNow (bot) -->
@@ -594,6 +639,7 @@
     <script src="script.js"></script>
     <script src="area.js"></script>
     <script src="bot.js"></script>
+    <script src="social.js"></script>
     <script src="pwa.js"></script>
 </body>
 </html>

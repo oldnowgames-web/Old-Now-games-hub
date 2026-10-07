@@ -1,0 +1,131 @@
+/* =========================================================
+   OldNow Games — social.css
+   Redes sociais: ícone do Instagram + janelinha com imagem e link
+   ========================================================= */
+
+.social-botoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.social-icone {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.social-icone svg { width: 22px; height: 22px; fill: currentColor; }
+.social-icone:hover { transform: translateY(-3px) scale(1.06); box-shadow: 0 8px 18px rgba(220, 39, 67, 0.45); }
+.social-icone:active { transform: scale(0.94); }
+.social-icone:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* ---------- Janelinha ---------- */
+
+html.social-aberto, html.social-aberto body { overflow: hidden !important; }
+
+.social-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2100; /* acima do player (2000) e do bot (1500) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.75);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    animation: social-fade 0.2s ease;
+}
+.social-overlay[hidden] { display: none !important; }
+
+@keyframes social-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes social-pop {
+    from { opacity: 0; transform: translateY(12px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.social-caixa {
+    position: relative;
+    width: min(380px, 100%);
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 22px 18px 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #121216;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.7);
+    animation: social-pop 0.22s ease;
+}
+
+.social-fechar {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: 0;
+    color: #999;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 6px 8px;
+}
+.social-fechar:hover { color: #fff; }
+
+.social-titulo { font-size: 1.1rem; font-weight: bold; margin: 0 0 14px; }
+
+.social-imagem {
+    display: block;
+    width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: #0d0d0d;
+}
+
+.social-sem-imagem {
+    margin: 0;
+    padding: 28px 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.social-link {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.92rem;
+    text-decoration: none;
+    word-break: break-all;
+    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+.social-link:hover { color: #fff; filter: brightness(1.12); transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+    .social-overlay, .social-caixa { animation: none; }
+}
+
+/* ---------- Botão do hub (ao lado do "Minha área") ---------- */
+.btn-social-hub {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-social-hub svg { width: 16px; height: 16px; fill: currentColor; }
+.btn-social-hub:hover { border-color: #dc2743; }
