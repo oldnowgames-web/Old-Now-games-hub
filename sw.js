@@ -28,10 +28,12 @@ const SHELL = [
     "pwa.js",
     "area.css",
     "area.js",
+    "tempo.js",
     "manifest.webmanifest",
     "icons/icon-192.png",
     "icons/icon-512.png",
     "img/old_now-logo.jpeg"
+
 ];
 
 // Origens externas que o hub usa e podem ser guardadas em cache.

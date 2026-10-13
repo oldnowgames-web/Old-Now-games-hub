@@ -288,7 +288,7 @@ const GAMES = [
        {
         id: "sinuca-boteco",
         titulo: "Sinuca de Boteco",
-        descricao: "Ação frenética de corrida e manobras impressionantes.",
+        descricao: "O clássico jogo de sinuca agora onde voçê estiver, jogue com os amigos e divirta-se.",
         capa: "capas/sinuca.jpeg",
         imgs: ["sinuca/sinuca1.png", "sinuca/sinuca2.png", "sinuca/sinuca3.png"],
         link: "https://oldnowgames-web.github.io/Sinuca-de-Buteco/",

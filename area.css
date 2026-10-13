@@ -442,3 +442,36 @@ html.area-aberta body {
     .area-overlay,
     .area-card { animation: none; }
 }
+
+/* ---------- Ícone da "Minha área" (no lugar do emoji) ---------- */
+
+.icone-area {
+    flex: 0 0 auto;
+    fill: currentColor;   /* acompanha a cor do texto: cinza no menu, branco no hover */
+}
+
+/* menu lateral (PC): mesmo tamanho dos outros ícones do menu */
+.menu-links li .icone-area {
+    width: 3vh;
+    height: 3vh;
+    margin-right: 8px;
+}
+
+/* botão do hub, ao lado do "Me surpreenda" */
+.btn-area-icone {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-area-icone .icone-area {
+    width: 16px;
+    height: 16px;
+}
+
+/* menu lateral do celular: ícone de baixar igual ao do menu do PC */
+.icone-menu-mobile {
+    width: 1.3em;
+    height: 1.3em;
+    margin-right: 8px;
+    vertical-align: -0.25em;
+}
