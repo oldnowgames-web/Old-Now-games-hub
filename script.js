@@ -380,6 +380,19 @@ const GAMES = [
         categoria: "tabuleiro",
         novo: false
     },
+
+     {
+        id: "ludo",
+        titulo: "Ludo",
+        descricao: "O clássico jogo de ludo, teste suas habilidades.",
+        capa: "capas/ludo.png",
+        imgs: ["ludo/ludo1.png", "ludo/ludo2.png", "ludo/ludo3.png"],
+        link: "https://oldnowgames-web.github.io/Ludo/",
+        categoria: "tabuleiro",
+        novo: false
+    },
+
+
     {
         id: "damas",
         titulo: "Damas",
@@ -428,6 +441,18 @@ const GAMES = [
         capa: "capas/labirinto.png",
         imgs: ["labirinto/lab1.png", "labirinto/lab2.png", "labirinto/lab3.png"],
         link: "https://oldnowgames-web.github.io/Labirinto-cartografico/",
+        categoria: "puzzle",
+        novo: false
+    },
+
+
+      {
+        id: "conect-color",
+        titulo: "Conect Color",
+        descricao: "Ligue os fios da mesma cor.",
+        capa: "capas/conectcolor.png",
+        imgs: ["conectcolor/color1.png", "conectcolor/color2.png", "conectcolor/color3.png"],
+        link: "https://oldnowgames-web.github.io/Conect-color/",
         categoria: "puzzle",
         novo: false
     }
