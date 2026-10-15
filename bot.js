@@ -253,7 +253,7 @@
         "esporte-racing": "esporte racing",
         "puzzle": "puzzle",
         "arcade": "arcade fliperama",
-        "tabuleiro": "tabuleiro"
+        "tabuleiro": "tabuleiro mesa"
     };
 
     const SIN_IDX = new Map();           // radical -> índices de grupos
@@ -346,7 +346,8 @@
     }
 
     function preparar(texto) {
-        let toks = normalizar(texto).split(" ").filter(Boolean);
+        // "jogos de mesa" é o nome novo da categoria "tabuleiro"
+        let toks = normalizar(texto).replace(/\bjogos? de mesa\b/g, "tabuleiro").split(" ").filter(Boolean);
         toks = toks.flatMap(tk => ABREV[tk] ? ABREV[tk].split(" ") : [tk]);
         toks = toks.filter(tk => !/^(k+|(ha){2,}h?|(he){2,}h?|rs+)$/.test(tk));
         toks = corrigir(toks);
@@ -1250,7 +1251,7 @@
         { id: "contato", rx: /\b(contato|instagram|insta|redes|feedback|reclamacao|falar com (voces|a equipe))\b/, peso: 4,
           resp: () => rInstagram() },
         { id: "multi", rx: /\b(multiplayer|dois jogadores|2 jogadores|com amigo|com amigos|jogar junto|online com)\b/, peso: 4,
-          resp: () => ({ texto: "Ainda não marquei quais jogos têm modo para dois jogadores. Os de **tabuleiro** (Xadrez, Damas, Tic Tac Chaos) costumam ser ótimos pra jogar com alguém. Dá uma olhada dentro do jogo pra ver as opções!", chips: [{ texto: "♟️ Ver tabuleiro", acao: () => responder(rLista({ toks: [], cat: "tabuleiro", rotulo: "Tabuleiro" })) }] }) }
+          resp: () => ({ texto: "Ainda não marquei quais jogos têm modo para dois jogadores. Os **jogos de mesa** (Xadrez, Damas, Crazy 8, Tic Tac Chaos) costumam ser ótimos pra jogar com alguém. Dá uma olhada dentro do jogo pra ver as opções!", chips: [{ texto: "🃏 Ver jogos de mesa", acao: () => responder(rLista({ toks: [], cat: "tabuleiro", rotulo: "Jogos de Mesa" })) }] }) }
     ];
 
     /* =========================================================
