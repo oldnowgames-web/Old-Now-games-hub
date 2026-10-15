@@ -125,11 +125,34 @@ const GAMES = [
      {
         id: "crazy-8",
         titulo: "Crazy 8",
-        descricao: "O clássioc jogo de baralho !",
+        descricao: "O clássico jogo de baralho !",
         capa: "capas/crazy.jpeg",
         imgs: ["crazy/crazy1.png", "crazy/crazy2.png", "crazy/crazy3.png"],
         link: "https://oldnowgames-web.github.io/Crazy-8/",
-        categoria: "simulacao-estrategia",
+        categoria: "tabuleiro",
+        novo: false
+    },
+
+    
+     {
+        id: "paciencia",
+        titulo: "Paciência",
+        descricao: "O clássico jogo de paciência agora em pixel art.",
+        capa: "capas/paciencia.png",
+        imgs: ["paciencia/paciencia1.png", "paciencia/paciencia2.png", "paciencia/paciencia3.png"],
+        link: "https://oldnowgames-web.github.io/Paciencia/",
+        categoria: "tabuleiro",
+        novo: false
+    },
+
+       {
+        id: "domino",
+        titulo: "Dominó",
+        descricao: "O jogo de dominó, escolha entre vários estilos e jogue o clássico !",
+        capa: "capas/domino.png",
+        imgs: ["domino/domino1.png", "domino/domino2.png", "domino/domino3.jpeg"],
+        link: "https://oldnowgames-web.github.io/Domino/",
+        categoria: "tabuleiro",
         novo: false
     },
 
@@ -141,6 +164,28 @@ const GAMES = [
         imgs: ["pixelfish/fish1.jpeg", "pixelfish/fish2.jpeg", "pixelfish/fish3.jpeg"],
         link: "https://oldnowgames-web.github.io/Pixel-Fish/",
         categoria: "simulacao-estrategia",
+        novo: false
+    },
+
+     {
+        id: "2048",
+        titulo: "2048",
+        descricao: "Combine os números até chegar no 2048.",
+        capa: "capas/2048.png",
+        imgs: ["2048/2048-1.png", "2048/2048-2.png", "2048/2048-3.png"],
+        link: "https://oldnowgames-web.github.io/2048/",
+        categoria: "puzzle",
+        novo: false
+    },
+
+     {
+        id: "interesting-fruits",
+        titulo: "Interesting Fruits",
+        descricao: "Combine e corte as frutas no Interesting Fruits",
+        capa: "capas/interestingfruits.png",
+        imgs: ["intefruits/intefruits1.png", "intefruits/intefruits2.png", "intefruits/intefruits3.png"],
+        link: "https://oldnowgames-web.github.io/Interesting-Fruits/",
+        categoria: "puzzle",
         novo: false
     },
 
@@ -464,7 +509,7 @@ const CATEGORIAS_INFO = [
     { id: "esporte-racing", titulo: "Esporte e Racing" },
     { id: "puzzle", titulo: "Puzzle" },
     { id: "arcade", titulo: "Arcade" },
-    { id: "tabuleiro", titulo: "Tabuleiro" }
+    { id: "tabuleiro", titulo: "Jogos de Mesa" }
 ];
 
 /* =========================================================
