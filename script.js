@@ -93,7 +93,7 @@ const GAMES = [
     {
         id: "pixel-saga",
         titulo: "Pixel Saga: Exploração na Lua",
-        descricao: "Exploração lunar épica em pixel art.",
+        descricao: "Explore a lua e colete os fragmentos da missão.",
         capa: "capas/PixelSaga-lunar_exploration.png",
         imgs: ["pixelsagalua/lua1.png", "pixelsagalua/lua2.png", "pixelsagalua/lua3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-na-Lua/",
@@ -178,6 +178,17 @@ const GAMES = [
         novo: false
     },
 
+    {
+        id: "bubble-shooter",
+        titulo: "Bubble Shooter",
+        descricao: "Atire e exploda as bolas no Bubble Shooter",
+        capa: "capas/shooter.png",
+        imgs: ["shooter/shooter1.png", "shooter/shooter2.png", "shooter/shooter3.png"],
+        link: "https://oldnowgames-web.github.io/Bubble-Shooter/",
+        categoria: "puzzle",
+        novo: false
+    },
+
      {
         id: "interesting-fruits",
         titulo: "Interesting Fruits",
@@ -218,6 +229,27 @@ const GAMES = [
         capa: "capas/OldSnake.png",
         imgs: ["snake/snake1.png", "snake/snake2.png", "snake/snake3.png"],
         link: "https://oldnowgames-web.github.io/Old-Snake/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
+    {
+        id: "shark-bite",
+        titulo: "Shark Bite",
+        descricao: "Conquiste os mares, coma e cresça se tornando um poderoso tubarão.",
+        capa: "capas/shark.png",
+        imgs: ["shark/shark1.png", "shark/shark2.png", "shark/shark3.png"],
+        link: "https://oldnowgames-web.github.io/Shark-Bite/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+     {
+        id: "hyde-seek",
+        titulo: "Hyde & Seek: o mistério",
+        descricao: "Embarque no suspense do estranho caso de investigação de Seek.",
+        capa: "capas/hyde&seek.png",
+        imgs: ["hyde/hyde1.png", "hyde/hyde2.png", "hyde/hyde3.png"],
+        link: "https://oldnowgames-web.github.io/Hyde-Seek/",
         categoria: "aventura-acao",
         novo: false
     },
