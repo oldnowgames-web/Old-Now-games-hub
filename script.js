@@ -201,6 +201,17 @@ const GAMES = [
     },
 
      {
+        id: "connect-four",
+        titulo: "Connect Four",
+        descricao: "Ligue 4 peças em uma linha para vencer.",
+        capa: "capas/four.png",
+        imgs: ["four/four1.png", "four/four2.png", "four/four1.png"],
+        link: "https://oldnowgames-web.github.io/Connect-Four/",
+        categoria: "puzzle",
+        novo: false
+    },
+
+     {
         id: "interesting-fruits",
         titulo: "Interesting Fruits",
         descricao: "Combine e corte as frutas no Interesting Fruits",
