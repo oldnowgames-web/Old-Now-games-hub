@@ -189,6 +189,17 @@ const GAMES = [
         novo: false
     },
 
+    {
+        id: "flow-sort",
+        titulo: "Flow Sort",
+        descricao: "Organize e complete as cores nos frascos.",
+        capa: "capas/flowsort.png",
+        imgs: ["flowsort/flowsort1.png", "flowsort/flowsort2.png", "flowsort/flowsort3.png"],
+        link: "https://oldnowgames-web.github.io/Flow-Sort/",
+        categoria: "puzzle",
+        novo: false
+    },
+
      {
         id: "interesting-fruits",
         titulo: "Interesting Fruits",
