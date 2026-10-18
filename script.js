@@ -244,6 +244,28 @@ const GAMES = [
         novo: false
     },
 
+    {
+        id: "ping-pong",
+        titulo: "Ping Pong 3D",
+        descricao: "Jogue ping pong em 3d, uma simulação realista, treine e se tore o mestre !",
+        capa: "capas/pingpong.png",
+        imgs: ["pingpong/pingpong1.png", "pingpong/pingpong2.png", "pingpong/pingpong3.png"],
+        link: "https://oldnowgames-web.github.io/Ping-Pong/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
+    {
+        id: "swim-ball",
+        titulo: "Swim Ball",
+        descricao: "Entre nessa incrível jogada, barcos jogando futebol numa piscina, só no Swim Ball.",
+        capa: "capas/swimball.png",
+        imgs: ["swimball/swimball1.png", "swimball/swimball2.png", "swimball/swimball3.png"],
+        link: "https://oldnowgames-web.github.io/Swim-Ball/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
 
     {
         id: "neo-drop",
