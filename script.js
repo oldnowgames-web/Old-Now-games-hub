@@ -122,6 +122,17 @@ const GAMES = [
         novo: false
     },
 
+       {
+        id: "pixelsaga-mercury",
+        titulo: "Pixel Saga: Exploração em Mercúrio",
+        descricao: "Explore e aprenda sobre o planeta Mercúrio, faça novas descobertas.",
+        capa: "capas/mercury.png",
+        imgs: ["mercury/mercury1.png", "mercury/mercury2.png", "mercury/mercury3.png"],
+        link: "http://oldnowgames-web.github.io/Pixel-Saga-Exploracao-em-mercurio/",
+        categoria: "simulacao-estrategia",
+        novo: false
+    },
+
      {
         id: "crazy-8",
         titulo: "Crazy 8",
