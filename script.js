@@ -122,6 +122,17 @@ const GAMES = [
         novo: false
     },
 
+         {
+        id: "merge strike",
+        titulo: "Merge Strike",
+        descricao: "Compre torres e evolua para derrotar monstros",
+        capa: "capas/merge.png",
+        imgs: ["merge/merge1.png", "merge/merge2.png", "merge/merge3.png"],
+        link: "https://oldnowgames-web.github.io/Merge-Strike/",
+        categoria: "simulacao-estrategia",
+        novo: false
+    },
+
        {
         id: "pixelsaga-mercury",
         titulo: "Pixel Saga: Exploração em Mercúrio",
@@ -277,6 +288,7 @@ const GAMES = [
         categoria: "puzzle",
         novo: false
     },
+
     {
         id: "old-snake",
         titulo: "Old Snake",
@@ -284,6 +296,17 @@ const GAMES = [
         capa: "capas/OldSnake.png",
         imgs: ["snake/snake1.png", "snake/snake2.png", "snake/snake3.png"],
         link: "https://oldnowgames-web.github.io/Old-Snake/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
+     {
+        id: "stickman-battle",
+        titulo: "Stickman Battle",
+        descricao: "Lute e sobreviva as ondas, escolha seu mapa e batalhe !.",
+        capa: "capas/stickman.png",
+        imgs: ["stickman/stick1.png", "stickman/stick2.png", "stickman/stick3.png"],
+        link: "https://oldnowgames-web.github.io/Stickman-Battle/",
         categoria: "aventura-acao",
         novo: false
     },
@@ -397,6 +420,17 @@ const GAMES = [
         capa: "capas/pixelcars.png",
         imgs: ["pixelcars/pixelcar1.png", "pixelcars/pixelcar2.png", "pixelcars/pixelcar3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Cars/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
+      {
+        id: "soccer-disk",
+        titulo: "Soccer Disk",
+        descricao: "Entre na grande competição de futebol de discos, que começe o jogo !",
+        capa: "capas/soccerdisk.png",
+        imgs: ["soccerdisk/soccer1.png", "soccerdisk/soccer2.png", "soccerdisk/soccer3.png"],
+        link: "https://oldnowgames-web.github.io/Soccer-Disk/",
         categoria: "esporte-racing",
         novo: false
     },
