@@ -923,6 +923,8 @@ body {
 #esporte-racing { --accent: #f5a623; }
 #puzzle { --accent: #9b59b6; }
 #arcade { --accent: #00c2ff; }
+#explorador-espaco { --accent: #7c5cff; }
+#multiplayer { --accent: #ff7ab8; }
 
 .secao-titulo {
     position: relative;

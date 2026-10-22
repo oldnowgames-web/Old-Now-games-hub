@@ -253,7 +253,9 @@
         "esporte-racing": "esporte racing",
         "puzzle": "puzzle",
         "arcade": "arcade fliperama",
-        "tabuleiro": "tabuleiro mesa"
+        "tabuleiro": "tabuleiro mesa",
+        "explorador-espaco": "explorador espaco espacial planeta marte lua mercurio",
+        "multiplayer": "multiplayer multijogador online amigos"
     };
 
     const SIN_IDX = new Map();           // radical -> índices de grupos
@@ -283,7 +285,7 @@
         const tituloTokens = tokensDe(jogo.titulo);
         const tagTokens = tokensDe(tagsTexto);
         const descTokens = tokensDe(jogo.descricao || "");
-        const catTokens = tokensDe(CAT_PALAVRAS[jogo.categoria] || "");
+        const catTokens = tokensDe([jogo.categoria].concat(jogo.categorias || []).map(c => CAT_PALAVRAS[c] || "").join(" "));
 
         [...tituloTokens, ...tagTokens, ...descTokens, ...catTokens].forEach(p => VOCAB.add(p));
 
@@ -429,7 +431,9 @@
         ["esporte-racing", /\b(esportes?|racing)\b/],
         ["puzzle", /\b(puzzles?|quebra cabecas?|enigmas?)\b/],
         ["arcade", /\b(arcade|fliperama)\b/],
-        ["tabuleiro", /\b(tabuleiros?)\b/]
+        ["tabuleiro", /\b(tabuleiros?)\b/],
+        ["explorador-espaco", /\b(explorador(es)? do espaco|espaciais?|espaco)\b/],
+        ["multiplayer", /\b(multiplayer|multijogador)\b/]
     ];
     function categoriaExplicita(t) {
         const achada = CAT_RX.find(([, rx]) => rx.test(t));
@@ -476,7 +480,7 @@
         const perfil = perfilGostos();
         const recentes = recentesIds().slice(0, 3);
         const ranked = DISPONIVEIS
-            .filter(j => !cat || j.categoria === cat)
+            .filter(j => !cat || jogoEstaNaCategoria(j, cat))
             .map(j => {
                 let s = perfil.temHistorico ? pontuarGosto(j, perfil) : 0;
                 // recomendação = coisa nova: o que já foi jogado/favoritado só aparece depois do resto
@@ -802,14 +806,14 @@
         if (sem.length) {
             let res = pontuarJogos(sem);
             if (consulta.cat) {
-                const f = res.filter(r => r.jogo.categoria === consulta.cat);
+                const f = res.filter(r => jogoEstaNaCategoria(r.jogo, consulta.cat));
                 if (f.length) res = f;
             }
             const topo = res.length ? res[0].score : 0;
             res = res.filter(r => r.score >= Math.max(2, 0.35 * topo));
             return { lista: res.map(r => r.jogo), pontos: new Map(res.map(r => [r.jogo.id, r.score])), buscou: true };
         }
-        return { lista: DISPONIVEIS.filter(j => !consulta.cat || j.categoria === consulta.cat), pontos: new Map(), buscou: false };
+        return { lista: DISPONIVEIS.filter(j => !consulta.cat || jogoEstaNaCategoria(j, consulta.cat)), pontos: new Map(), buscou: false };
     }
 
     /* ---------- Recomendar ---------- */
@@ -1222,7 +1226,7 @@
     }
 
     function rQuantos() {
-        const partes = CATS.map(c => `• ${c.titulo}: ${GAMES.filter(j => j.categoria === c.id).length}`).join("\n");
+        const partes = CATS.map(c => `• ${c.titulo}: ${GAMES.filter(j => jogoEstaNaCategoria(j, c.id)).length}`).join("\n");
         return {
             texto: `O hub tem **${GAMES.length} jogos**:\n${partes}`,
             chips: CATS.slice(0, 3).map(c => ({ texto: c.titulo, acao: () => responder(rLista({ toks: [], cat: c.id, rotulo: c.titulo })) }))

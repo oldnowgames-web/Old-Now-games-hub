@@ -67,6 +67,7 @@ const GAMES = [
         imgs: ["marte/marte1.png" , "marte/marte2.png" , "marte/marte3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-em-Marte/",
         categoria: "simulacao-estrategia",
+        categorias: ["explorador-espaco"],
         novo: false
     },
     {
@@ -98,6 +99,7 @@ const GAMES = [
         imgs: ["pixelsagalua/lua1.png", "pixelsagalua/lua2.png", "pixelsagalua/lua3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-na-Lua/",
         categoria: "simulacao-estrategia",
+        categorias: ["explorador-espaco"],
         novo: false
     },
     {
@@ -141,6 +143,7 @@ const GAMES = [
         imgs: ["mercury/mercury1.png", "mercury/mercury2.png", "mercury/mercury3.png"],
         link: "https://oldnowgames-web.github.io/Pixel-Saga-Exploracao-em-mercurio/",
         categoria: "simulacao-estrategia",
+        categorias: ["explorador-espaco"],
         novo: false
     },
 
@@ -186,6 +189,7 @@ const GAMES = [
         imgs: ["pixelfish/fish1.jpeg", "pixelfish/fish2.jpeg", "pixelfish/fish3.jpeg"],
         link: "https://oldnowgames-web.github.io/Pixel-Fish/",
         categoria: "simulacao-estrategia",
+        categorias: ["multiplayer"],
         novo: false
     },
 
@@ -285,6 +289,7 @@ const GAMES = [
         imgs: ["swimball/swimball1.png", "swimball/swimball2.png", "swimball/swimball3.png"],
         link: "https://oldnowgames-web.github.io/Swim-Ball/",
         categoria: "esporte-racing",
+        categorias: ["multiplayer"],
         novo: false
     },
 
@@ -443,6 +448,7 @@ const GAMES = [
         imgs: ["soccerdisk/soccer1.png", "soccerdisk/soccer2.png", "soccerdisk/soccer3.png"],
         link: "https://oldnowgames-web.github.io/Soccer-Disk/",
         categoria: "esporte-racing",
+        categorias: ["multiplayer"],
         novo: false
     },
 
@@ -454,6 +460,7 @@ const GAMES = [
         imgs: ["oldcars/oldcars1.png", "oldcars/oldcars2.png", "oldcars/oldcars3.png"],
         link: "https://oldnowgames-web.github.io/Old-Racers/",
         categoria: "esporte-racing",
+        categorias: ["multiplayer"],
         novo: false
     },
 
@@ -641,8 +648,17 @@ const CATEGORIAS_INFO = [
     { id: "esporte-racing", titulo: "Esporte e Racing" },
     { id: "puzzle", titulo: "Puzzle" },
     { id: "arcade", titulo: "Arcade" },
-    { id: "tabuleiro", titulo: "Jogos de Mesa" }
+    { id: "tabuleiro", titulo: "Jogos de Mesa" },
+    // Categorias ADICIONAIS: o jogo continua na categoria principal (campo "categoria")
+    // e também aparece aqui pelo campo "categorias". "primeiro" fixa um jogo no começo.
+    { id: "explorador-espaco", titulo: "Explorador do Espaço", adicional: true },
+    { id: "multiplayer", titulo: "Multiplayer", adicional: true, primeiro: "swim-ball" }
 ];
+
+// true se o jogo pertence à categoria (principal ou adicional)
+function jogoEstaNaCategoria(jogo, catId) {
+    return jogo.categoria === catId || (Array.isArray(jogo.categorias) && jogo.categorias.includes(catId));
+}
 
 /* =========================================================
    OldNow Games — script.js
@@ -854,10 +870,16 @@ function ordenarJogos(jogos, criterio) {
 }
 
 function renderCategoria(catId) {
-    const jogosCategoria = GAMES.filter(j => j.categoria === catId);
+    const jogosCategoria = GAMES.filter(j => jogoEstaNaCategoria(j, catId));
     const select = document.querySelector(`.filtro-ordenacao[data-categoria="${catId}"]`);
     const criterio = select ? select.value : "nome";
-    renderSecao(`wrapper-${catId}`, ordenarJogos(jogosCategoria, criterio), `contagem-${catId}`);
+    let ordenados = ordenarJogos(jogosCategoria, criterio);
+    const info = CATEGORIAS_INFO.find(c => c.id === catId);
+    if (info && info.primeiro && criterio === "nome") {
+        const fixo = ordenados.find(j => j.id === info.primeiro);
+        if (fixo) ordenados = [fixo, ...ordenados.filter(j => j !== fixo)];
+    }
+    renderSecao(`wrapper-${catId}`, ordenados, `contagem-${catId}`);
 }
 
 function renderTodasCategorias() {
@@ -985,7 +1007,8 @@ if (topCarousel) {
     function aplicarAltura() {
         if (!imgReferencia.naturalWidth) return;
         const proporcao = imgReferencia.naturalHeight / imgReferencia.naturalWidth;
-        const fator = 1; // altura exata do slide 1: sem barras vazias, então os cantos arredondados aparecem
+        // Celular/tablet: slide um pouco mais alto (+28%); PC mantém a altura exata do slide 1
+        const fator = window.matchMedia("(max-width: 991px)").matches ? 1.28 : 1;
         const alturaAlvo = Math.round(topCarousel.offsetWidth * proporcao * fator);
 
         todasImagens.forEach(img => {

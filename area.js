@@ -178,7 +178,7 @@
     function renderSelecao() {
         const termo = normalizar(elBusca.value);
         const lista = jogosDisponiveis()
-            .filter(j => filtroCategoria === "todos" || j.categoria === filtroCategoria)
+            .filter(j => filtroCategoria === "todos" || jogoEstaNaCategoria(j, filtroCategoria))
             .filter(j => !termo || normalizar(j.titulo).includes(termo));
 
         elListaSel.innerHTML = "";
