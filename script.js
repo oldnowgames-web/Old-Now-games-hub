@@ -233,6 +233,17 @@ const GAMES = [
         novo: false
     },
 
+    {
+        id: "quebra-cabeca",
+        titulo: "Quebra Cabeça",
+        descricao: "Conecte as peças para chegar em uma imagem.",
+        capa: "capas/quebracabeca.png",
+        imgs: ["quebracabeca/cabeca1.png", "quebracabeca/cabeca2.png", "quebracabeca/cabeca3.png"],
+        link: "https://oldnowgames-web.github.io/Quebra-cabe-a/",
+        categoria: "puzzle",
+        novo: false
+    },
+
      {
         id: "interesting-fruits",
         titulo: "Interesting Fruits",
