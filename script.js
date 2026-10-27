@@ -81,6 +81,17 @@ const GAMES = [
         novo: false
     },
 
+     {
+        id: "street-brawlers",
+        titulo: "Street Brawlers",
+        descricao: "Escolha entre vários lutadores e utilze suas habilidades para vencer a luta !",
+        capa: "capas/streetbraw.png",
+        imgs: ["streetbraw/streetbraw1.png", "streetbraw/streetbraw2.png", "streetbraw/streetbraw3.png"],
+        link: "https://oldnowgames-web.github.io/Street-Brawlers/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
       {
         id: "quebra-meteoro",
         titulo: "Quebra Meteoro",
@@ -125,12 +136,23 @@ const GAMES = [
     },
 
          {
-        id: "merge strike",
+        id: "merge-strike",
         titulo: "Merge Strike",
         descricao: "Compre torres e evolua para derrotar monstros",
         capa: "capas/merge.png",
         imgs: ["merge/merge1.png", "merge/merge2.png", "merge/merge3.png"],
         link: "https://oldnowgames-web.github.io/Merge-Strike/",
+        categoria: "simulacao-estrategia",
+        novo: false
+    },
+
+        {
+        id: "volt-city",
+        titulo: "Volt City: Simulador de patinete elétrico",
+        descricao: "Ande livremente pela cidade com seu patinete elétrico",
+        capa: "capas/patinete.png",
+        imgs: ["patinete/patinete1.png", "patinete/patinete2.png", "patinete/patinete3.png"],
+        link: "https://oldnowgames-web.github.io/Volt-City/",
         categoria: "simulacao-estrategia",
         novo: false
     },
@@ -215,6 +237,17 @@ const GAMES = [
         novo: false
     },
 
+      {
+        id: "qual-bandeira",
+        titulo: "Qual é a bandeira",
+        descricao: "Descubra qual o país da bandeira ou qual o continete do país",
+        capa: "capas/bandeira.png",
+        imgs: ["bandeira/bandeira1.png", "bandeira/bandeira2.png", "bandeira/bandeira3.png"],
+        link: "https://oldnowgames-web.github.io/Qual-e-a-bandeira/",
+        categoria: "puzzle",
+        novo: false
+    },
+
     {
         id: "flow-sort",
         titulo: "Flow Sort",
@@ -266,6 +299,17 @@ const GAMES = [
         capa: "capas/grau.png",
         imgs: ["grau/grau1.png", "grau/grau3.png", "grau/grau3.png"],
         link: "https://oldnowgames-web.github.io/Moto-Art-Grau/",
+        categoria: "esporte-racing",
+        novo: false
+    },
+
+    {
+        id: "air-hockey3d",
+        titulo: "Air Hockey 3D",
+        descricao: "Jogue hockey de mesa onde estiver !",
+        capa: "capas/hockey.jpeg",
+        imgs: ["hockey/hockey1.png", "hockey/hockey2.png", "hockey/hockey3.png"],
+        link: "https://oldnowgames-web.github.io/Air-Hockey/",
         categoria: "esporte-racing",
         novo: false
     },
@@ -391,6 +435,17 @@ const GAMES = [
         capa: "capas/Capi-Knight.jpeg",
         imgs: ["capi/capi1.png", "capi/capi2.png", "capi/capi3.png"],
         link: "https://oldnowgames-web.github.io/Capi-Knight/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
+     {
+        id: "food-catch",
+        titulo: "Food Catch",
+        descricao: "Colete todas as comidas no prato sem deixar nenhuma cair.",
+        capa: "capas/food.png",
+        imgs: ["food/food1.png", "food/food2.png", "food/food3.png"],
+        link: "https://oldnowgames-web.github.io/Food-Catch/",
         categoria: "aventura-acao",
         novo: false
     },
@@ -595,6 +650,28 @@ const GAMES = [
         capa: "capas/barbarian-memory.jpeg",
         imgs: ["memory/memory1.png", "memory/memory2.png", "memory/memory3.png"],
         link: "https://oldnowgames-web.github.io/Barbarian-Memory-game/",
+        categoria: "puzzle",
+        novo: false
+    },
+
+         {
+        id: "caca-palavras",
+        titulo: "Cça Palavras",
+        descricao: "Encontre as palavras escondidas e escolha entre diversos temas.",
+        capa: "capas/palavras.png",
+        imgs: ["palavras/palavras1.png", "palavras/palavras2.png", "palavras/palavras3.png"],
+        link: "https://oldnowgames-web.github.io/Caca-Palavras/",
+        categoria: "puzzle",
+        novo: false
+    },
+
+        {
+        id: "forca",
+        titulo: "Forca",
+        descricao: "Encontre a palavra correta, mas não deixe Old Bot ser enforcado.",
+        capa: "capas/forca.png",
+        imgs: ["forca/forca1.png", "forca/forca2.png", "forca/forca3.png"],
+        link: "https://oldnowgames-web.github.io/Forca/",
         categoria: "puzzle",
         novo: false
     },
