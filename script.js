@@ -439,6 +439,17 @@ const GAMES = [
         novo: false
     },
 
+       {
+        id: "wild-ward",
+        titulo: "Wild Ward",
+        descricao: "Cace animais de diversas espécies e explore a floresta.",
+        capa: "capas/wildward.png",
+        imgs: ["wildward/wildward1.png", "wildward/wildward2.png", "wildward/wildward3.png"],
+        link: "https://oldnowgames-web.github.io/Wild-Ward/",
+        categoria: "aventura-acao",
+        novo: false
+    },
+
      {
         id: "food-catch",
         titulo: "Food Catch",
@@ -609,6 +620,17 @@ const GAMES = [
         categoria: "arcade",
         novo: false
     },
+
+    {
+        id: "pinball",
+        titulo: "Pinball Neon",
+        descricao: "O clássico jogo de pinball, não deixe a bola cair ! .",
+        capa: "capas/pinball.png",
+        imgs: ["pinball/pinball1.png", "pinball/pinball2.png", "pinball/pinball3.png"],
+        link: "https://oldnowgames-web.github.io/Pinball-Neon/",
+        categoria: "arcade",
+        novo: false
+    },
     {
         id: "xadrez",
         titulo: "Xadrez",
@@ -653,6 +675,18 @@ const GAMES = [
         categoria: "puzzle",
         novo: false
     },
+
+       {
+        id: "doce-combo",
+        titulo: "Doce Combo",
+        descricao: "Combine três doces criando combos incríveis e passando de fases.",
+        capa: "capas/docecombo.png",
+        imgs: ["docecombo/doce1.png", "docecombo/doce2.png", "docecombo/doce3.png"],
+        link: "https://oldnowgames-web.github.io/Doce-Combo/",
+        categoria: "puzzle",
+        novo: false
+    },
+
 
          {
         id: "caca-palavras",
