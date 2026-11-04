@@ -1598,3 +1598,16 @@ body.entrada-aberta {
     border: none;
     padding: 0;
 }
+
+/* --- Ícones SVG brancos nos títulos das categorias --- */
+.icone-cat {
+    width: 1.15em;
+    height: 1.15em;
+    margin-right: 8px;
+    vertical-align: -0.2em;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
