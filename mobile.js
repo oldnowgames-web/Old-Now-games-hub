@@ -8,7 +8,7 @@
    - barra inferior (Início, Categorias, Área, Buscar, Perfil)
    - busca em tela cheia (recentes, mais jogados, categorias, resultados)
    - sheet de categorias e menu de toque longo na capa
-   - player em tela cheia: botão flutuante (arrastável) e dica de girar
+   - player em tela cheia: botão flutuante (arrastável)
    - ícones nos chips de categoria e nota (★) nas capas
    - botão "voltar" do celular fecha a busca/sheet aberto, em vez de sair do site
 
@@ -20,22 +20,10 @@
     if (typeof GAMES === "undefined" || typeof CATEGORIAS_INFO === "undefined"
         || typeof lerJSON !== "function" || typeof LS_KEYS === "undefined") return;
 
-    /* Jogos que ficam melhores com o celular deitado.
-       Ajuste a vontade: coloque o id do jogo aqui, ou então escreva
-       orientacao: "paisagem" dentro do jogo no script.js. */
-    const JOGOS_PAISAGEM = [
-        "marte", "pixel-saga", "pixelsaga-mercury", "volt-city", "old-racers", "pixel-cars",
-        "car-tape", "motoart-grau", "soccer-disk", "air-hockey3d", "ping-pong", "swim-ball",
-        "street-basquete", "guacuano-soccer", "golf-game", "street-brawlers", "stickman-battle",
-        "battle-night", "dead-hunter3d", "zenite-zero", "aethelstar", "aethelstar-neon",
-        "wild-ward", "capi-knight", "shark-bite", "pixel-dash", "pixel-jump", "polar-jump"
-    ];
-
     const CHAVE_AREA = "oldnow_area";
     const $ = (sel, raiz) => (raiz || document).querySelector(sel);
     const $$ = (sel, raiz) => Array.from((raiz || document).querySelectorAll(sel));
     const mqMobile = window.matchMedia("(max-width: 991px)");
-    const mqRetrato = window.matchMedia("(orientation: portrait)");
     const ehMobile = () => mqMobile.matches;
 
     /* ---------- Utilidades ---------- */
@@ -58,8 +46,7 @@
         info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
         mais: '<path d="M12 5v14"/><path d="M5 12h14"/>',
         menos: '<path d="M5 12h14"/>',
-        seta: '<path d="m9 6 6 6-6 6"/>',
-        celular: '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>'
+        seta: '<path d="m9 6 6 6-6 6"/>'
     };
 
     function svgIcone(nome, classe) {
@@ -681,42 +668,15 @@
     const playerOverlay = document.getElementById("playerOverlay");
     const playerIframe = document.getElementById("playerIframe");
     const botaoFlutuante = document.getElementById("playerFlutuante");
-    const dicaGirar = document.getElementById("playerGirar");
-    const dicaGirarBtn = document.getElementById("playerGirarBtn");
-    const dicaGirarFechar = document.getElementById("playerGirarFechar");
 
     let timerApagar = null;
-    let timerDica = null;
     let jogoNoPlayer = null;
-    const dicasDispensadas = new Set();
 
     function jogoDoPlayer() {
         if (!playerIframe) return null;
         const src = playerIframe.getAttribute("src") || "";
         if (!src) return null;
         return GAMES.find(j => j.link && j.link !== "#" && (src === j.link || playerIframe.src === j.link || src.indexOf(j.link) === 0)) || null;
-    }
-
-    function preferePaisagem(jogo) {
-        return !!jogo && (jogo.orientacao === "paisagem" || JOGOS_PAISAGEM.includes(jogo.id));
-    }
-
-    function esconderDica() {
-        if (!dicaGirar) return;
-        dicaGirar.classList.remove("visivel");
-        clearTimeout(timerDica);
-    }
-
-    function avaliarDica() {
-        if (!dicaGirar || !playerOverlay || playerOverlay.classList.contains("d-none")) return;
-        if (!ehMobile() || !preferePaisagem(jogoNoPlayer) || !mqRetrato.matches
-            || dicasDispensadas.has(jogoNoPlayer.id)) {
-            esconderDica();
-            return;
-        }
-        dicaGirar.classList.add("visivel");
-        clearTimeout(timerDica);
-        timerDica = setTimeout(esconderDica, 9000);
     }
 
     function acordarBotao() {
@@ -737,9 +697,6 @@
 
     function sairTelaCheia() {
         try {
-            if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
-        } catch (e) { /* ignora */ }
-        try {
             if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
         } catch (e) { /* ignora */ }
     }
@@ -750,11 +707,9 @@
         acordarBotao();
 
         tentarTelaCheia();
-        avaliarDica();
     }
 
     function aoFecharPlayer() {
-        esconderDica();
         clearTimeout(timerApagar);
         sairTelaCheia();
         jogoNoPlayer = null;
@@ -808,33 +763,6 @@
                 fecharPlayer();
             }
         });
-    }
-
-    if (dicaGirar) {
-        dicaGirarFechar && dicaGirarFechar.addEventListener("click", () => {
-            if (jogoNoPlayer) dicasDispensadas.add(jogoNoPlayer.id);
-            esconderDica();
-        });
-        dicaGirarBtn && dicaGirarBtn.addEventListener("click", async () => {
-            // só Android/Chrome deixa travar a orientação (e só em tela cheia); no resto é girar na mão
-            let travou = false;
-            try {
-                if (!document.fullscreenElement) await tentarTelaCheia();
-                if (screen.orientation && screen.orientation.lock) {
-                    await screen.orientation.lock("landscape");
-                    travou = true;
-                }
-            } catch (e) { travou = false; }
-            if (!travou) {
-                const txt = dicaGirar.querySelector("span");
-                if (txt) txt.textContent = "Seu aparelho não gira sozinho: deite o celular.";
-            } else {
-                esconderDica();
-            }
-        });
-        mqRetrato.addEventListener
-            ? mqRetrato.addEventListener("change", avaliarDica)
-            : mqRetrato.addListener(avaliarDica);
     }
 
     /* ---------- Início ---------- */
