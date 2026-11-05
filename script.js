@@ -965,8 +965,14 @@ function renderSecao(wrapperId, jogos, contadorId) {
     }
 }
 
+/* Ordem aleatória: sorteada UMA vez a cada vez que o hub abre.
+   Assim o jogador vê jogos diferentes a cada visita, mas a ordem não
+   embaralha de novo quando ele favorita um jogo ou muda a sessão. */
+const ORDEM_ALEATORIA = {};
+GAMES.forEach(j => { ORDEM_ALEATORIA[j.id] = Math.random(); });
+
 function renderTodos() {
-    renderSecao("wrapper-todos", GAMES, "contagem-todos");
+    renderSecao("wrapper-todos", ordenarJogos(GAMES, "aleatorio"), "contagem-todos");
 }
 
 function ordenarJogos(jogos, criterio) {
@@ -974,8 +980,11 @@ function ordenarJogos(jogos, criterio) {
     const copia = [...jogos];
     if (criterio === "jogados") {
         copia.sort((a, b) => (jogadas[b.id] || 0) - (jogadas[a.id] || 0));
-    } else {
+    } else if (criterio === "nome") {
         copia.sort((a, b) => a.titulo.localeCompare(b.titulo, "pt-BR"));
+    } else {
+        // "aleatorio" (padrão)
+        copia.sort((a, b) => (ORDEM_ALEATORIA[a.id] || 0) - (ORDEM_ALEATORIA[b.id] || 0));
     }
     return copia;
 }
@@ -983,10 +992,10 @@ function ordenarJogos(jogos, criterio) {
 function renderCategoria(catId) {
     const jogosCategoria = GAMES.filter(j => jogoEstaNaCategoria(j, catId));
     const select = document.querySelector(`.filtro-ordenacao[data-categoria="${catId}"]`);
-    const criterio = select ? select.value : "nome";
+    const criterio = select ? select.value : "aleatorio";
     let ordenados = ordenarJogos(jogosCategoria, criterio);
     const info = CATEGORIAS_INFO.find(c => c.id === catId);
-    if (info && info.primeiro && criterio === "nome") {
+    if (info && info.primeiro && criterio !== "jogados") {
         const fixo = ordenados.find(j => j.id === info.primeiro);
         if (fixo) ordenados = [fixo, ...ordenados.filter(j => j !== fixo)];
     }

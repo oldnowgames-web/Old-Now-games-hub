@@ -1,0 +1,755 @@
+/* =========================================================
+   OldNow Games — mobile.css
+   Visual "de app" para o celular (até 991px). O PC não muda.
+   Carregar DEPOIS de estilo.css, bot.css, area.css e social.css.
+
+   Conteúdo:
+   1. Variáveis e peças que só existem no celular
+   2. Navbar enxuta + chips de categoria (faixa fixa)
+   3. Carrosséis com snap + capas "de loja de app"
+   4. Modal do jogo como "sheet" com botão Jogar fixo
+   5. Player em tela cheia + botão flutuante + dica de girar
+   6. Barra inferior
+   7. Busca em tela cheia
+   8. Sheets (categorias e menu de toque longo) e toast
+   ========================================================= */
+
+:root {
+    --nav-inf-h: 62px;   /* altura da barra inferior (sem a área segura) */
+    --navbar-h: 68px;    /* o mobile.js mede a navbar de verdade */
+    --chips-h: 54px;
+}
+
+/* ---------- 1. Peças que só aparecem no celular ---------- */
+
+.nav-inferior,
+.btn-lupa-mobile,
+.player-flutuante,
+.player-girar,
+.badge-nota {
+    display: none;
+}
+
+.icone-nav {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: 0 0 auto;
+}
+
+@media (max-width: 991px) {
+
+    /* ---------- 2. Navbar enxuta + chips ---------- */
+
+    /* a busca agora é a tela cheia (lupa / aba Buscar) */
+    .busca-mobile.form-busca { display: none !important; }
+
+    .btn-lupa-mobile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-left: 8px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        color: #fff;
+    }
+    .btn-lupa-mobile:active { background-color: rgba(255, 255, 255, 0.12); }
+
+    .container-blocos {
+        margin-top: var(--navbar-h);
+        padding-bottom: calc(var(--nav-inf-h) + 24px + env(safe-area-inset-bottom, 0px));
+    }
+
+    #carouselExample { margin-top: 12px; margin-bottom: 8px; }
+
+    .categories {
+        position: sticky;
+        top: var(--navbar-h);
+        z-index: 1010;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        width: calc(100% + 30px);
+        margin: 0 -15px 6px;
+        padding: 10px 15px;
+        font-size: 0.85rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        background-color: rgba(0, 0, 0, 0.9);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+    }
+    .categories::-webkit-scrollbar { display: none; }
+
+    .categories a {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        padding: 8px 14px;
+        white-space: nowrap;
+        color: #ddd;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 999px;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .categories a:hover { transform: none; }
+    .categories a:active { transform: scale(0.95); }
+    .categories a.active {
+        color: #000;
+        background-color: #fff;
+        border-color: #fff;
+        font-weight: bold;
+    }
+    .categories .icone-cat {
+        width: 1.1em;
+        height: 1.1em;
+        margin: 0;
+        vertical-align: 0;
+        stroke: currentColor;
+    }
+
+    /* a seção "sobe" 30px ao aparecer: isso desloca o ponto de parada dos atalhos; no celular fica só o fade */
+    .pre-anim,
+    .pre-anim.visivel { transform: none; }
+
+    .secao-carrossel,
+    .container-sobre,
+    .parceiros {
+        scroll-margin-top: calc(var(--navbar-h) + var(--chips-h) + 6px);
+    }
+
+    /* ---------- Cards "de loja de app" (vale para qualquer carrossel) ---------- */
+
+    .bloco {
+        border-radius: 18px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.07);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .bloco:active { transform: scale(0.96); }
+    .bloco-img-wrap,
+    .bloco-img-wrap img { border-radius: 18px; }
+    .bloco-img-wrap img { -webkit-user-drag: none; pointer-events: none; }
+
+    /* degradê embaixo: dá leitura para o tempo jogado e a nota */
+    .bloco::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 36%;
+        z-index: 2;
+        pointer-events: none;
+        border-radius: 0 0 18px 18px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0));
+    }
+
+    .bloco .badge-tempo { left: 10px; bottom: 10px; font-size: 0.66rem; }
+
+    .badge-nota {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 3;
+        pointer-events: none;
+        padding: 3px 8px;
+        font-size: 0.68rem;
+        font-weight: bold;
+        color: #ffd24d;
+        background: rgba(0, 0, 0, 0.72);
+        border-radius: 20px;
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+    }
+
+    .btn-favorito { width: 36px; height: 36px; top: 10px; right: 10px; }
+    .badge-novo { top: 10px; left: 10px; }
+
+    /* ---------- 8. Peças compartilhadas: barra de sheets e toast ---------- */
+
+    .btn-topo {
+        bottom: calc(var(--nav-inf-h) + 14px + env(safe-area-inset-bottom, 0px));
+        right: 14px;
+    }
+    .bot-toggle {
+        bottom: calc(var(--nav-inf-h) + 14px + env(safe-area-inset-bottom, 0px));
+        left: 14px;
+    }
+    .bot-painel {
+        bottom: calc(var(--nav-inf-h) + 76px + env(safe-area-inset-bottom, 0px));
+        height: min(520px, calc(100dvh - var(--nav-inf-h) - 150px));
+    }
+    .aviso-app {
+        bottom: calc(var(--nav-inf-h) + 14px + env(safe-area-inset-bottom, 0px));
+    }
+    /* busca / sheets abertos: bot e "voltar ao topo" saem da frente */
+    html.camada-aberta .bot-toggle,
+    html.camada-aberta .bot-painel,
+    html.camada-aberta .btn-topo { display: none !important; }
+
+    /* com a "Minha área" aberta a barra inferior fica por baixo: o bot desce de novo */
+    html.area-aberta .bot-toggle { bottom: 16px; }
+    html.area-aberta .bot-painel { bottom: 78px; height: min(520px, calc(100dvh - 100px)); }
+
+    /* ---------- 6. Barra inferior ---------- */
+
+    .nav-inferior {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1035; /* acima da navbar (1020), abaixo da área (1040), do menu (1045) e do modal (1055) */
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        height: calc(var(--nav-inf-h) + env(safe-area-inset-bottom, 0px));
+        padding: 0 4px env(safe-area-inset-bottom, 0px);
+        background-color: rgba(10, 10, 10, 0.92);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        border-top: 1px solid #222;
+    }
+
+    .nav-inferior button {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 0;
+        color: #8a8a8a;
+        background: transparent;
+        border: 0;
+        font-size: 0.68rem;
+        letter-spacing: 0.01em;
+        -webkit-tap-highlight-color: transparent;
+        transition: color 0.2s ease;
+    }
+    .nav-inferior button:active .icone-nav { transform: scale(0.88); }
+    .nav-inferior .icone-nav { transition: transform 0.15s ease; }
+
+    .nav-inferior button.ativo { color: #fff; font-weight: bold; }
+    .nav-inferior button.ativo::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 26px;
+        height: 3px;
+        border-radius: 0 0 4px 4px;
+        background: linear-gradient(90deg, #007bff, #6f42c1);
+    }
+    .nav-inferior button:focus-visible { outline: 2px solid #fff; outline-offset: -4px; border-radius: 12px; }
+
+    /* ---------- 5. Player em tela cheia ---------- */
+
+    .player-topbar { display: none; }
+
+    .player-overlay {
+        padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+                 env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    }
+    .player-iframe { height: 100%; min-height: 0; }
+
+    .player-flutuante {
+        position: absolute;
+        top: calc(8px + env(safe-area-inset-top, 0px));
+        right: calc(8px + env(safe-area-inset-right, 0px));
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 50%;
+        font-size: 1rem;
+        line-height: 1;
+        touch-action: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: opacity 0.4s ease, transform 0.15s ease;
+    }
+    .player-flutuante.apagado { opacity: 0.32; }
+    .player-flutuante:active { transform: scale(0.9); }
+
+    .player-girar {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        z-index: 6;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        color: #fff;
+        background-color: rgba(20, 20, 24, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+        font-size: 0.88rem;
+        line-height: 1.3;
+        animation: sheet-sobe 0.3s ease;
+    }
+    .player-girar.visivel { display: flex; }
+    .player-girar span { flex: 1; min-width: 0; }
+    .player-girar svg {
+        width: 30px;
+        height: 30px;
+        flex: 0 0 auto;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        animation: girar-celular 2.4s ease-in-out infinite;
+    }
+    .player-girar button {
+        flex: 0 0 auto;
+        padding: 8px 14px;
+        color: #fff;
+        background: linear-gradient(135deg, #007bff, #6f42c1);
+        border: 0;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 0.82rem;
+    }
+    .player-girar button.fechar {
+        padding: 6px 8px;
+        color: #aaa;
+        background: transparent;
+        font-weight: normal;
+        font-size: 1rem;
+    }
+
+    /* ---------- 7. Busca em tela cheia ---------- */
+
+    .busca-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1045; /* abaixo do modal (1055): o jogo abre por cima da busca */
+        display: flex;
+        flex-direction: column;
+        background-color: #0b0b0b;
+        padding-top: env(safe-area-inset-top, 0px);
+        animation: busca-entra 0.22s ease;
+    }
+    .busca-overlay[hidden] { display: none !important; }
+
+    .busca-topo {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 12px;
+        border-bottom: 1px solid #1e1e1e;
+    }
+    .busca-voltar {
+        flex: 0 0 auto;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+    }
+    .busca-voltar:active { background-color: rgba(255, 255, 255, 0.12); }
+
+    .busca-campo {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 44px;
+        padding: 0 12px;
+        color: #999;
+        background-color: #1a1a1a;
+        border: 1px solid #2a2a2a;
+        border-radius: 14px;
+    }
+    .busca-campo:focus-within { border-color: #007bff; }
+    .busca-campo input {
+        flex: 1;
+        min-width: 0;
+        color: #fff;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        font-size: 1rem; /* 16px evita o zoom automático do iPhone */
+    }
+    .busca-campo input::-webkit-search-cancel-button { display: none; }
+    .busca-limpar {
+        flex: 0 0 auto;
+        padding: 4px;
+        color: #aaa;
+        background: transparent;
+        border: 0;
+        display: flex;
+    }
+    .busca-limpar[hidden] { display: none; }
+
+    .busca-corpo {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        padding: 6px 0 calc(24px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .busca-bloco { padding: 14px 16px 4px; }
+    .busca-titulo {
+        margin: 0 0 10px;
+        color: #aaa;
+        font-size: 0.78rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .busca-fila {
+        display: flex;
+        gap: 12px;
+        margin: 0 -16px;
+        padding: 2px 16px 8px;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+    }
+    .busca-fila::-webkit-scrollbar { display: none; }
+
+    .busca-mini {
+        flex: 0 0 auto;
+        width: 92px;
+        padding: 0;
+        color: #ddd;
+        background: transparent;
+        border: 0;
+        text-align: left;
+        scroll-snap-align: start;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .busca-mini img {
+        display: block;
+        width: 92px;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+        border-radius: 14px;
+        background-color: #151515;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .busca-mini span {
+        display: block;
+        margin-top: 6px;
+        font-size: 0.74rem;
+        line-height: 1.2;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .busca-mini:active img { transform: scale(0.95); }
+
+    .busca-cats { display: flex; flex-wrap: wrap; gap: 8px; }
+    .busca-cats button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        color: #ddd;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 999px;
+        font-size: 0.85rem;
+    }
+    .busca-cats button:active { background-color: #242424; }
+    .busca-cats .icone-cat { width: 1.1em; height: 1.1em; margin: 0; vertical-align: 0; }
+
+    .busca-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 10px 16px;
+        color: #fff;
+        background: transparent;
+        border: 0;
+        text-align: left;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .busca-item:active { background-color: #161616; }
+    .busca-item img {
+        flex: 0 0 auto;
+        width: 52px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 10px;
+        background-color: #151515;
+    }
+    .busca-item-info { flex: 1; min-width: 0; }
+    .busca-item-titulo {
+        display: block;
+        font-weight: bold;
+        font-size: 0.98rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .busca-item-sub { display: block; margin-top: 3px; color: #8ab4ff; font-size: 0.76rem; }
+    .busca-item-tempo { color: #9aa4b2; margin-left: 8px; }
+    .busca-item-seta { color: #555; flex: 0 0 auto; }
+
+    .busca-vazio { padding: 40px 24px 8px; text-align: center; color: #999; }
+    .busca-vazio strong { display: block; margin-bottom: 6px; color: #fff; font-size: 1.05rem; }
+
+    /* ---------- 8. Sheets (categorias e menu de toque longo) ---------- */
+
+    .sheet-fundo {
+        position: fixed;
+        inset: 0;
+        z-index: 1046;
+        background-color: rgba(0, 0, 0, 0.62);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+    .sheet-fundo.aberto { opacity: 1; }
+
+    .sheet {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        max-height: 80dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 14px 16px calc(18px + env(safe-area-inset-bottom, 0px));
+        color: #fff;
+        background-color: #141414;
+        border: 1px solid #2a2a2a;
+        border-bottom: 0;
+        border-radius: 22px 22px 0 0;
+        box-shadow: 0 -12px 34px rgba(0, 0, 0, 0.6);
+        transform: translateY(100%);
+        transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .sheet-fundo.aberto .sheet { transform: none; }
+    .sheet::before {
+        content: "";
+        display: block;
+        width: 38px;
+        height: 4px;
+        margin: -4px auto 12px;
+        border-radius: 4px;
+        background-color: #3a3a3a;
+    }
+
+    .sheet-titulo { margin: 0 0 8px; font-size: 1.05rem; font-weight: bold; }
+
+    .sheet-cabeca { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .sheet-cabeca img {
+        width: 48px;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 10px;
+        background-color: #1d1d1d;
+    }
+    .sheet-cabeca strong { display: block; font-size: 1rem; }
+    .sheet-cabeca small { color: #8ab4ff; }
+
+    .sheet-acao {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 14px 6px;
+        color: #fff;
+        background: transparent;
+        border: 0;
+        border-top: 1px solid #202020;
+        font-size: 1rem;
+        text-align: left;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .sheet-acao:first-of-type { border-top: 0; }
+    .sheet-acao:active { background-color: #1c1c1c; }
+    .sheet-acao .icone-nav { width: 22px; height: 22px; }
+    .sheet-acao.principal { font-weight: bold; }
+    .sheet-acao.principal .icone-nav { stroke: #4da3ff; fill: #4da3ff; }
+    .sheet-acao small { margin-left: auto; color: #777; }
+    .sheet-acao .icone-cat { width: 22px; height: 22px; margin: 0; vertical-align: 0; }
+
+    .toast-mob {
+        position: fixed;
+        left: 50%;
+        bottom: calc(var(--nav-inf-h) + 20px + env(safe-area-inset-bottom, 0px));
+        z-index: 2600;
+        max-width: calc(100vw - 32px);
+        padding: 10px 16px;
+        color: #fff;
+        background-color: #1d1d1d;
+        border: 1px solid #333;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        font-size: 0.9rem;
+        text-align: center;
+        transform: translateX(-50%);
+        animation: toast-mob 2.4s ease forwards;
+        pointer-events: none;
+    }
+}
+
+/* ---------- 3. Carrosséis com snap (só em tela de toque) ---------- */
+
+@media (max-width: 991px) and (pointer: coarse) {
+    /* a faixa passa a rolar de verdade; as setas e o translateX do JS saem de cena */
+    .blocos {
+        overflow-x: auto;
+        overflow-y: hidden;
+        touch-action: pan-x pan-y;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 15px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        width: calc(100% + 30px);
+        margin: 0 -15px;
+        padding: 14px 15px 20px;
+    }
+    .blocos::-webkit-scrollbar { display: none; }
+
+    .blocos-wrapper {
+        transform: none !important;
+        transition: none;
+        gap: 12px;
+        padding-right: 15px;
+    }
+
+    .bloco {
+        width: clamp(132px, 38vw, 190px); /* ~2 capas e um pedaço da terceira */
+        margin: 0;
+        scroll-snap-align: start;
+    }
+
+    .secao-carrossel .controles-carrossel { display: none !important; }
+}
+
+/* ---------- 4. Modal do jogo como sheet ---------- */
+
+@media (max-width: 767.98px) {
+    #modalJogo .modal-dialog {
+        max-width: none;
+        min-height: 100%;
+        margin: 0;
+        align-items: flex-end;
+    }
+    #modalJogo.modal.fade .modal-dialog {
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    #modalJogo.modal.show .modal-dialog { transform: none; }
+
+    #modalJogo .modal-content {
+        width: 100%;
+        max-height: 92dvh;
+        border-width: 1px 0 0;
+        border-radius: 22px 22px 0 0;
+    }
+    #modalJogo .modal-body {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* rodapé fixo: Jogar grande em cima, ações embaixo */
+    #modalJogo .modal-footer {
+        flex-direction: column;
+        flex-wrap: nowrap !important;
+        align-items: stretch;
+        gap: 10px !important;
+        flex-shrink: 0;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+        background-color: #212529;
+        box-shadow: 0 -8px 18px rgba(0, 0, 0, 0.35);
+    }
+    #modalJogo .modal-footer > div:last-child { display: contents !important; }
+
+    #modalJogo .btn-jogar-modal {
+        order: 1;
+        width: 100%;
+        padding: 14px 16px !important;
+        border-radius: 14px;
+        font-size: 1.1rem;
+    }
+    #modalJogo .modal-footer > div:first-child {
+        order: 2;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px !important;
+    }
+    #modalJogo .modal-footer > div:first-child .btn-secondary { display: none; } /* o X do topo e o toque fora já fecham */
+    #modalJogo .modal-footer > div:first-child .btn { padding: 10px 6px; font-size: 0.85rem; }
+    #modalJogo .link-nova-aba { order: 3; text-align: center; font-size: 0.85rem; }
+}
+
+/* celular deitado: sem barra inferior (a tela é baixa) */
+@media (max-width: 991px) and (orientation: landscape) and (max-height: 500px) {
+    :root { --nav-inf-h: 0px; }
+    .nav-inferior { display: none; }
+}
+
+/* ---------- Animações ---------- */
+
+@keyframes sheet-sobe {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes busca-entra {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes girar-celular {
+    0%, 25%   { transform: rotate(0deg); }
+    60%, 100% { transform: rotate(-90deg); }
+}
+@keyframes toast-mob {
+    0%   { opacity: 0; transform: translate(-50%, 12px); }
+    10%  { opacity: 1; transform: translate(-50%, 0); }
+    85%  { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, 6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .busca-overlay,
+    .player-girar,
+    .player-girar svg,
+    .sheet,
+    .toast-mob { animation: none; transition: none; }
+}

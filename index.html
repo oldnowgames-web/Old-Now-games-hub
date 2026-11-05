@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="bot.css">
     <link rel="stylesheet" href="area.css">
     <link rel="stylesheet" href="social.css">
+    <link rel="stylesheet" href="mobile.css">
 </head>
 
 <body>
@@ -143,6 +144,7 @@
                                 <p class="sessao-menu-dica">Seus dados continuam salvos.</p>
                             </div>
                         </div>
+                        <button type="button" class="btn-lupa-mobile d-lg-none" data-busca-abrir aria-label="Buscar jogos"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
                         <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuMobileDireita" aria-controls="menuMobileDireita" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -293,6 +295,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="m13 19 6-6"/><path d="m16 16 4 4"/><path d="m19 21 2-2"/></svg>Aventura e Ação <span class="contagem" id="contagem-aventura-acao"></span></p>
                     <select class="filtro-ordenacao" data-categoria="aventura-acao" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -311,6 +314,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V8h3V5h2v3h4V5h2v3h3v13"/><path d="M10 21v-5a2 2 0 0 1 4 0v5"/></svg>Simulação e Estratégia <span class="contagem" id="contagem-simulacao-estrategia"></span></p>
                     <select class="filtro-ordenacao" data-categoria="simulacao-estrategia" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -329,6 +333,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3"/><path d="M17 6h3v1a3 3 0 0 1-3 3"/></svg>Esporte e Racing <span class="contagem" id="contagem-esporte-racing"></span></p>
                     <select class="filtro-ordenacao" data-categoria="esporte-racing" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -347,6 +352,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.236 3.236c-.464.18-.894.527-.967 1.02Z"/></svg>Puzzle <span class="contagem" id="contagem-puzzle"></span></p>
                     <select class="filtro-ordenacao" data-categoria="puzzle" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -365,6 +371,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h4"/><path d="M8 9v4"/><path d="M15 12h.01"/><path d="M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg>Arcade <span class="contagem" id="contagem-arcade"></span></p>
                     <select class="filtro-ordenacao" data-categoria="arcade" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -383,6 +390,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="8" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="8" cy="16" r="1" fill="currentColor"/><circle cx="16" cy="16" r="1" fill="currentColor"/></svg>Jogos de Mesa <span class="contagem" id="contagem-tabuleiro"></span></p>
                     <select class="filtro-ordenacao" data-categoria="tabuleiro" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -401,6 +409,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>Explorador do Espaço <span class="contagem" id="contagem-explorador-espaco"></span></p>
                     <select class="filtro-ordenacao" data-categoria="explorador-espaco" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -419,6 +428,7 @@
                 <div class="secao-cabecalho">
                     <p class="secao-titulo"><svg class="icone-cat" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Multiplayer <span class="contagem" id="contagem-multiplayer"></span></p>
                     <select class="filtro-ordenacao" data-categoria="multiplayer" aria-label="Ordenar jogos">
+                        <option value="aleatorio">Aleatório</option>
                         <option value="nome">Nome (A-Z)</option>
                         <option value="jogados">Mais jogado</option>
                     </select>
@@ -577,6 +587,15 @@
             </div>
         </div>
         <iframe id="playerIframe" class="player-iframe" src="" title="Jogo" allowfullscreen></iframe>
+        <!-- Celular: botão pequeno e arrastável para sair do jogo -->
+        <button type="button" class="player-flutuante" id="playerFlutuante" aria-label="Sair do jogo" title="Sair do jogo">✕</button>
+        <!-- Celular: dica para jogos que ficam melhores com o aparelho deitado -->
+        <div class="player-girar" id="playerGirar" role="status">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            <span>Este jogo fica melhor com o celular deitado.</span>
+            <button type="button" id="playerGirarBtn">Girar</button>
+            <button type="button" class="fechar" id="playerGirarFechar" aria-label="Dispensar">✕</button>
+        </div>
     </div>
 
     <!-- Minha área: seleção de jogos + tela com as capas lado a lado -->
@@ -652,6 +671,28 @@
         </div>
     </div>
 
+    <!-- Celular: busca em tela cheia -->
+    <div id="buscaOverlay" class="busca-overlay" role="dialog" aria-modal="true" aria-label="Buscar jogos" hidden>
+        <div class="busca-topo">
+            <button type="button" class="busca-voltar" id="buscaVoltar" aria-label="Voltar"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button>
+            <div class="busca-campo">
+                <svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input id="buscaInput" type="search" placeholder="Buscar jogos..." aria-label="Buscar jogos" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+                <button type="button" class="busca-limpar" id="buscaLimpar" aria-label="Limpar" hidden><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></button>
+            </div>
+        </div>
+        <div class="busca-corpo" id="buscaCorpo"></div>
+    </div>
+
+    <!-- Celular: barra inferior -->
+    <nav class="nav-inferior d-lg-none" id="navInferior" aria-label="Navegação principal">
+        <button type="button" data-nav="inicio" class="ativo" aria-current="page"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg><span>Início</span></button>
+        <button type="button" data-nav="categorias"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg><span>Categorias</span></button>
+        <button type="button" data-nav="area"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Área</span></button>
+        <button type="button" data-nav="buscar"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></button>
+        <button type="button" data-nav="perfil"><svg class="icone-nav" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Perfil</span></button>
+    </nav>
+
     <button type="button" id="btnTopo" class="btn-topo" title="Voltar ao topo" aria-label="Voltar ao topo">↑</button>
 
        <!-- Assistente OldNow (bot) -->
@@ -675,6 +716,7 @@
     <script src="script.js"></script>
     <script src="tempo.js"></script>
     <script src="area.js"></script>
+    <script src="mobile.js"></script>
     <script src="bot.js"></script>
     <script src="social.js"></script>
     <script src="pwa.js"></script>
