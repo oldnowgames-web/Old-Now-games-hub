@@ -599,4 +599,49 @@
     };
 
     atualizarRotulos();
+
+    /* ---------- API para outros módulos (bot, coleções, perfil, celular) ---------- */
+
+    function adicionarNaArea(id) {
+        const j = GAMES.find(g => g.id === id);
+        if (!j || !j.link || j.link === "#") return false;
+        const area = lerArea() || { criadaEm: Date.now(), jogos: [] };
+        if (area.jogos.includes(id)) return "ja";
+        area.jogos.push(id);
+        if (!salvarArea(area)) return false;
+        atualizarRotulos();
+        if (aberta && !viewArea.hidden) mostrarArea(area);
+        return true;
+    }
+
+    function removerDaArea(id) {
+        const area = lerArea();
+        if (!area || !area.jogos.includes(id)) return false;
+        area.jogos = area.jogos.filter(j => j !== id);
+        try {
+            if (area.jogos.length) armazenamento().setItem(CHAVE_AREA, JSON.stringify(area));
+            else armazenamento().removeItem(CHAVE_AREA); // área vazia deixa de existir
+        } catch (e) { return false; }
+        atualizarRotulos();
+        if (aberta && !viewArea.hidden) {
+            if (area.jogos.length) mostrarArea(area); else fecharOverlay();
+        }
+        return true;
+    }
+
+    window.OldNowArea = {
+        abrir: abrirOverlay,
+        existe: () => !!lerArea(),
+        aberta: () => aberta,
+        jogos: () => { const a = lerArea(); return a ? a.jogos.slice() : []; },
+        tem: id => { const a = lerArea(); return !!a && a.jogos.includes(id); },
+        adicionar: adicionarNaArea,
+        remover: removerDaArea,
+        cores: () => CORES_FUNDO.slice(),
+        definirCor: cor => { if (!lerArea() || !corValida(cor)) return false; definirCor(cor); return true; },
+        definirPadrao: () => { if (!lerArea()) return false; voltarAoPadrao(); return true; },
+        espaco: () => { const a = lerArea(); return a && ESPACOS.includes(a.espaco) ? a.espaco : ESPACO_PADRAO; },
+        definirEspaco: e => { if (!lerArea() || !ESPACOS.includes(e)) return false; definirEspaco(e); return true; },
+        espacos: () => ESPACOS.slice()
+    };
 })();

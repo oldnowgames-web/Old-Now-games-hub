@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="area.css">
     <link rel="stylesheet" href="social.css">
     <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="extras.css">
 </head>
 
 <body>
@@ -115,6 +116,9 @@
                 <li><a href="#"><img src="img/icon_biblioteca.png" alt="icone-biblioteca"> Biblioteca</a></li>
                 <li><a href="#favoritos">🤍 Favoritos </a></li>
                 <li><a href="#" data-area-abrir><svg class="icone-area" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><rect x="13.2" y="3.2" width="7.6" height="7.6" rx="2" transform="rotate(45 17 7)"/></svg> <span data-area-rotulo>Criar minha área</span></a></li>
+                <li><a href="#" data-colecoes-abrir><svg class="icone-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Coleções</a></li>
+                <li><a href="#" data-conquistas-abrir><svg class="icone-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3"/><path d="M17 6h3v1a3 3 0 0 1-3 3"/></svg> Conquistas</a></li>
+                <li><a href="#" data-perfil-abrir><svg class="icone-x" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg> Perfil</a></li>
                 <li><a href="#" data-social-abrir><img src="img/instagram-icon.png" alt="instagram-icon" style="transform: scale(0.8);"> Instagram</a></li>
                 <li class="d-none" data-instalar-app><a href="#"><img src="img/baixar.png" alt=""> Instalar app</a></li>
             </ul>
@@ -180,6 +184,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#" data-area-abrir> <span data-area-rotulo>Criar minha área</span></a>
                                 </li>
+                                <li class="nav-item d-lg-none">
+                                    <a class="nav-link" href="#" data-colecoes-abrir>Coleções</a>
+                                </li>
+                                <li class="nav-item d-lg-none">
+                                    <a class="nav-link" href="#" data-conquistas-abrir>Conquistas</a>
+                                </li>
+                                <li class="nav-item d-lg-none">
+                                    <a class="nav-link" href="#" data-perfil-abrir>Perfil</a>
+                                </li>
                                 <li class="nav-item d-none" data-instalar-app>
                                     <a class="nav-link" href="#"><img src="img/baixar.png" alt="" class="icone-menu-mobile"> Instalar app</a>
                                 </li>
@@ -229,6 +242,8 @@
           <div class="surpreenda-wrap">
                 <button type="button" id="btnSurpreenda" class="btn-surpreenda"><span class="dado">🎲</span> Me surpreenda</button>
                 <button type="button" class="btn-area-hub btn-area-icone" data-area-abrir><svg class="icone-area" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><rect x="13.2" y="3.2" width="7.6" height="7.6" rx="2" transform="rotate(45 17 7)"/></svg> <span data-area-rotulo>Criar minha área</span></button>
+                <button type="button" class="btn-area-hub btn-area-icone" data-colecoes-abrir><svg class="icone-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Coleções</button>
+                <button type="button" class="btn-area-hub btn-area-icone" data-perfil-abrir><svg class="icone-x" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg> Perfil</button>
                 <button type="button" class="btn-area-hub btn-social-hub" data-social-abrir aria-label="Abrir o Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg> Instagram</button>
             </div>
 
@@ -567,6 +582,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="button" class="btn btn-outline-light btn-favorito-modal" id="modalFavorito">♡ Favoritar</button>
                         <button type="button" class="btn btn-outline-light btn-compartilhar" id="modalCompartilhar" title="Copiar link do jogo">🔗 Compartilhar</button>
+                        <button type="button" class="btn btn-outline-light btn-salvar" id="modalSalvar" title="Salvar em Jogar depois ou numa coleção"><svg class="icone-x" viewBox="0 0 24 24" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Salvar</button>
                     </div>
                     <div class="d-flex align-items-center gap-3">
                         <button type="button" id="modalBotaoJogar" class="btn btn-primary px-4 btn-jogar-modal">Jogar Agora</button>
@@ -709,6 +725,9 @@
     <script src="tempo.js"></script>
     <script src="area.js"></script>
     <script src="mobile.js"></script>
+    <script src="dados.js"></script>
+    <script src="colecoes.js"></script>
+    <script src="perfil.js"></script>
     <script src="bot.js"></script>
     <script src="social.js"></script>
     <script src="pwa.js"></script>

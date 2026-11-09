@@ -308,7 +308,7 @@
     /* ---------- Correção de digitação ---------- */
 
     // Palavras que o bot usa para entender frases: nunca são "corrigidas" (evita trocar "ultimo" por "ultima")
-    const CONHECIDAS = new Set(("horas hora tempo minutos minuto passei jogadas jogado abre abrir acha ache adeus adicion adorei agora agradec aham ajuda ajudar aleatorio algo algum alguma alta amanha amei amigo amigos ampliar android anterior apag apaga aparece aplicativo apoiadores apoio area assinatura assistente atualizacao atualizacoes avali bacana baix beleza bobo bora bota brigad burro busco cadastrar cadastro carrega celular certo chama chat cheia claro cobran coisa coloc comandos comecar comeco como compartilh compativel conexao congel consigo conta contato continu continuar conversa convidar cria criador criar criou curiosidade curioso curti curtidos custa custo dado decide deixa deleta depois desce descricao desenvolveu desfavorit detalhes diferente divertido dois download engracad entendi entrar enviar equipe erro escolhe esta estatisticas estilo estrelas etec exclu existe existem explica expoete fala falar falou fato favor favorit fechado feedback fica ficam final fullscreen funciona fundo games gostaria gostei graca grande gratis gratuito guardad hello help historia historico horrivel humano humor ideia idiota igual incrivel indeciso indic inicia inicial iniciar inicio insta instagram instal interessante internet inutil iphone isso joga jogado jogadores jogados jogando jogar jogo jogos jogou jogue joguei junto lancamentos legal lembra lento leva limpa link lista lixo logar login logo mais manda mandar marc maximizar melhor melhores mesmo meus minha minhas mobile monta mostra mudar muito multiplayer negativo nenhum noite nome nope nota notas nova novidade novidades novo novos obrigad obrigado odeio offline oldnow onde online otimo outra outro outros paga pagar pagina pago para parceir parecid parei parou parte partiu patrocin perd perfeito perfil personalizar piada plataforma play pode positivo posso prateleira preciso preco preta primeira primeiro problema procurar procuro progresso proxima proximo pula quais qual qualquer quantos quebrou quem queria quero ranking recentes reclamacao recomecar recomend redes reiniciar remov repete repetir retira robo roda rodape rodar rola sabe sabia sair salv salve secao semelhante senha serve sessao sessoes show similar site sobe sobre some somem somos sortear sortei stats sugest sugir surpreend tablet tanto tarde tchau tela telefone thanks tipo tira todas todos topo toque touch trava travando travou traz troca trocar tudo uhum ultima ultimas ultimo ultimos usuario valeu vamos voce voces wifi zerar").split(" "));
+    const CONHECIDAS = new Set(("horas hora tempo minutos minuto passei jogadas jogado abre abrir acha ache adeus adicion adorei agora agradec aham ajuda ajudar aleatorio algo algum alguma alta amanha amei amigo amigos ampliar android anterior apag apaga aparece aplicativo apoiadores apoio area assinatura assistente atualizacao atualizacoes avali bacana baix beleza bobo bora bota brigad burro busco cadastrar cadastro carrega celular certo chama chat cheia claro cobran coisa coloc comandos comecar comeco como compartilh compativel conexao congel consigo conta contato continu continuar conversa convidar cria criador criar criou curiosidade curioso curti curtidos custa custo dado decide deixa deleta depois desce descricao desenvolveu desfavorit detalhes diferente divertido dois download engracad entendi entrar enviar equipe erro escolhe esta estatisticas estilo estrelas etec exclu existe existem explica expoete fala falar falou fato favor favorit fechado feedback fica ficam final fullscreen funciona fundo games gostaria gostei graca grande gratis gratuito guardad hello help historia historico horrivel humano humor ideia idiota igual incrivel indeciso indic inicia inicial iniciar inicio insta instagram instal interessante internet inutil iphone isso joga jogado jogadores jogados jogando jogar jogo jogos jogou jogue joguei junto lancamentos legal lembra lento leva limpa link lista lixo logar login logo mais manda mandar marc maximizar melhor melhores mesmo meus minha minhas mobile monta mostra mudar muito multiplayer negativo nenhum noite nome nope nota notas nova novidade novidades novo novos obrigad obrigado odeio offline oldnow onde online otimo outra outro outros paga pagar pagina pago para parceir parecid parei parou parte partiu patrocin perd perfeito perfil personalizar piada plataforma play pode positivo posso prateleira preciso preco preta primeira primeiro problema procurar procuro progresso proxima proximo pula quais qual qualquer quantos quebrou quem queria quero ranking recentes reclamacao recomecar recomend redes reiniciar remov repete repetir retira robo roda rodape rodar rola sabe sabia sair salv salve secao semelhante senha serve sessao sessoes show similar site sobe sobre some somem somos sortear sortei stats sugest sugir surpreend tablet tanto tarde tchau tela telefone thanks tipo tira todas todos topo toque touch trava travando travou traz troca trocar tudo uhum ultima ultimas ultimo ultimos usuario valeu vamos voce voces wifi zerar desafio desafios desafia desafie colecao colecoes playlist conquista conquistas medalha medalhas selo selos quiz questionario sequencia streak espacamento compacto amplo juntinho juntinhos afastado apertado azul vermelho vinho verde roxo violeta rosa laranja cinza ciano preto escuro guarda guardar guardei anota espacar").split(" "));
 
     // frequência de cada palavra nos jogos (usada para desempatar correções)
     const FREQ_PALAVRA = new Map();
@@ -1199,11 +1199,13 @@
 
     function rAjuda() {
         return {
-            texto: "Posso te ajudar com:\n• Recomendar jogos (\"quero algo de corrida\", \"jogo relaxante\", \"tipo xadrez\")\n• Abrir, favoritar e avaliar jogos pelo nome\n• Mostrar favoritos, recentes, mais jogados, notas e tempo jogado\n• Achar jogos parecidos com outro\n• Abrir a Minha área, o Instagram, instalar o app\n• Levar você até uma seção do site\n• Tirar dúvidas (grátis? celular? offline? sessão?)",
+            texto: "Posso te ajudar com:\n• Recomendar jogos (\"quero algo de corrida\", \"jogo relaxante\", \"tipo xadrez\")\n• Abrir, favoritar e avaliar jogos pelo nome\n• Mostrar favoritos, recentes, mais jogados, notas e tempo jogado\n• Achar jogos parecidos com outro\n• Abrir a Minha área, trocar a cor e o espaçamento dela, colocar ou tirar jogos (\"adiciona o Xadrez na minha área\")\n• Desafio do dia, \"me desafia\", conquistas e o seu perfil\n• Coleções e Jogar depois (\"guarda o Xadrez pra jogar depois\")\n• Um quiz de 3 perguntas pra achar o jogo ideal\n• Abrir o Instagram, instalar o app\n• Levar você até uma seção do site\n• Tirar dúvidas (grátis? celular? offline? sessão?)",
             chips: [
                 { texto: "🎲 Recomende um jogo", acao: () => responder(recomendarPersonalizado()) },
                 { texto: "❤️ Meus favoritos", acao: () => responder(rFavoritos()) },
-                { texto: "🧩 Minha área", acao: () => responder(rAreaAbrir()) }
+                { texto: "🧩 Minha área", acao: () => responder(rAreaAbrir()) },
+                { texto: "🎯 Quiz de gosto", acao: () => responder(rQuiz()) },
+                { texto: "🎯 Desafio de hoje", acao: () => responder(rDesafioDia()) }
             ]
         };
     }
@@ -1262,6 +1264,342 @@
        INTENÇÕES (cada uma dá uma nota; vence a maior)
        ========================================================= */
 
+    /* =========================================================
+       NOVIDADES: Minha área (cor, espaçamento, jogos), desafios,
+       conquistas, perfil, coleções, "jogar depois" e quiz de gosto
+       ========================================================= */
+
+    const DADOS = () => window.OldNowDados || null;
+    const AREA_API = () => window.OldNowArea || null;
+    const COL_API = () => window.OldNowColecoes || null;
+    const PERFIL_API = () => window.OldNowPerfil || null;
+
+    const jogaveisBot = () => GAMES.filter(j => j.link && j.link !== "#");
+    const plural = (n, um, varios) => (n === 1 ? um : varios);
+    const semDados = () => ({ texto: "Esse recurso ainda está carregando. Tenta de novo em instantes. 😉" });
+    const semArea = acao => ({
+        texto: `Você ainda não criou a **Minha área**, então não dá pra ${acao} ainda. Quer criar agora?`,
+        chips: [{ texto: "🧩 Criar Minha área", acao: () => responder(rAreaAbrir()) }]
+    });
+
+    const CORES_AREA = [
+        { rx: /\bazul (vivo|forte|claro|bebe)\b/, nome: "azul vivo", hex: "#007bff" },
+        { rx: /\bazul\b/, nome: "azul", hex: "#0b1b3a" },
+        { rx: /\b(vermelh\w+|vinho|bordo)\b/, nome: "vinho", hex: "#3d0f17" },
+        { rx: /\b(verde agua|turquesa|ciano)\b/, nome: "verde-água", hex: "#20c997" },
+        { rx: /\bverde\b/, nome: "verde", hex: "#0f2b22" },
+        { rx: /\b(roxo vivo|violeta)\b/, nome: "violeta", hex: "#6f42c1" },
+        { rx: /\b(roxo|lilas)\b/, nome: "roxo", hex: "#2a0f3d" },
+        { rx: /\brosa\b/, nome: "rosa", hex: "#e83e8c" },
+        { rx: /\blaranja\b/, nome: "laranja", hex: "#fd7e14" },
+        { rx: /\b(cinza|grafite)\b/, nome: "cinza", hex: "#1f2937" },
+        { rx: /\b(preto|escuro)\b/, nome: "preto", hex: "#0d0d0d" }
+    ];
+
+    function chipsAreaPos() {
+        return [
+            { texto: "🧩 Abrir Minha área", acao: () => responder(rAreaAbrir()) },
+            { texto: "🎨 Outra cor", acao: () => responder(rCorArea("trocar cor area")) },
+            { texto: "↔️ Mudar espaçamento", acao: () => responder(rEspacoArea("mudar espacamento")) }
+        ];
+    }
+
+    function rCorArea(t) {
+        const A = AREA_API();
+        if (!A) return semDados();
+        if (!A.existe()) return semArea("trocar a cor");
+        const pedida = CORES_AREA.find(c => c.rx.test(t));
+        if (!pedida && /\b(padrao|original|volta\w*|restaura\w*)\b/.test(t)) {
+            A.definirPadrao();
+            return { texto: "Pronto! Voltei o fundo da sua Minha área ao padrão. ↩️", chips: chipsAreaPos() };
+        }
+        const cor = pedida || aleatorio(CORES_AREA);
+        if (!A.definirCor(cor.hex)) return { texto: "Não consegui trocar a cor agora. Tenta pelo botão 🎨 Personalizar da sua área." };
+        return {
+            texto: pedida
+                ? `Pronto! Deixei o fundo da sua Minha área **${cor.nome}**. 🎨`
+                : `Sorteei o **${cor.nome}** pro fundo da sua Minha área. 🎨 Gostou? Se não, é só pedir outra.`,
+            chips: chipsAreaPos().concat([{ texto: "↩️ Voltar ao padrão", acao: () => responder(rCorArea("cor padrao area")) }])
+        };
+    }
+
+    function rEspacoArea(t) {
+        const A = AREA_API();
+        if (!A) return semDados();
+        if (!A.existe()) return semArea("mudar o espaçamento");
+        let alvo = null;
+        if (/\b(menos espaco|compacto|juntinh\w*|apertad\w*|pertinho|colad\w*)\b/.test(t)) alvo = "compacto";
+        else if (/\b(normal|medio)\b/.test(t)) alvo = "normal";
+        else if (/\b(mais espaco|amplo|largo|afastad\w*|espacad\w*|solto)\b/.test(t)) alvo = "amplo";
+        else {
+            const ciclo = ["amplo", "normal", "compacto"]; // do mais solto ao mais juntinho, e volta
+            alvo = ciclo[(ciclo.indexOf(A.espaco()) + 1) % ciclo.length];
+        }
+        A.definirEspaco(alvo);
+        const nome = { compacto: "compacto (capas bem juntinhas)", normal: "normal", amplo: "amplo (capas mais afastadas)" }[alvo];
+        return { texto: `Pronto! Deixei o espaçamento da sua Minha área **${nome}**. ↔️`, chips: chipsAreaPos() };
+    }
+
+    function rAreaJogo(t, info) {
+        const A = AREA_API();
+        if (!A) return semDados();
+        const remover = /\b(tira\w*|remov\w+|retira\w*|exclu\w+|deleta\w*|apaga\w*)\b/.test(t);
+        const ref = info.ref;
+        if (!ref) return { texto: "Qual jogo? Diga o nome, por exemplo: \"adiciona o Xadrez na minha área\"." };
+
+        const aplicar = j => {
+            if (!j.link || j.link === "#") return { texto: `**${j.titulo}** ainda não está disponível pra jogar, então não dá pra colocar na sua área.` };
+            ctx.ultimoJogo = j;
+            if (remover) {
+                if (!A.tem(j.id)) return { texto: `**${j.titulo}** nem estava na sua Minha área.` };
+                A.remover(j.id);
+                return { texto: `Tirei **${j.titulo}** da sua Minha área.`, chips: [{ texto: "🧩 Abrir Minha área", acao: () => responder(rAreaAbrir()) }] };
+            }
+            const existia = A.existe();
+            const r = A.adicionar(j.id);
+            if (r === "ja") return { texto: `**${j.titulo}** já está na sua Minha área. 😉`, chips: [{ texto: "🧩 Abrir Minha área", acao: () => responder(rAreaAbrir()) }] };
+            if (!r) return { texto: "Não consegui salvar agora (o armazenamento do navegador pode estar cheio)." };
+            const D = DADOS();
+            if (D) D.avaliarConquistas();
+            return {
+                texto: existia ? `Pronto! Coloquei **${j.titulo}** na sua Minha área. 🧩` : `Criei a sua **Minha área** com **${j.titulo}**! 🧩`,
+                chips: [{ texto: "🧩 Abrir Minha área", acao: () => responder(rAreaAbrir()) }, { texto: "🎨 Mudar a cor", acao: () => responder(rCorArea("trocar cor area")) }]
+            };
+        };
+
+        if (ref.forca === "ambiguo") {
+            return desambiguar(ref.ambiguos, aplicar, remover ? "Qual deles você quer tirar da área?" : "Qual deles você quer colocar na área?");
+        }
+        return aplicar(ref.jogo);
+    }
+
+    /* ---------- Desafio do dia, "me desafia", conquistas e perfil ---------- */
+
+    function chipsPerfil() {
+        return [
+            { texto: "📊 Abrir meu perfil", acao: () => { const P = PERFIL_API(); if (P) P.abrir(); responder({ texto: "Abri o seu perfil! 😉" }); } },
+            { texto: "🏅 Ver conquistas", acao: () => { const P = PERFIL_API(); if (P) P.abrir("conquistas"); responder({ texto: "Abri as suas conquistas! 🏅" }); } }
+        ];
+    }
+
+    function rDesafioDia() {
+        const D = DADOS();
+        if (!D) return semDados();
+        const j = D.desafioDoDia();
+        if (!j) return { texto: "Hoje não achei um desafio. Volta amanhã! 😉" };
+        const s = D.streak();
+        const feito = D.desafioCumprido();
+        ctx.ultimoJogo = j;
+        const dias = `${s.atual} ${plural(s.atual, "dia", "dias")}`;
+        return {
+            texto: feito
+                ? `Você já cumpriu o desafio de hoje com **${j.titulo}**! ✅ Sua sequência é de **${dias}**. 🔥`
+                : `O desafio de hoje é **${j.titulo}**! 🎯 ` + (s.atual ? `Jogue hoje pra manter a sua sequência de **${dias}**. 🔥` : "Jogue hoje pra começar a sua sequência de dias."),
+            jogos: [{ jogo: j, motivo: "Desafio de hoje" }],
+            chips: chipsPerfil().concat([{ texto: "🎲 Me desafia com outro", acao: () => responder(rMeDesafia()) }])
+        };
+    }
+
+    function rMeDesafia() {
+        const jog = seguro(() => getJogadas(), {});
+        const todos = jogaveisBot();
+        const novos = todos.filter(j => !jog[j.id]);
+        const pool = novos.length ? novos : todos.slice().sort((a, b) => (jog[a.id] || 0) - (jog[b.id] || 0)).slice(0, 5);
+        const j = aleatorio(pool);
+        ctx.ultimoJogo = j;
+        ctx.ultimaAcao = () => responder(rMeDesafia());
+        return {
+            texto: novos.length
+                ? `Desafio aceito? 😈 Você ainda não jogou o **${j.titulo}**. Bora?`
+                : `Você já jogou todos os jogos! 🏆 Então que tal rever o **${j.titulo}**, um dos que você menos jogou?`,
+            jogos: [{ jogo: j, motivo: novos.length ? "Você ainda não jogou" : "Hora de rever" }],
+            chips: [{ texto: "🔁 Outro desafio", acao: () => responder(rMeDesafia()) }, { texto: "🎯 Desafio de hoje", acao: () => responder(rDesafioDia()) }]
+        };
+    }
+
+    function rConquistas() {
+        const D = DADOS();
+        if (!D) return semDados();
+        const est = D.conquistas();
+        const feitas = est.filter(e => e.desbloqueada).length;
+        const quase = est.filter(e => !e.desbloqueada).sort((a, b) => b.progresso - a.progresso).slice(0, 3);
+        let texto = `Você tem **${feitas} de ${est.length}** conquistas. 🏅`;
+        if (quase.length) {
+            texto += "\n\nQuase lá:\n" + quase.map(e => {
+                const f = e.def.formato || String;
+                return `• ${e.def.titulo}: ${f(e.valor)}/${f(e.meta)}`;
+            }).join("\n");
+        } else {
+            texto += "\n\nVocê desbloqueou todas! 👑";
+        }
+        return { texto, chips: chipsPerfil() };
+    }
+
+    function rPerfilStats() {
+        const D = DADOS();
+        if (!D) return semDados();
+        const s = D.stats();
+        const mj = s.maisJogado && D.jogoPorId(s.maisJogado.id);
+        const linhas = [
+            `• Tempo jogado: **${D.fmtTempo(s.totalMs)}**`,
+            `• Jogos diferentes: **${s.distintos}** (${s.partidas} ${plural(s.partidas, "partida", "partidas")})`,
+            `• Sequência: **${s.streak.atual} ${plural(s.streak.atual, "dia", "dias")}** (melhor: ${s.streak.melhor})`
+        ];
+        if (mj) linhas.push(`• Mais jogado: **${mj.titulo}** (${s.maisJogado.vezes}x)`);
+        if (s.categoriaFavorita) linhas.push(`• Categoria favorita: **${s.categoriaFavorita.titulo}**`);
+        return { texto: "Seu resumo de jogador: 📊\n" + linhas.join("\n"), chips: chipsPerfil() };
+    }
+
+    /* ---------- Coleções e "jogar depois" ---------- */
+
+    function rColecoes(t) {
+        const C = COL_API();
+        if (!C) return semDados();
+        const lista = C.listar();
+        if (/\b(jogar depois|ver depois|mais tarde)\b/.test(t)) {
+            const D = DADOS();
+            const n = D ? D.getDepois().length : 0;
+            return { texto: n ? `Você tem **${n}** ${plural(n, "jogo guardado", "jogos guardados")} em Jogar depois. 🔖 Abrindo a lista…` : "Sua lista **Jogar depois** está vazia. Toque em “Salvar” num jogo pra guardar. 🔖 Abrindo mesmo assim…", depois: () => C.abrirDepois() };
+        }
+        if (/\b(cria\w*|nova|novo|faz|fazer|monta\w*)\b/.test(t)) {
+            return { texto: "Bora! Abri a janelinha pra você dar um nome à coleção. 📁", depois: () => C.pedirNovaColecao() };
+        }
+        const nomes = lista.map(c => `“${c.nome}” (${c.jogos.length})`).join(", ");
+        return {
+            texto: lista.length
+                ? `Você tem ${lista.length} ${plural(lista.length, "coleção", "coleções")}: ${nomes}. 📁 Abrindo…`
+                : "Você ainda não criou coleções. Elas servem pra separar jogos por clima, tipo “Para jogar com amigos” ou “Relaxar”. Abrindo a tela pra você criar a primeira! 📁",
+            depois: () => C.abrir()
+        };
+    }
+
+    function rDepoisAdd(t, info) {
+        const D = DADOS();
+        if (!D) return semDados();
+        const ref = info.ref;
+        if (!ref) return { texto: "Qual jogo? Diga o nome, por exemplo: \"guarda o Xadrez pra jogar depois\"." };
+        const aplicar = j => {
+            ctx.ultimoJogo = j;
+            if (!j.link || j.link === "#") return { texto: `**${j.titulo}** ainda não está disponível pra jogar.` };
+            if (D.isDepois(j.id)) return { texto: `**${j.titulo}** já está em Jogar depois. 🔖` };
+            D.addDepois(j.id);
+            return { texto: `Guardei **${j.titulo}** em Jogar depois. 🔖 Quando você jogar, ele sai da lista sozinho.`, chips: [{ texto: "🔖 Ver a lista", acao: () => responder(rColecoes("jogar depois")) }] };
+        };
+        if (ref.forca === "ambiguo") return desambiguar(ref.ambiguos, aplicar, "Qual deles você quer guardar?");
+        return aplicar(ref.jogo);
+    }
+
+    function rColecaoAdd(t, info) {
+        const C = COL_API();
+        if (!C) return semDados();
+        const ref = info.ref;
+        if (!ref) return { texto: "Qual jogo? Diga o nome, por exemplo: \"coloca o Xadrez na coleção Relaxar\"." };
+        const lista = C.listar();
+        if (!lista.length) return { texto: "Você ainda não tem coleções. Quer criar uma? 📁", chips: [{ texto: "📁 Criar coleção", acao: () => responder(rColecoes("criar colecao")) }] };
+
+        const alvo = lista.find(c => normalizar(t).includes(normalizar(c.nome))) || (lista.length === 1 ? lista[0] : null);
+        const aplicar = j => {
+            ctx.ultimoJogo = j;
+            if (!j.link || j.link === "#") return { texto: `**${j.titulo}** ainda não está disponível pra jogar.` };
+            if (!alvo) {
+                return {
+                    texto: `Em qual coleção eu coloco **${j.titulo}**?`,
+                    chips: lista.slice(0, 6).map(c => ({ texto: "📁 " + c.nome, acao: () => { C.adicionar(c.id, j.id); responder({ texto: `Pronto! **${j.titulo}** está em **${c.nome}**. 📁` }); } }))
+                };
+            }
+            if (alvo.jogos.includes(j.id)) return { texto: `**${j.titulo}** já está em **${alvo.nome}**.` };
+            C.adicionar(alvo.id, j.id);
+            return { texto: `Pronto! Coloquei **${j.titulo}** em **${alvo.nome}**. 📁` };
+        };
+        if (ref.forca === "ambiguo") return desambiguar(ref.ambiguos, aplicar, "Qual deles você quer colocar?");
+        return aplicar(ref.jogo);
+    }
+
+    /* ---------- Quiz de gosto: 3 perguntas e uma recomendação ---------- */
+
+    const QUIZ_TOKENS = {
+        dur: { rapido: ["rapido", "casual", "reflexo"], longo: ["explorar", "construir", "evoluir", "sobreviver"] },
+        clima: { acao: ["acao", "batalha", "tiro", "aventura"], relaxar: ["relaxante", "casual", "calmo"], pensar: ["estrategia", "logica", "puzzle"] }
+    };
+
+    function quizEscolhe(rotulo, proxima) {
+        removerChips();
+        addMensagem(rotulo, "user");
+        responder(proxima());
+    }
+
+    function rQuiz() {
+        return {
+            texto: "Bora descobrir o jogo certo pra você! 🎯 São só 3 perguntinhas.\n\n**1/3 — Você prefere partidas rápidas ou longas?**",
+            chips: [
+                { texto: "⚡ Rápidas", acao: () => quizEscolhe("⚡ Rápidas", () => quizP2({ dur: "rapido" })) },
+                { texto: "🧭 Longas", acao: () => quizEscolhe("🧭 Longas", () => quizP2({ dur: "longo" })) },
+                { texto: "🤷 Tanto faz", acao: () => quizEscolhe("🤷 Tanto faz", () => quizP2({ dur: null })) }
+            ]
+        };
+    }
+
+    function quizP2(r) {
+        return {
+            texto: "**2/3 — Vai jogar sozinho ou com amigos?**",
+            chips: [
+                { texto: "🧍 Sozinho", acao: () => quizEscolhe("🧍 Sozinho", () => quizP3(Object.assign({}, r, { comp: "sozinho" }))) },
+                { texto: "👥 Com amigos", acao: () => quizEscolhe("👥 Com amigos", () => quizP3(Object.assign({}, r, { comp: "amigos" }))) },
+                { texto: "🤷 Tanto faz", acao: () => quizEscolhe("🤷 Tanto faz", () => quizP3(Object.assign({}, r, { comp: null }))) }
+            ]
+        };
+    }
+
+    function quizP3(r) {
+        return {
+            texto: "**3/3 — O que combina mais com o seu momento?**",
+            chips: [
+                { texto: "💥 Ação e adrenalina", acao: () => quizEscolhe("💥 Ação e adrenalina", () => quizFim(Object.assign({}, r, { clima: "acao" }))) },
+                { texto: "😌 Relaxar", acao: () => quizEscolhe("😌 Relaxar", () => quizFim(Object.assign({}, r, { clima: "relaxar" }))) },
+                { texto: "🧠 Pensar e planejar", acao: () => quizEscolhe("🧠 Pensar e planejar", () => quizFim(Object.assign({}, r, { clima: "pensar" }))) },
+                { texto: "🤷 Tanto faz", acao: () => quizEscolhe("🤷 Tanto faz", () => quizFim(Object.assign({}, r, { clima: null }))) }
+            ]
+        };
+    }
+
+    function quizFim(r) {
+        const toks = [].concat(r.dur ? QUIZ_TOKENS.dur[r.dur] : [], r.clima ? QUIZ_TOKENS.clima[r.clima] : []);
+        const jog = seguro(() => getJogadas(), {});
+        const ehMulti = j => seguro(() => jogoEstaNaCategoria(j, "multiplayer"), false);
+
+        let ranking = toks.length ? pontuarJogos(toks) : [];
+        // quem não casou com nenhuma palavra também entra, com nota zero
+        const ja = new Set(ranking.map(x => x.jogo.id));
+        jogaveisBot().forEach(j => { if (!ja.has(j.id)) ranking.push({ jogo: j, score: 0 }); });
+
+        ranking = ranking.map(x => {
+            let s = x.score + Math.random() * 0.8; // desempate: variar a cada quiz
+            if (r.comp === "amigos") s += ehMulti(x.jogo) ? 40 : 0;   // multiplayer manda quando é com amigos
+            if (r.comp === "sozinho" && ehMulti(x.jogo)) s -= 40;
+            if (!jog[x.jogo.id]) s += 1.5; // dá preferência ao que a pessoa ainda não jogou
+            return { jogo: x.jogo, score: s };
+        }).sort((a, b) => b.score - a.score);
+
+        const top = ranking.slice(0, 3);
+        const partes = [];
+        if (r.dur) partes.push(r.dur === "rapido" ? "partidas rápidas" : "partidas longas");
+        if (r.comp) partes.push(r.comp === "amigos" ? "com amigos" : "sozinho");
+        if (r.clima) partes.push({ acao: "ação", relaxar: "relaxar", pensar: "pensar" }[r.clima]);
+        const base = partes.length ? partes.join(" + ") : "o seu jeito";
+
+        ctx.ultimoJogo = top[0] ? top[0].jogo : ctx.ultimoJogo;
+        ctx.ultimaAcao = () => responder(quizFim(r));
+        return {
+            texto: `Pronto! Pelas suas respostas (${base}), estes combinam com você: 🎮`,
+            jogos: top.map(x => ({ jogo: x.jogo, motivo: (jog[x.jogo.id] ? "Combina com " : "Ainda não jogou · combina com ") + base })),
+            chips: [
+                { texto: "🔁 Outras opções", acao: () => responder(quizFim(r)) },
+                { texto: "🎯 Refazer o quiz", acao: () => responder(rQuiz()) },
+                { texto: "🎲 Me desafia", acao: () => responder(rMeDesafia()) }
+            ]
+        };
+    }
+
     const R = (rx, peso) => t => (rx.test(t) ? peso : 0);
     const soma = (...fns) => (t, info) => fns.reduce((a, f) => a + f(t, info), 0);
 
@@ -1295,6 +1633,33 @@
             tratar: () => f.resp()
         })),
 
+        { id: "area-jogo", pontos: (t, info) => (info.ref && /\barea\b/.test(t) && /\b(adicion\w+|add|poe|pon|bota\w*|coloc\w+|inclu\w+|salv\w+|manda\w*|move\w*|tira\w*|remov\w+|retira\w*|exclu\w+|deleta\w*|apaga\w*)\b/.test(t) ? 9 : 0),
+          tratar: (t, info) => rAreaJogo(t, info) },
+        { id: "area-cor", pontos: (t) => (/\b(cor|fundo|tema)\b/.test(t) && /\barea\b/.test(t) ? 3 + (/\b(troc\w+|mud\w+|alter\w+|coloc\w+|pon\w+|bot\w+|quero|deix\w+)\b/.test(t) ? 3 : 0) + (CORES_AREA.some(c => c.rx.test(t)) ? 1 : 0) : 0),
+          tratar: t => rCorArea(t) },
+        { id: "area-espaco", pontos: (t) => {
+              let s = 0;
+              if (/\b(espacamento|espacar|afastad\w*|juntinh\w*|apertad\w*)\b/.test(t)) s += 4;
+              if (/\bespaco\b/.test(t) && /\b(area|capas|entre|mais|menos)\b/.test(t) && /\b(mud\w+|troc\w+|aument\w+|diminu\w+|ajust\w+|quero|deix\w+|coloc\w+)\b/.test(t)) s += 4;
+              if (s && /\barea\b/.test(t)) s += 2;
+              return s;
+          }, tratar: t => rEspacoArea(t) },
+        { id: "desafio-dia", pontos: R(/\bdesafio (do dia|de hoje|diario)\b|\bqual (e )?(o )?desafio\b/, 6),
+          tratar: () => rDesafioDia() },
+        { id: "me-desafia", pontos: R(/\b(me desafi\w+|desafia (me|eu)|desafie (me|eu)|(quero|aceito|bora) (um )?desafio|me da um desafio)\b/, 5.5),
+          tratar: () => rMeDesafia() },
+        { id: "conquistas", pontos: R(/\b(conquista\w*|medalha\w*|badge\w*|trofeu\w*|selos?)\b/, 4.5),
+          tratar: () => rConquistas() },
+        { id: "perfil-stats", pontos: R(/\b(minhas? (estatisticas|stats)|meu perfil|sequencia|streak|dias seguidos|meu resumo)\b/, 5),
+          tratar: () => rPerfilStats() },
+        { id: "depois-add", pontos: (t, info) => (info.ref && /\b(depois|mais tarde)\b/.test(t) && /\b(salv\w+|guard\w+|coloc\w+|adicion\w+|bota\w*|poe|pon|anota\w*|deix\w+)\b/.test(t) ? 8 : 0),
+          tratar: (t, info) => rDepoisAdd(t, info) },
+        { id: "colecao-add", pontos: (t, info) => (info.ref && /\b(colecao|colecoes|playlist)\b/.test(t) && /\b(adicion\w+|add|poe|pon|bota\w*|coloc\w+|inclu\w+|salv\w+|guard\w+)\b/.test(t) ? 8 : 0),
+          tratar: (t, info) => rColecaoAdd(t, info) },
+        { id: "colecoes", pontos: R(/\b(colecao|colecoes|playlists?|jogar depois|ver depois|lista de jogos)\b/, 4.5),
+          tratar: t => rColecoes(t) },
+        { id: "quiz", pontos: R(/\b(quiz|questionario|teste de gosto|me ajuda (a )?escolher|me ajude (a )?escolher|descobr\w+ (o )?meu gosto|qual jogo combina|jogo combina comigo|nao sei o que jogar)\b/, 5),
+          tratar: () => rQuiz() },
         { id: "sessao", pontos: soma(R(/\b(sessao|sessoes|perfil|conta|login|logar|cadastro|cadastrar|senha|nome de usuario)\b/, 3.5), R(/\b(trocar|mudar|sair|entrar|nova|criar)\b/, 0.5)),
           tratar: t => rSessao(t) },
         { id: "instalar", pontos: R(/\b(instal\w+|aplicativo|app|pwa|tela inicial|baix\w+|download)\b/, 3.5),

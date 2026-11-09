@@ -13,7 +13,7 @@
    Se a imagem tiver nome novo, não precisa mexer aqui.
    ========================================================= */
 
-const VERSAO = "v4";
+const VERSAO = "v5";
 const CACHE_SHELL = `oldnow-shell-${VERSAO}`;
 const CACHE_ASSETS = `oldnow-assets-${VERSAO}`;
 
@@ -30,6 +30,10 @@ const SHELL = [
     "area.js",
     "mobile.css",
     "mobile.js",
+    "extras.css",
+    "dados.js",
+    "colecoes.js",
+    "perfil.js",
     "tempo.js",
     "manifest.webmanifest",
     "icons/icon-192.png",

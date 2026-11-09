@@ -46,7 +46,9 @@
         info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
         mais: '<path d="M12 5v14"/><path d="M5 12h14"/>',
         menos: '<path d="M5 12h14"/>',
-        seta: '<path d="m9 6 6 6-6 6"/>'
+        seta: '<path d="m9 6 6 6-6 6"/>',
+        marcador: '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
+        pasta: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/>'
     };
 
     function svgIcone(nome, classe) {
@@ -171,6 +173,15 @@
         }
     });
 
+    // usado por outras telas (coleções, perfil...) para o botão "voltar" do celular
+    window.OldNowCamadas = {
+        abrir: abrirCamada,
+        fechar: fecharCamada,
+        preparar: prepararNova,
+        limpar: limparCamadas,
+        aberta: nome => camadas.some(c => c.nome === nome)
+    };
+
     /* ---------- Chips de categoria: ícone + centraliza o chip ativo ---------- */
 
     if (chips) {
@@ -251,6 +262,14 @@
     }
 
     function alternarNaArea(id) {
+        if (window.OldNowArea) {
+            const tem = window.OldNowArea.tem(id);
+            const ok = tem ? window.OldNowArea.remover(id) : window.OldNowArea.adicionar(id);
+            atualizarRotulosArea();
+            toast(!ok ? "Não deu para salvar neste navegador" : (tem ? "Removido da sua área" : "Adicionado à sua área"));
+            if (window.OldNowDados) window.OldNowDados.avaliarConquistas();
+            return;
+        }
         let area = lerAreaSalva();
         let mensagem;
         try {
@@ -362,6 +381,16 @@
         if (temLink) {
             const naArea = estaNaArea(jogo.id);
             acao(svgIcone(naArea ? "menos" : "mais"), naArea ? "Remover da minha área" : "Adicionar à minha área", "", () => alternarNaArea(jogo.id));
+        }
+        if (temLink && window.OldNowDados) {
+            const depois = window.OldNowDados.isDepois(jogo.id);
+            acao(svgIcone("marcador"), depois ? "Tirar de Jogar depois" : "Jogar depois", "", () => {
+                const guardou = window.OldNowDados.toggleDepois(jogo.id);
+                toast(guardou ? "Guardado em Jogar depois" : "Removido de Jogar depois");
+            });
+        }
+        if (temLink && window.OldNowColecoes) {
+            acao(svgIcone("pasta"), "Salvar em coleção…", "", () => window.OldNowColecoes.escolher(jogo.id));
         }
         acao(svgIcone("info"), "Ver detalhes", "", () => abrirJogoPeloId(jogo.id));
 
@@ -647,6 +676,7 @@
             } else if (acao === "buscar") {
                 abrirBusca();
             } else if (acao === "perfil") {
+                if (window.OldNowPerfil) { window.OldNowPerfil.abrir(); return; }
                 if (limparCamadas()) history.go(-1);
                 const avatar = document.getElementById("sessaoAvatar");
                 const entrar = document.getElementById("sessaoEntrar");

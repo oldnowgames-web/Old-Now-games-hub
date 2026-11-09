@@ -690,7 +690,7 @@ const GAMES = [
 
          {
         id: "caca-palavras",
-        titulo: "Cça Palavras",
+        titulo: "Caça Palavras",
         descricao: "Encontre as palavras escondidas e escolha entre diversos temas.",
         capa: "capas/palavras.png",
         imgs: ["palavras/palavras1.png", "palavras/palavras2.png", "palavras/palavras3.png"],
