@@ -158,10 +158,52 @@
         ordem.forEach(e => gradeC.appendChild(cartaoConquista(e)));
         sec.appendChild(gradeC);
         pagina.appendChild(sec);
+        pagina.appendChild(blocoVersao());
 
         rolagem.appendChild(pagina);
         tela.corpo.appendChild(rolagem);
         rolagem.scrollTop = rolagemTopo;
+    }
+
+
+    /* ---------- Versão do hub e "Verificar atualização" ---------- */
+
+    async function versaoGuardada() {
+        try {
+            const nomes = await caches.keys();
+            const n = nomes.map(k => /^oldnow-shell-(v\d+)$/.exec(k)).filter(Boolean).map(m => m[1]).sort().pop();
+            return n || null;
+        } catch (e) { return null; }
+    }
+
+    // Apaga só os arquivos guardados do hub (os seus dados — favoritos, notas, coleções — ficam) e recarrega
+    async function atualizarAgora(botao) {
+        botao.disabled = true;
+        botao.textContent = "Atualizando…";
+        try {
+            if ("serviceWorker" in navigator) {
+                const regs = await navigator.serviceWorker.getRegistrations();
+                await Promise.all(regs.map(r => r.update().catch(() => {})));
+                regs.forEach(r => { if (r.waiting) r.waiting.postMessage({ type: "SKIP_WAITING" }); });
+            }
+        } catch (e) { /* segue */ }
+        try {
+            const nomes = await caches.keys();
+            await Promise.all(nomes.filter(k => k.indexOf("oldnow-") === 0).map(k => caches.delete(k)));
+        } catch (e) { /* segue */ }
+        setTimeout(() => location.reload(), 300);
+    }
+
+    function blocoVersao() {
+        const sec = el("section", "perfil-versao");
+        const txt = el("span", "perfil-versao-txt", "Versão do hub: …");
+        const b = el("button", "area-btn", "Verificar atualização");
+        b.type = "button";
+        b.addEventListener("click", () => atualizarAgora(b));
+        sec.appendChild(txt);
+        sec.appendChild(b);
+        versaoGuardada().then(v => { txt.textContent = v ? "Versão do hub: " + v : "Versão do hub: sem cache neste navegador"; });
+        return sec;
     }
 
     function cartaoConquista(e) {

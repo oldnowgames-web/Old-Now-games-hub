@@ -480,3 +480,16 @@ html.extra-aberta body { overflow: hidden !important; }
 @media (prefers-reduced-motion: reduce) {
     .extra-dialogo-fundo, .extra-dialogo, .toast-extra { animation: none; transition: none; }
 }
+
+/* ---------- Versão do hub (no Perfil) ---------- */
+.perfil-versao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+    color: #9aa4b2;
+    font-size: 0.82rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

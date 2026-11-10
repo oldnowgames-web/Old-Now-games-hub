@@ -13,7 +13,7 @@
    Se a imagem tiver nome novo, não precisa mexer aqui.
    ========================================================= */
 
-const VERSAO = "v5";
+const VERSAO = "v7";
 const CACHE_SHELL = `oldnow-shell-${VERSAO}`;
 const CACHE_ASSETS = `oldnow-assets-${VERSAO}`;
 
@@ -34,6 +34,8 @@ const SHELL = [
     "dados.js",
     "colecoes.js",
     "perfil.js",
+    "mascote.css",
+    "mascote.js",
     "tempo.js",
     "manifest.webmanifest",
     "icons/icon-192.png",
@@ -116,7 +118,10 @@ async function redePrimeiro(req, url) {
     const chave = req.mode === "navigate" ? new Request(url.origin + url.pathname) : req;
 
     try {
-        const resp = await comTimeout(fetch(req), TIMEOUT_REDE_MS);
+        // "no-cache": sempre pergunta ao servidor se mudou (barato, usa ETag). Sem isso o navegador
+        // podia mostrar a versão antiga por ~10 min depois de uma atualização no GitHub Pages
+        // (era por isso que um navegador mostrava as novidades e outro, não).
+        const resp = await comTimeout(fetch(req, { cache: "no-cache" }), TIMEOUT_REDE_MS);
         if (resp && resp.status === 200 && !resp.redirected) {
             cache.put(chave, resp.clone()).catch(() => {});
         }

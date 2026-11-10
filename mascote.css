@@ -1,0 +1,91 @@
+/* =========================================================
+   OldNow Games — mascote.css
+   O Old Bot no botão do assistente (canto inferior esquerdo).
+   Só vale quando o mascote.js conseguiu carregar a animação
+   (html.mascote-ativo); senão o botão antigo continua igual.
+   Carregar DEPOIS de bot.css, mobile.css e extras.css.
+   ========================================================= */
+
+.bot-toggle.com-mascote {
+    left: 18px;
+    bottom: 10px;
+    width: 100px;
+    height: 120px;
+    padding: 0;
+    overflow: visible;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transform-origin: 50% 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+.bot-toggle.com-mascote:hover { transform: translateY(-4px); }
+.bot-toggle.com-mascote:active { transform: scale(0.96); }
+.bot-toggle.com-mascote:focus-visible { outline: 3px solid #fff; outline-offset: 2px; border-radius: 18px; }
+.bot-toggle.com-mascote > img { display: none; }
+
+.bot-mascote {
+    display: block;
+    width: 104px;
+    height: 125px;
+    margin: 0 auto;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
+}
+
+/* balãozinho de fala */
+.bot-balao {
+    position: absolute;
+    left: 68%;
+    bottom: 80%;
+    width: max-content;
+    max-width: 210px;
+    padding: 8px 13px;
+    color: #08306b;
+    background: rgba(228, 246, 255, 0.97);
+    border-radius: 16px 16px 16px 4px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    font: 700 0.85rem/1.25 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    text-align: left;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+    transform-origin: 0 100%;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.bot-balao.visivel { opacity: 1; transform: none; }
+
+/* o painel do chat sobe para o mascote caber embaixo dele */
+html.mascote-ativo .bot-painel {
+    bottom: 138px;
+    left: 18px;
+    height: min(500px, calc(100vh - 170px));
+}
+
+@media (max-width: 991px) {
+    html.mascote-ativo .bot-toggle.com-mascote {
+        left: 8px;
+        bottom: calc(var(--nav-inf-h, 0px) + 6px + env(safe-area-inset-bottom, 0px));
+        width: 82px;
+        height: 98px;
+    }
+    html.mascote-ativo .bot-mascote { width: 80px; height: 96px; }
+    html.mascote-ativo .bot-painel {
+        left: 12px;
+        bottom: calc(var(--nav-inf-h, 0px) + 112px + env(safe-area-inset-bottom, 0px));
+        width: calc(100vw - 24px);
+        height: min(520px, calc(100dvh - var(--nav-inf-h, 0px) - 190px));
+    }
+    .bot-balao { max-width: 190px; font-size: 0.8rem; }
+
+    /* com a "Minha área" ou outra tela aberta não existe barra inferior */
+    html.mascote-ativo.area-aberta .bot-toggle.com-mascote,
+    html.mascote-ativo.extra-aberta .bot-toggle.com-mascote { bottom: 6px; }
+    html.mascote-ativo.area-aberta .bot-painel,
+    html.mascote-ativo.extra-aberta .bot-painel { bottom: 112px; height: min(520px, calc(100dvh - 190px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bot-balao { transition: none; }
+}
