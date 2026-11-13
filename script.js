@@ -26,7 +26,7 @@
 // A tela de abertura (intro com o gif) agora é controlada pelo tela-inicial.js
 
 // Base de dados dos jogos do hub.
-// categoria: 'aventura-acao' | 'simulacao-estrategia' | 'esporte-racing' | 'puzzle' | 'arcade' | 'tabuleiro' | null
+// categoria: 'aventura-acao' | 'simulacao-estrategia' | 'esporte-racing' | 'puzzle' | 'arcade' | 'tabuleiro' | 'quiz' | null
 // novo: false mostra a tag "NOVO" no card
 const GAMES = [
     {
@@ -244,9 +244,43 @@ const GAMES = [
         capa: "capas/bandeira.png",
         imgs: ["bandeira/bandeira1.png", "bandeira/bandeira2.png", "bandeira/bandeira3.png"],
         link: "https://oldnowgames-web.github.io/Qual-e-a-bandeira/",
-        categoria: "puzzle",
+        categoria: "quiz",
         novo: false
     },
+
+    {
+        id: "universo-quiz",
+        titulo: "Universo Quiz",
+        descricao: "Teste seus conhecimentos sobre o espaço solar e o universo no Universo Quiz !",
+        capa: "capas/quiz_universo.png",
+        imgs: ["quiz_universo/universo1.png", "quiz_universo/universo2.png", "quiz_universo/universo3.png"],
+        link: "https://oldnowgames-web.github.io/Universo-Quiz/",
+        categoria: "quiz",
+        novo: false
+    },
+
+    {
+        id: "historia-quiz",
+        titulo: "História Quiz",
+        descricao: "Teste seus conhecimentos sobre História no geral no  História Quiz !",
+        capa: "capas/quiz_historia.png",
+        imgs: ["quiz_historia/historia1.png", "quiz_historia/historia2.png", "quiz_historia/historia3.png"],
+        link: "https://oldnowgames-web.github.io/Historia-Quiz/",
+        categoria: "quiz",
+        novo: false
+    },
+
+        {
+        id: "tech-quiz",
+        titulo: "Tech Quiz",
+        descricao: "Teste seus conhecimentos de lógica de programação, informática e muito mais no Tech Quiz !",
+        capa: "capas/quiz_tech.png",
+        imgs: ["quiz_tech/tech1.png", "quiz_tech/tech2.png", "quiz_tech/tech3.png"],
+        link: "https://oldnowgames-web.github.io/Tech-Quiz/",
+        categoria: "quiz",
+        novo: false
+    },
+
 
     {
         id: "flow-sort",
@@ -760,6 +794,7 @@ const CATEGORIAS_INFO = [
     { id: "puzzle", titulo: "Puzzle" },
     { id: "arcade", titulo: "Arcade" },
     { id: "tabuleiro", titulo: "Jogos de Mesa" },
+    { id: "quiz", titulo: "Quiz" },
     // Categorias ADICIONAIS: o jogo continua na categoria principal (campo "categoria")
     // e também aparece aqui pelo campo "categorias". "primeiro" fixa um jogo no começo.
     { id: "explorador-espaco", titulo: "Explorador do Espaço", adicional: true },

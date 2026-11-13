@@ -493,3 +493,27 @@ html.extra-aberta body { overflow: hidden !important; }
     font-size: 0.82rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* ---------- Cards dos jogos redondinhos (PC igual ao celular) ---------- */
+
+.bloco {
+    border-radius: 18px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+.bloco-img-wrap,
+.bloco-img-wrap img { border-radius: 18px; }
+
+/* degradê embaixo: dá leitura para o tempo jogado */
+.bloco::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 36%;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 0 0 18px 18px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0));
+}
+.bloco .badge-tempo { left: 10px; bottom: 10px; font-size: 0.66rem; }

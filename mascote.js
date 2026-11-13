@@ -11,6 +11,8 @@
    é baixada quando o emote é usado. Se algo falhar, o botão
    volta a mostrar a imagem antiga (img/oldbot.png).
 
+   Também reage ao que acontece no hub (conquista, desafio do dia
+   cumprido, sequência de dias, favoritos, sem internet, pausa).
    Respeita "reduzir movimento" do sistema.
    Carregar DEPOIS de bot.js. Expõe window.OldNowMascote.
    ========================================================= */
@@ -294,6 +296,82 @@
             } else if (tentativas > 120) clearInterval(espia);
         }, 1000);
     }
+
+    /* ---------- Reações ao que acontece no hub ---------- */
+    // O dados.js avisa (oldnow:conquista, oldnow:desafio-cumprido, oldnow:sequencia, oldnow:favorito)
+    // e o mascote responde. Reações seguidas entram numa fila curta para uma não atropelar a outra.
+
+    const FALAS = {
+        conquista: ["Conquista nova! Uhuuul!", "Você mandou bem!", "Mais um selo pra coleção!"],
+        desafio: ["Desafio cumprido! Que craque!", "Missão do dia completa!"]
+    };
+
+    function fala(texto, ms) {
+        if (!painelAberto()) falar(texto, ms || 3600);
+    }
+
+    let livreEm = 0;
+    function agendar(nome, texto, ms) {
+        const meta = DADOS.emotes[nome];
+        if (!meta) return;
+        const agora = performance.now();
+        const quando = Math.max(agora, livreEm);
+        livreEm = quando + Math.max(900, (meta.dur - 0.3) * 1000) + 250;
+        setTimeout(() => {
+            tocar(nome, { prio: 2 });
+            if (texto) fala(texto, ms);
+        }, quando - agora);
+    }
+
+    document.addEventListener("oldnow:conquista", () => agendar("cheer", sortear(FALAS.conquista)));
+    document.addEventListener("oldnow:desafio-cumprido", () => agendar("flip", sortear(FALAS.desafio)));
+    document.addEventListener("oldnow:sequencia", e => {
+        const n = (e.detail && e.detail.dias) || 2;
+        agendar("run", n + " dias seguidos! Não para!");
+    });
+
+    let ultimoFavorito = 0;
+    document.addEventListener("oldnow:favorito", e => {
+        const d = e.detail || {};
+        const agora = Date.now();
+        if (agora - ultimoFavorito < 15000) return; // não vira festa a cada clique
+        ultimoFavorito = agora;
+        if (d.ativo) agendar("excited");
+        else if (d.total === 0) agendar("sad", "Ficou sem favoritos...");
+    });
+
+    const btnSurpreenda = document.getElementById("btnSurpreenda");
+    if (btnSurpreenda) btnSurpreenda.addEventListener("click", () => tocar("spin", { prio: 2 }));
+
+    window.addEventListener("offline", () => { tocar("shock", { prio: 3 }); fala("Ih, ficou sem internet!", 4500); });
+    window.addEventListener("online", () => { tocar("wave", { prio: 3 }); fala("Voltou! Bora jogar!", 3500); });
+
+    // pausa: depois de bastante tempo jogando na mesma visita, ele sugere descansar (no máximo 1x por hora)
+    (function lembretePausa() {
+        const overlay = document.getElementById("playerOverlay");
+        if (!overlay) return;
+        const CHAVE = "oldnow_mascote_pausa";
+        const LIMITE = 45 * 60000;
+        let abertoEm = 0;
+        let acumulado = 0;
+        new MutationObserver(() => {
+            const aberto = !overlay.classList.contains("d-none");
+            if (aberto) { abertoEm = Date.now(); return; }
+            if (!abertoEm) return;
+            acumulado += Date.now() - abertoEm;
+            abertoEm = 0;
+            if (acumulado < LIMITE) return;
+            let ultimo = 0;
+            try { ultimo = Number(sessionStorage.getItem(CHAVE)) || 0; } catch (e) { /* ignora */ }
+            if (Date.now() - ultimo < 60 * 60000) return;
+            try { sessionStorage.setItem(CHAVE, String(Date.now())); } catch (e) { /* ignora */ }
+            acumulado = 0;
+            setTimeout(() => {
+                tocar("stretch", { prio: 3 });
+                fala("Você jogou bastante! Que tal uma pausa pra beber água?", 6500);
+            }, 1500);
+        }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
+    })();
 
     /* ---------- Baixar o resto aos poucos (só em conexão boa) ---------- */
 

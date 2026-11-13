@@ -254,6 +254,7 @@
         "puzzle": "puzzle",
         "arcade": "arcade fliperama",
         "tabuleiro": "tabuleiro mesa",
+        "quiz": "quiz perguntas respostas conhecimento bandeira bandeiras",
         "explorador-espaco": "explorador espaco espacial planeta marte lua mercurio",
         "multiplayer": "multiplayer multijogador online amigos"
     };

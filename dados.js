@@ -57,6 +57,11 @@
         document.dispatchEvent(new Event("oldnow:dados"));
     }
 
+    // avisos específicos (o mascote reage a eles; qualquer outro recurso também pode ouvir)
+    function avisar(nome, detalhe) {
+        document.dispatchEvent(new CustomEvent("oldnow:" + nome, { detail: detalhe || {} }));
+    }
+
     /* ---------- Ícones (traço, herdam a cor do texto) ---------- */
 
     const ICONES = {
@@ -116,9 +121,10 @@
     function registrarDia() {
         const dias = getDias();
         const h = hoje();
-        if (dias.includes(h)) return;
+        if (dias.includes(h)) return false;
         dias.push(h);
         salvarJSON(LS_KEYS.dias, dias.slice(-400));
+        return true; // primeiro jogo deste dia
     }
 
     function streak() {
@@ -362,6 +368,7 @@
             novas.forEach(e => {
                 fila = fila.then(() => new Promise(ok => {
                     toast("Conquista desbloqueada: " + e.def.titulo, e.def.icone);
+                    avisar("conquista", { id: e.def.id, titulo: e.def.titulo });
                     setTimeout(ok, 3800);
                 }));
             });
@@ -373,13 +380,20 @@
     /* ---------- Ganchos: registrar partida, favoritar, avaliar ---------- */
 
     function aoJogar(id) {
-        registrarDia();
+        const novoDia = registrarDia();
         const d = desafioDoDia();
+        let cumpriuAgora = false;
         if (d && d.id === id && !desafioCumprido()) {
             const feitos = lerJSON(LS_KEYS.desafios, {});
             feitos[hoje()] = true;
             salvarJSON(LS_KEYS.desafios, feitos);
+            cumpriuAgora = true;
         }
+        if (novoDia) {
+            const s = streak();
+            if (s.atual >= 2) avisar("sequencia", { dias: s.atual });
+        }
+        if (cumpriuAgora) avisar("desafio-cumprido", { id: id });
         removerDepois(id); // jogou: sai da lista "jogar depois"
         emitir();
         avaliarConquistas();
@@ -395,7 +409,12 @@
         };
     }
     envolver("registrarJogada", aoJogar);
-    envolver("toggleFavorito", () => { emitir(); avaliarConquistas(); });
+    envolver("toggleFavorito", id => {
+        emitir();
+        avaliarConquistas();
+        const ativo = lerSeguro(() => isFavorito(id), false);
+        avisar("favorito", { id: id, ativo: ativo, total: lerSeguro(() => getFavoritos().length, 0) });
+    });
     envolver("avaliarJogo", () => { emitir(); avaliarConquistas(); });
 
     // o tempo jogado soma enquanto o player está aberto: confere ao fechar e de tempos em tempos

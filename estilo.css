@@ -193,7 +193,9 @@ body {
 }
 
 /* --- Banner de Destaque Automático (Topo) --- */
+
 #carouselExample {
+   
     width: 100%;
     max-width: 100%;
 }
@@ -295,7 +297,7 @@ body {
     width: 200px;
     aspect-ratio: 2 / 3;
     background-color: #111;
-    border-radius: 12px;
+    border-radius: 18px;
     flex-shrink: 0;
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
     cursor: pointer;
@@ -314,14 +316,14 @@ body {
     height: 100%;
     background-color: #111;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 18px;
 }
 
 .bloco-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 18px;
     display: block;
     position: relative;
     z-index: 1;
@@ -925,6 +927,7 @@ body {
 #arcade { --accent: #00c2ff; }
 #explorador-espaco { --accent: #7c5cff; }
 #multiplayer { --accent: #ff7ab8; }
+#quiz { --accent: #ffb020; }
 
 .secao-titulo {
     position: relative;
