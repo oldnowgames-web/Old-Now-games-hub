@@ -42,16 +42,21 @@
         const av = $("sessaoAvatar");
         const nome = nomeJogador();
         if (av && !av.classList.contains("d-none") && nome) {
-            return { letra: (av.textContent || nome[0] || "?").trim().slice(0, 2), cor: getComputedStyle(av).backgroundColor || "#2a7f9e" };
+            const foto = (window.OldNowSessao && window.OldNowSessao.foto && window.OldNowSessao.foto()) || "";
+            return { letra: (av.textContent || nome[0] || "?").trim().slice(0, 2), cor: getComputedStyle(av).backgroundColor || "#2a7f9e", foto: foto };
         }
-        return { letra: "", cor: "#3a3f4a" };
+        return { letra: "", cor: "#3a3f4a", foto: "" };
     }
 
     function criarAvatar(grande) {
         const a = dadosAvatar();
         const e = el("span", "perfil-avatar" + (grande ? " grande" : ""));
         e.style.backgroundColor = a.cor;
-        if (a.letra) e.textContent = a.letra; else e.innerHTML = icone("usuario", "icone-x");
+        if (a.foto) {
+            e.style.backgroundImage = 'url("' + a.foto + '")';
+            e.style.backgroundSize = "cover";
+            e.style.backgroundPosition = "center";
+        } else if (a.letra) e.textContent = a.letra; else e.innerHTML = icone("usuario", "icone-x");
         return e;
     }
 
@@ -96,6 +101,18 @@
             if (window.OldNowSessao && window.OldNowSessao.abrirEntrada) window.OldNowSessao.abrirEntrada({ podeFechar: true });
         });
         acoes.appendChild(bSessao);
+        if (window.OldNowTransferir) {
+            const bExportar = el("button", "area-btn");
+            bExportar.type = "button";
+            bExportar.innerHTML = icone("compartilhar", "icone-x") + "<span>Exportar dados</span>";
+            bExportar.addEventListener("click", () => window.OldNowTransferir.exportar());
+            acoes.appendChild(bExportar);
+            const bImportar = el("button", "area-btn");
+            bImportar.type = "button";
+            bImportar.innerHTML = icone("baixar", "icone-x") + "<span>Importar dados</span>";
+            bImportar.addEventListener("click", () => window.OldNowTransferir.importar());
+            acoes.appendChild(bImportar);
+        }
         topo.appendChild(acoes);
         pagina.appendChild(topo);
 
@@ -434,11 +451,21 @@
         ctx.arc(W - 150, 128, 58, 0, Math.PI * 2);
         ctx.fillStyle = av.cor;
         ctx.fill();
+        const fotoImg = av.foto ? await carregarImagem(av.foto) : null;
+        if (fotoImg) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(W - 150, 128, 58, 0, Math.PI * 2);
+            ctx.clip();
+            const lado = Math.min(fotoImg.width, fotoImg.height);
+            ctx.drawImage(fotoImg, (fotoImg.width - lado) / 2, (fotoImg.height - lado) / 2, lado, lado, W - 208, 70, 116, 116);
+            ctx.restore();
+        }
         ctx.fillStyle = "#fff";
         ctx.font = "800 54px " + FONTE;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(av.letra || nome[0].toUpperCase(), W - 150, 132);
+        if (!fotoImg) ctx.fillText(av.letra || nome[0].toUpperCase(), W - 150, 132);
         ctx.textBaseline = "alphabetic";
         ctx.textAlign = "right";
         ctx.font = "700 34px " + FONTE;

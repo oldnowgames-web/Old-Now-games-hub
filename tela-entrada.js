@@ -5,7 +5,7 @@
 
    - Sem sessão salva:  [Iniciar uma sessão] [Entrar sem sessão]
    - Com sessão salva:  [Continuar como Nome] [Criar nova sessão] [Jogar sem sessão]
-   - Com sessão, o hub mostra um avatar (inicial do nome) na navbar.
+   - Com sessão, o hub mostra um avatar (inicial do nome ou a foto escolhida) na navbar.
    - "Criar nova sessão" apaga favoritos, recentes, avaliações e jogadas.
    - "Sem sessão" guarda os dados só durante a visita (sessionStorage).
 
@@ -128,6 +128,63 @@
         try { localStorage.setItem(CHAVE_SESSAO, JSON.stringify(sessao)); } catch (e) { /* ignora */ }
     }
 
+    /* ---------- Foto do perfil (guardada dentro da própria sessão) ---------- */
+
+    const FOTO_LADO = 256;                    // a foto vira um quadrado 256x256 (leve para o localStorage)
+    const FOTO_MAX_ARQUIVO = 15 * 1024 * 1024;
+
+    function fotoValida(f) {
+        return typeof f === "string" && f.length < 400000
+            && /^data:image\/(jpeg|png|webp);base64,[a-z0-9+\/=]+$/i.test(f);
+    }
+
+    function fotoDaSessao(sessao) {
+        return sessao && fotoValida(sessao.foto) ? sessao.foto : null;
+    }
+
+    // foto = data URL (ou null para remover). Devolve false se o navegador não deixou salvar.
+    function salvarFoto(foto) {
+        const sessao = lerSessao();
+        if (!sessao) return false;
+        if (fotoValida(foto)) sessao.foto = foto;
+        else delete sessao.foto;
+        try {
+            localStorage.setItem(CHAVE_SESSAO, JSON.stringify(sessao));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Recorta o centro da imagem em quadrado e reduz (JPEG)
+    function reduzirImagem(arquivo) {
+        return new Promise((resolve, reject) => {
+            const url = URL.createObjectURL(arquivo);
+            const img = new Image();
+            img.onload = () => {
+                try {
+                    const lado = Math.min(img.naturalWidth, img.naturalHeight);
+                    if (!lado) throw new Error("imagem vazia");
+                    const c = document.createElement("canvas");
+                    c.width = c.height = FOTO_LADO;
+                    const ctx = c.getContext("2d");
+                    ctx.fillStyle = "#111";
+                    ctx.fillRect(0, 0, FOTO_LADO, FOTO_LADO);
+                    const sx = (img.naturalWidth - lado) / 2;
+                    const sy = (img.naturalHeight - lado) / 2;
+                    ctx.drawImage(img, sx, sy, lado, lado, 0, 0, FOTO_LADO, FOTO_LADO);
+                    resolve(c.toDataURL("image/jpeg", 0.85));
+                } catch (e) {
+                    reject(e);
+                } finally {
+                    URL.revokeObjectURL(url);
+                }
+            };
+            img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("não abriu")); };
+            img.src = url;
+        });
+    }
+
     /* ---------- Elementos ---------- */
 
     const tela = document.getElementById("telaEntrada");
@@ -225,6 +282,56 @@
         setTimeout(() => tela.classList.add("d-none"), FADE_MS);
     }
 
+    /* ---------- Boas-vindas: "Bem-vindo, nome" com rodinha de carregando ---------- */
+
+    const BOAS_VINDAS_MS = 2400;   // quanto tempo fica na tela
+    const BOAS_VINDAS_FADE_MS = 500;
+
+    function mostrarBoasVindas(nome) {
+        if (!nome) return;
+        const antiga = document.getElementById("boasVindas");
+        if (antiga) antiga.remove();
+
+        const caixa = document.createElement("div");
+        caixa.id = "boasVindas";
+        caixa.className = "boas-vindas";
+        caixa.setAttribute("role", "status");
+        caixa.setAttribute("aria-live", "polite");
+
+        const conteudo = document.createElement("div");
+        conteudo.className = "boas-vindas-conteudo";
+
+        const titulo = document.createElement("p");
+        titulo.className = "boas-vindas-titulo";
+        titulo.appendChild(document.createTextNode("Bem-vindo, "));
+        const spanNome = document.createElement("span");
+        spanNome.className = "boas-vindas-nome";
+        spanNome.textContent = nome;
+        titulo.appendChild(spanNome);
+
+        const rodinha = document.createElement("div");
+        rodinha.className = "boas-vindas-rodinha";
+        rodinha.setAttribute("aria-hidden", "true");
+
+        conteudo.appendChild(titulo);
+        conteudo.appendChild(rodinha);
+        caixa.appendChild(conteudo);
+        document.body.appendChild(caixa);
+
+        let encerrado = false;
+        function encerrar() {
+            if (encerrado) return;
+            encerrado = true;
+            caixa.classList.remove("visivel");
+            setTimeout(() => caixa.remove(), BOAS_VINDAS_FADE_MS + 50);
+        }
+
+        // 1º frame sem "visivel" para o fade-in funcionar
+        requestAnimationFrame(() => caixa.classList.add("visivel"));
+        setTimeout(encerrar, BOAS_VINDAS_MS);
+        caixa.addEventListener("click", encerrar); // tocar na tela pula
+    }
+
     /* ---------- Aplicar a escolha ---------- */
 
     function atualizarAvatar() {
@@ -239,6 +346,10 @@
             const cor = corDaSessao(sessao);
             avatar.style.backgroundColor = cor;
             avatar.style.color = corDoTextoSobre(cor);
+            const foto = fotoDaSessao(sessao);
+            avatar.classList.toggle("com-foto", !!foto);
+            avatar.style.backgroundImage = foto ? 'url("' + foto + '")' : "";
+            if (btnRemoverFoto) btnRemoverFoto.classList.toggle("d-none", !foto);
             marcarCorAtiva(sessao);
             avatar.title = sessao.nome;
             menuNome.textContent = "Olá, " + sessao.nome;
@@ -260,7 +371,9 @@
     }
 
     function continuarSessao() {
+        const sessao = lerSessao();
         definirModo("sessao");
+        if (sessao) mostrarBoasVindas(sessao.nome); // antes de fechar a entrada, para cobrir o fade
         aplicarEscolha();
     }
 
@@ -283,6 +396,7 @@
         if (apagarAoCriar) apagarDadosDaSessao();
 
         definirModo("sessao");
+        mostrarBoasVindas(nome);
         aplicarEscolha();
     }
 
@@ -366,6 +480,80 @@
         }
     }
 
+    /* ---------- Escolher / remover a foto do perfil ---------- */
+
+    let btnRemoverFoto = null;
+    let msgFoto = null;
+
+    function avisoFoto(texto) {
+        if (!msgFoto) return;
+        msgFoto.textContent = texto || "";
+        msgFoto.classList.toggle("d-none", !texto);
+    }
+
+    function criarSeletorDeFoto() {
+        const bloco = document.createElement("div");
+        bloco.className = "sessao-foto";
+
+        const rotulo = document.createElement("p");
+        rotulo.className = "sessao-menu-rotulo";
+        rotulo.textContent = "Foto do perfil";
+        bloco.appendChild(rotulo);
+
+        const acoes = document.createElement("div");
+        acoes.className = "sessao-foto-acoes";
+
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.className = "sessao-foto-input";
+        input.setAttribute("aria-label", "Escolher foto do perfil");
+
+        const btnEscolher = document.createElement("button");
+        btnEscolher.type = "button";
+        btnEscolher.className = "sessao-foto-btn";
+        btnEscolher.textContent = "Escolher foto";
+        btnEscolher.addEventListener("click", () => input.click());
+
+        btnRemoverFoto = document.createElement("button");
+        btnRemoverFoto.type = "button";
+        btnRemoverFoto.className = "sessao-foto-btn d-none";
+        btnRemoverFoto.textContent = "Remover";
+        btnRemoverFoto.addEventListener("click", () => {
+            avisoFoto("");
+            salvarFoto(null);
+            atualizarAvatar();
+        });
+
+        input.addEventListener("change", async () => {
+            const arquivo = input.files && input.files[0];
+            input.value = "";
+            if (!arquivo) return;
+            if (!/^image\//.test(arquivo.type)) { avisoFoto("Escolha um arquivo de imagem."); return; }
+            if (arquivo.size > FOTO_MAX_ARQUIVO) { avisoFoto("Imagem muito grande (máx. 15 MB)."); return; }
+            try {
+                const foto = await reduzirImagem(arquivo);
+                if (!salvarFoto(foto)) { avisoFoto("Não deu para salvar a foto neste navegador."); return; }
+                avisoFoto("");
+                atualizarAvatar();
+            } catch (e) {
+                avisoFoto("Não consegui abrir essa imagem. Tente JPG ou PNG.");
+            }
+        });
+
+        acoes.appendChild(btnEscolher);
+        acoes.appendChild(btnRemoverFoto);
+        bloco.appendChild(acoes);
+
+        msgFoto = document.createElement("p");
+        msgFoto.className = "sessao-foto-msg d-none";
+        msgFoto.setAttribute("role", "alert");
+        bloco.appendChild(msgFoto);
+        bloco.appendChild(input);
+
+        menuNome.insertAdjacentElement("afterend", bloco);
+    }
+
     /* ---------- Menu do avatar ---------- */
 
     function fecharMenu() {
@@ -416,10 +604,12 @@
     window.OldNowSessao = {
         storage: storage,
         nome: () => { const s = modoAtual() === "sessao" ? lerSessao() : null; return s ? s.nome : null; },
-        abrirEntrada: abrirEntrada
+        abrirEntrada: abrirEntrada,
+        foto: () => { const s = modoAtual() === "sessao" ? lerSessao() : null; return fotoDaSessao(s); }
     };
 
     criarSeletorDeCor();
+    criarSeletorDeFoto();
 
     /* ---------- Início ---------- */
 

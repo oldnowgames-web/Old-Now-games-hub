@@ -34,6 +34,7 @@ const SHELL = [
     "dados.js",
     "colecoes.js",
     "perfil.js",
+    "transferir.js",
     "mascote.css",
     "mascote.js",
     "tempo.js",

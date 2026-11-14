@@ -1614,3 +1614,231 @@ body.entrada-aberta {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
+
+/* =========================================================
+   Foto do perfil na bolinha da sessão
+   ========================================================= */
+.sessao-avatar { overflow: hidden; }
+
+.sessao-avatar.com-foto {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.sessao-avatar.com-foto #sessaoInicial { display: none; }
+
+.sessao-foto {
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+}
+
+.sessao-foto-input { display: none; }
+
+.sessao-foto-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 10px 8px;
+}
+
+.sessao-menu .sessao-foto-btn {
+    border: 1px solid #3a3a3a;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+.sessao-foto-msg {
+    margin: 0;
+    padding: 0 10px 8px;
+    font-size: 0.76rem;
+    color: #ffb4b4;
+}
+
+/* =========================================================
+   Transferir dados entre aparelhos (exportar / importar código)
+   ========================================================= */
+html.trf-aberta, html.trf-aberta body { overflow: hidden !important; }
+
+.trf-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 5200; /* acima da tela de entrada (4900) e da intro (5000) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.78);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    animation: trf-fade 0.2s ease;
+}
+.trf-overlay[hidden] { display: none !important; }
+
+@keyframes trf-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.trf-caixa {
+    position: relative;
+    width: min(480px, 100%);
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 22px 18px 18px;
+    color: #fff;
+    background-color: #121216;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.7);
+}
+
+.trf-fechar {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: 0;
+    color: #999;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 6px 8px;
+}
+.trf-fechar:hover { color: #fff; }
+
+.trf-titulo { font-size: 1.15rem; font-weight: bold; margin: 0 28px 10px 0; }
+.trf-subtitulo { margin: 14px 0 4px; font-size: 0.8rem; font-weight: bold; color: #9aa4b2; text-transform: uppercase; letter-spacing: 0.04em; }
+.trf-texto { margin: 0 0 10px; font-size: 0.9rem; color: #cfd5de; line-height: 1.4; }
+.trf-info { margin: 6px 0 4px; font-size: 0.78rem; color: #8b93a0; }
+
+.trf-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px;
+    font-size: 0.88rem;
+    color: #e6e6e6;
+    cursor: pointer;
+}
+.trf-check input { width: 18px; height: 18px; accent-color: #007bff; }
+
+.trf-codigo {
+    width: 100%;
+    resize: vertical;
+    min-height: 96px;
+    padding: 10px 12px;
+    color: #e6e6e6;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    font: 0.78rem/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    word-break: break-all;
+    outline: none;
+}
+.trf-codigo:focus { border-color: #007bff; }
+
+.trf-lista { margin: 6px 0 4px; padding-left: 18px; font-size: 0.86rem; color: #dfe4ec; }
+.trf-lista li { margin: 2px 0; }
+
+.trf-acoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+.trf-btn {
+    flex: 1 1 auto;
+    min-height: 40px;
+    padding: 9px 14px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.trf-btn:hover { background-color: rgba(255, 255, 255, 0.16); }
+.trf-btn:active { transform: scale(0.97); }
+.trf-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.trf-btn-principal { background: linear-gradient(135deg, #007bff, #6f42c1); border-color: transparent; font-weight: bold; }
+.trf-btn-principal:hover { background: linear-gradient(135deg, #1a8cff, #7f55d0); }
+.trf-btn-perigo { background-color: #c62f3f; border-color: transparent; font-weight: bold; }
+.trf-btn-perigo:hover { background-color: #dc3545; }
+
+.trf-arquivo { display: none; }
+
+.trf-status { min-height: 1.2em; margin: 8px 0 0; font-size: 0.82rem; color: #7bd88f; }
+.trf-erro { margin: 8px 0 0; font-size: 0.84rem; color: #ffb4b4; }
+.trf-aviso { margin: 12px 0 0; font-size: 0.76rem; color: #7d8590; }
+
+.trf-alerta {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background-color: rgba(220, 53, 69, 0.12);
+    border: 1px solid rgba(220, 53, 69, 0.45);
+    border-radius: 12px;
+}
+.trf-alerta-titulo { margin: 0 0 6px; font-weight: bold; font-size: 0.9rem; color: #ff9aa6; }
+.trf-alerta .trf-texto { margin-bottom: 4px; }
+
+@media (prefers-reduced-motion: reduce) { .trf-overlay { animation: none; } }
+
+/* =========================================================
+   Boas-vindas ao entrar: "Bem-vindo, nome" + rodinha
+   ========================================================= */
+.boas-vindas {
+    position: fixed;
+    inset: 0;
+    z-index: 4950; /* acima da tela de entrada (4900), abaixo da intro (5000) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    background: radial-gradient(ellipse at center, #11161d 0%, #05070a 70%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    cursor: default;
+}
+.boas-vindas.visivel { opacity: 1; transition-duration: 0.35s; }
+
+.boas-vindas-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    max-width: 100%;
+    transform: translateY(8px);
+    transition: transform 0.4s ease;
+}
+.boas-vindas.visivel .boas-vindas-conteudo { transform: translateY(0); }
+
+.boas-vindas-titulo {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.5rem, 5vw, 2.4rem);
+    font-weight: bold;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+.boas-vindas-nome {
+    background: linear-gradient(135deg, #4da3ff, #a47bff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #8ab4ff; /* alternativa onde o recorte de texto não funciona */
+}
+
+.boas-vindas-rodinha {
+    width: 38px;
+    height: 38px;
+    border: 4px solid rgba(255, 255, 255, 0.18);
+    border-top-color: #4da3ff;
+    border-radius: 50%;
+    animation: boas-vindas-giro 0.8s linear infinite;
+}
+
+@keyframes boas-vindas-giro { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .boas-vindas, .boas-vindas-conteudo { transition: none; }
+    .boas-vindas-rodinha { animation-duration: 2s; }
+}
